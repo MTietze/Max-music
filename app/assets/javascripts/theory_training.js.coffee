@@ -84,41 +84,41 @@ $(document).on 'ready page:change', ->
   evaluateAnswer = ->
     answer = $('#answer').val().trim().toLowerCase()
     if answer is current_note.toLowerCase() 
-      $('#evaluation').html("<p>Correct!</p>")
+      $('#evaluation').html('<p>Correct!</p>')
       return true
     else 
       $('#evaluation').html('<p id="sorry"> Sorry, try again </p>')
       return false
   
 
-  $(document).on "click", '.interval_choice', ->
+  $(document).on 'click', '.interval_choice', ->
     $('#answer').val($(this).text()) 
     
     if evaluateAnswer()
       $('#intervaldrop').trigger('click')
   
-  $(document).on "click", '#quiz.theory-quiz', ->
+  $(document).on 'click', '#quiz.theory-quiz', ->
     $('#answer').val('')
     $('#quizform').removeClass('hidden')
     quiz_type = $('.currentQuiz').text()[0...-1]
-    eval(quiz_type + "Question()")
+    eval(quiz_type + 'Question()')
     
 
-  $(document).on "click", '#submitanswer', ->
+  $(document).on 'click', '#submitanswer', ->
     evaluateAnswer()
 	
   # prevent clicking enter on text box from refreshing page
-  $("#quizform").submit (e) -> 
+  $('#quizform').submit (e) -> 
     e.preventDefault()
     evaluateAnswer()
   
-  $(document).on "click", '#typeQuiz > button, #typeTraining > button', ->
+  $(document).on 'click', '#typeQuiz > button, #typeTraining > button', ->
     group = $(this).parent().attr('id')[4...]
     $(this).siblings().removeClass("current#{group}")
     $(this).addClass("current#{group}")
   
-  $(document).on "click", '#typeTraining > button', ->
-    training_type = $(this).attr("id")[0...-8] 
+  $(document).on 'click', '#typeTraining > button', ->
+    training_type = $(this).attr('id')[0...-8] 
     $('#question').html('')
     $('#evaluation').html('')
     if training_type is 'theory'    
@@ -129,5 +129,5 @@ $(document).on 'ready page:change', ->
       other_training = 'theory'
       $('#quizform').addClass('hidden')
       $('#checkcolumn').css('visibility', 'visible')
-    $(".quiz").removeClass("#{other_training}-quiz")
+    $('.quiz').removeClass("#{other_training}-quiz")
     $('.quiz').addClass("#{training_type}-quiz")

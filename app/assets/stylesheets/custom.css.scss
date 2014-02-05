@@ -20,9 +20,11 @@ body {
     border: 1px solid black;
     box-shadow: 3px 3px 20px black;
     width: 150px;
-    &:focus {
+    &:focus, &:hover{
       outline: 5px auto black; 
+      border-color: black;
     } 
+
   }
 
 #bodycontainer {

@@ -305,27 +305,23 @@ $(document).on 'ready page:change', ->
     interval = Training.checkInterval current_interval
     #if correct clear interval buttons then display the correct one and check mark image
     if $(this).attr("id") is "interval_#{interval.replace(' ','_')}"
-      $("#question").html($(this).css("pointer-events", "none")).append "<p>Correct!</p>"
+      $("#question").html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
     
     #if incorrect button becomes red and crossed out
     else
       $(this).addClass('wrong')
 
   $(document).on "click", "[id^=chord_]",  ->
-    #if correct clear interval buttons then display the correct one and check mark image
     if $(this).attr("id") is "chord_#{chord2.degree}_#{chord2.quality}"
-      $("#question").html($(this).css("pointer-events", "none")).append "<p>Correct!</p>"
-    
-    #if incorrect button becomes red and crossed out
+      $("#question").html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
+
     else
       $(this).addClass('wrong')
   
   $(document).on "click", "[id^=scale_]",  ->
-    #if correct clear interval buttons then display the correct one and check mark image
     if $(this).attr("id") is "scale_#{scale_name.replace(' ','_')}"
-      $("#question").html($(this).css("pointer-events", "none")).append "<p>Correct!</p>"
+      $("#question").html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
     
-    #if incorrect button becomes red and crossed out
     else
       $(this).addClass('wrong')
 
