@@ -32,6 +32,8 @@ gem 'will_paginate-bootstrap', '~> 1.0'
 
 gem 'pg', '0.15.1'
 
+gem 'soundmanager-rails'
+
 group :development, :test do
   # gem 'sqlite3'
   gem 'rspec-rails', '2.13.1'
