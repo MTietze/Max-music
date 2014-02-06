@@ -26,7 +26,7 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'aws-s3', :require => 'aws/s3'  
+gem 'aws-sdk', '~> 1.0' 
 
 gem 'will_paginate-bootstrap', '~> 1.0'
 

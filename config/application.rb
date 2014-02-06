@@ -6,7 +6,9 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-ENV.update YAML.load(File.read(File.expand_path('../application.example.yml', __FILE__)))
+unless Rails.env.production?
+  ENV.update YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
+end
 
 module MaxMusic
   class Application < Rails::Application
@@ -22,7 +24,7 @@ module MaxMusic
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    AWS::S3::Base.establish_connection!(  
+    AWS.config(  
     access_key_id:     ENV['S3_ACCESS_KEY'],  
     secret_access_key: ENV['S3_SECRET_KEY'] 
 )  

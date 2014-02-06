@@ -12,9 +12,10 @@ class SongsController < ApplicationController
     @song.save
   end
 
-  #update sqlite3 db with any new songs that were uploaded directly to amazon
+  #update db with any new songs that were uploaded directly to amazon
   def update 
-    amazons = AWS::S3::Bucket.find(BUCKET).objects
+    s3 = AWS::S3.new
+    amazons = s3.buckets[BUCKET].objects
     amazons.each do |song|
       strip_title(song.key)
       unless Song.find_by(title: @title)
@@ -25,22 +26,24 @@ class SongsController < ApplicationController
   end
 
   def upload
+    s3 = AWS::S3.new
     filename = params[:musicfile].original_filename
     strip_title(filename)
-    AWS::S3::S3Object.store(filename, params[:musicfile].read, BUCKET, :access => :public_read)
+    obj = s3.buckets[BUCKET].objects[filename]
+    obj.write(params[:musicfile].read, acl: :public_read, content_disposition: "attachment")
     Song.create(title: @title, filename: filename)
     redirect_to songs_path  
   end
 
-  def destroy
-  	if (params[:song])  
-      Song.find_by(filename: params[:song]).delete  
-      AWS::S3::S3Object.find(params[:song], BUCKET).delete
-      redirect_to songs_path  
-    else  
-      render :text => "No song was found to delete!"  
-    end 
-  end
+  # def destroy
+  # 	if (params[:song])  
+  #     Song.find_by(filename: params[:song]).delete  
+  #     AWS::S3::S3Object.find(params[:song], BUCKET).delete
+  #     redirect_to songs_path  
+  #   else  
+  #     render :text => "No song was found to delete!"  
+  #   end 
+  # end
 
 
   private  
