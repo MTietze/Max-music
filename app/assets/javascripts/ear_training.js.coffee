@@ -250,43 +250,19 @@ $(document).on 'ready page:change', ->
     while i < notes.length
       playNote notes[i], i
       i++
-
-    # while seconds is < notes.length
-    #   playNote note for note in notes
-    #   seconds++
-    # MIDI.noteOn 0, notes[0], 127, 0
-    # MIDI.noteOff 0, notes[0], 1
-    # MIDI.noteOn 0, notes[1], 127, 1
-    # MIDI.noteOff 0, notes[1], 2
-    # MIDI.noteOn 0, notes[0], 127, 2
-    # MIDI.noteOff 0, notes[0], 3
   
-
-   # count = 1
-    # timer = setInterval (-> 
-    #   if count == notes.length
-    #      clearInterval(timer)
-    #   playNote(notes[count])
-    #   count++
-    # ), 1000
-  
-  playChords = (chords) ->
-    playChord = (chord, seconds) -> 
-      MIDI.chordOn 0, chord, 127, seconds
-      MIDI.chordOff 0, chord, seconds + 1
-    i = 0
-    while i < notes.length
-      playChord notes[i], i
-      i++
-    # playChord notes[0]
-
-    # count = 1
-    # timer = setInterval (-> 
-    #   if count == notes.length
-    #      clearInterval(timer)
-    #   playChord(notes[count])
-    #   count++
-    # ), 1000
+  playChords = (chords) ->   
+    #written this way to give some functionality in non-chrome browsers
+    #other versions of code resulted in firefox playing one note for the 
+    # second chord, or chrome cutting the 2nd chord short on first play
+    MIDI.chordOn 0, chords[0], 127, 0
+    MIDI.chordOff 0, chords[0], 1
+    setTimeout -> 
+      MIDI.chordOn 0, chords[1], 127
+    , 1000
+    setTimeout -> 
+      MIDI.chordOff 0, chords[1]
+    , 2000
   
   hearNotes = -> 
     if quiz_type is "Chords"
