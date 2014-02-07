@@ -84,7 +84,8 @@ $(document).on 'ready page:change', ->
   evaluateAnswer = ->
     answer = $('#answer').val().trim().toLowerCase()
     if answer is current_note.toLowerCase() 
-      $('#evaluation').html('<p>Correct!</p>')
+      $('#evaluation').html('')
+      $('#submitanswer').replaceWith('<button class="btn btn-sm btn-success" id="correctanswer">Correct</button>')
       return true
     else 
       $('#evaluation').html('<p id="sorry"> Sorry, try again </p>')
@@ -99,6 +100,7 @@ $(document).on 'ready page:change', ->
   
   $(document).on 'click', '#quiz.theory-quiz', ->
     $('#answer').val('')
+    $('#correctanswer').replaceWith('<button class="btn btn-sm btn-primary" id="submitanswer">Submit</button>')
     $('#quizform').removeClass('hidden')
     quiz_type = $('.currentQuiz').text()[0...-1]
     eval(quiz_type + 'Question()')

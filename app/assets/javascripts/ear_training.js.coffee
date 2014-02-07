@@ -1,8 +1,10 @@
 $(document).on 'ready page:change', ->
+  MIDI.loader = new widgets.Loader
   MIDI.loadPlugin
     soundfontUrl: "/assets/MIDI.js-master/soundfont/"
     instrument: "acoustic_grand_piano"
     callback: -> 
+      MIDI.loader.stop() 
       channel = 0
       instrument = 0
       velocity = 127
@@ -241,34 +243,50 @@ $(document).on 'ready page:change', ->
       $("#otherButtons").append button  
     
   playNotes = (notes)->
-    playNote = (note) -> 
-      MIDI.noteOn 0, note, 127
-      MIDI.noteOff 0, note, 1
-    
-    playNote notes[0]
+    playNote = (note, seconds) -> 
+      MIDI.noteOn 0, note, 127, seconds
+      MIDI.noteOff 0, note, seconds + 1
+    i = 0
+    while i < notes.length
+      playNote notes[i], i
+      i++
 
-    count = 1
-    timer = setInterval (-> 
-      if count == notes.length
-         clearInterval(timer)
-      playNote(notes[count])
-      count++
-    ), 1000
+    # while seconds is < notes.length
+    #   playNote note for note in notes
+    #   seconds++
+    # MIDI.noteOn 0, notes[0], 127, 0
+    # MIDI.noteOff 0, notes[0], 1
+    # MIDI.noteOn 0, notes[1], 127, 1
+    # MIDI.noteOff 0, notes[1], 2
+    # MIDI.noteOn 0, notes[0], 127, 2
+    # MIDI.noteOff 0, notes[0], 3
+  
+
+   # count = 1
+    # timer = setInterval (-> 
+    #   if count == notes.length
+    #      clearInterval(timer)
+    #   playNote(notes[count])
+    #   count++
+    # ), 1000
   
   playChords = (chords) ->
-    playChord = (chord) -> 
-      MIDI.chordOn 0, chord, 127
-      MIDI.chordOff 0, chord, 1
-    
-    playChord notes[0]
+    playChord = (chord, seconds) -> 
+      MIDI.chordOn 0, chord, 127, seconds
+      MIDI.chordOff 0, chord, seconds + 1
+    i = 0
+    while i < notes.length
+      playChord notes[i], i
+      i++
+    # playChord notes[0]
 
-    count = 1
-    timer = setInterval (-> 
-      if count == notes.length
-         clearInterval(timer)
-      playChord(notes[count])
-      count++
-    ), 1000
+    # count = 1
+    # timer = setInterval (-> 
+    #   if count == notes.length
+    #      clearInterval(timer)
+    #   playChord(notes[count])
+    #   count++
+    # ), 1000
   
   hearNotes = -> 
     if quiz_type is "Chords"
