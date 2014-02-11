@@ -6,7 +6,13 @@ $btn-primary-bg: $bodybkg;
 $btn-info-bg: rgba(240, 248, 255, 0.23);
 @import "bootstrap";
 
-
+@mixin flex-center{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  } 
  
 
 body {
@@ -27,7 +33,7 @@ body {
 
   }
 
-#bodycontainer {
+.bodycontainer {
   background-color: $bodybkg; 
   height: 100%;
   padding-top: 50px;
@@ -62,6 +68,45 @@ body {
 
 #amp {
   border-radius: 20%;
+}
+
+#row_home{
+  height: 100%;
+}
+.slider { 
+  background-color: dimgray; 
+  height: 100%; 
+  @include flex-center; 
+  a{
+    border-radius: 100%; 
+    &:hover{
+    text-decoration: none; 
+    }
+    div {
+      color: $mainGreen; 
+      background-color: black;
+      width: 300px;
+      height: 300px;
+      border-radius: 100%;
+      font-size: 60px;
+      text-decoration: none; 
+      @include flex-center; 
+    }
+  }
+  
+  #listen_button{
+    color: black; 
+    background-color: $mainGreen;
+    border: 2px solid black; 
+  }
+  #learn_button{
+    color: $mainGreen; 
+    background-color: black;
+  }
+}
+
+#slider_left{
+  border-right: 2px solid black;  
 }
 
 // original music page
