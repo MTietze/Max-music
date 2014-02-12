@@ -17,7 +17,7 @@ $btn-info-bg: rgba(240, 248, 255, 0.23);
 
 body {
   // background-color: rgba(7, 236, 108, 0.38); 
-  background-color: white; 
+  background-color: rgb(127, 180, 114); 
 }
 
 .btn {
@@ -54,39 +54,52 @@ body {
 }
 
 //home page 
-
-#intro {
-  font-family: "verdana";
-  color: black;
-  font-size: 25px;
-  line-height: 40px;
+#cassette{
+  @include flex-center;
+  height: 600px;
+  width: 900px;
+  background-color: black;
+  margin: auto;
+  border-radius: 10%;
+  border: 20px gray solid;
+  box-shadow: 30px 0px 10px 10px;
+  -webkit-box-shadow: 10px 100px 5px 10px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 20px rgba(22, 21, 21, 0.91), 0px 0px 0px 12px rgba(124, 123, 123, 0);
 }
 
 #row_home{
   height: 100%;
+  @include flex-center;
 }
 .slider { 
+  @include flex-center;
+  margin: 10% auto;
   background-color: $bodybkg; 
-  height: 100%; 
-  @include flex-center; 
- .home_button{
-    width:300px;
-    height:300px;
-    -webkit-border-radius:50%;
-    -moz-border-radius:50%;
-    border-radius:50%;
-    display:block;
-    margin:20px;
-    float:left;
-    background: black;
-    position:relative;
-    -webkit-box-shadow:0px 0px 5px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 8px rgba(22, 21, 21, 0.91), 0px 0px 0px 9px rgba(49, 48, 48, 0.72);
-    -moz-box-shadow:0px 0px 5px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 8px rgba(22, 21, 21, 0.91), 0px 0px 0px 9px rgba(49, 48, 48, 0.72);
-    box-shadow:0px 0px 5px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 8px rgba(22, 21, 21, 0.91), 0px 0px 0px 9px rgba(49, 48, 48, 0.72);
-    -webkit-transition:all 0.3s linear;
-    -moz-transition:all 0.3s linear;
-    -o-transition:all 0.3s linear;
-    transition:all 0.3s linear;
+  height: 69%%;
+  width: 370px;
+  border-radius: 75%;
+  border: 10px solid black;
+  box-shadow: 5px 5px 8px 20px #5943CC;
+  position:relative; 
+  // -webkit-box-shadow: 10px 100px 5px 10px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 20px rgba(22, 21, 21, 0.91), 0px 0px 0px 12px rgba(124, 123, 123, 0);
+}
+.home_button{
+   width:300px;
+   height:300px;
+   -webkit-border-radius:50%;
+   -moz-border-radius:50%;
+   border-radius:50%;
+   display:block;
+   margin:20px;
+   float:left;
+   background: black;
+   position:relative;
+   -webkit-box-shadow:0px 0px 5px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 8px rgba(22, 21, 21, 0.91), 0px 0px 0px 9px rgba(49, 48, 48, 0.72);
+   -moz-box-shadow:0px 0px 5px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 8px rgba(22, 21, 21, 0.91), 0px 0px 0px 9px rgba(49, 48, 48, 0.72);
+   box-shadow:0px 0px 5px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 8px rgba(22, 21, 21, 0.91), 0px 0px 0px 9px rgba(49, 48, 48, 0.72);
+   -webkit-transition:all 0.3s linear;
+   -moz-transition:all 0.3s linear;
+   -o-transition:all 0.3s linear;
+   transition:all 0.3s linear;
 }
 .home_button span{
     display:table-cell;
@@ -109,16 +122,16 @@ body {
     position:absolute;
     top:0px;
     left:0px;
-    font-size:40px;
+    font-size:35px;
     line-height:36px;
     opacity:0;
 }
 .home_button span:nth-child(3){
-  margin-top: 25%; 
+  margin-top: 30%; 
 }
 .home_button span:nth-child(1){
     background:transparent url(../assets/star.png) no-repeat center center;
-    background-size: 280px 280px;
+    background-size: 240px 240px;
     opacity:0.2;
 }
 .home_button:hover{
@@ -151,32 +164,11 @@ body {
     text-shadow:0px 1px 1px rgba(255, 255, 255, 0.6);
 }
 
-  // a{
-  //   border-radius: 100%; 
-  //   &:hover{
-  //   text-decoration: none; 
-  //   }
-  //   div {
-  //     color: $mainGreen; 
-  //     background-color: black;
-  //     width: 300px;
-  //     height: 300px;
-  //     border-radius: 100%;
-  //     font-size: 60px;
-  //     text-decoration: none; 
-  //     @include flex-center; 
-  //   }
-  // }
-  
-  // #listen_button{
-  //   color: black; 
-  //   background-color: $mainGreen;
-  //   border: 2px solid black; 
-  // }
-  // #learn_button{
-  //   color: $mainGreen; 
-  //   background-color: black;
-  // }
+#slider_left{
+  left: -35px;
+}
+#slider_right{
+  right: -25px;
 }
 @keyframes rotate{
     0% { transform: scale(1) rotate(0);}
@@ -195,9 +187,7 @@ body {
 }
 
 
-#slider_left{
-  border-right: 2px solid black;  
-}
+
 
 // original music page
 

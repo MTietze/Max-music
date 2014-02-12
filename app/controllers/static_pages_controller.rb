@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
 
 	def home
+	  @disable_nav = true
 	end
 
 	def contact
