@@ -2,9 +2,10 @@
 $borderblack: rgba(19, 18, 18, 0.94);
 $mainGreen: #006600; 
 $mainFont: 'Audiowide', cursive;
-$bodybkg: rgba(125, 149, 160, 1);
-$btn-primary-bg: $bodybkg;
+$containerbg: rgba(125, 149, 160, 1);
+$btn-primary-bg: $containerbg;
 $btn-info-bg: rgba(240, 248, 255, 0.23);
+$bodybg: rgb(127, 180, 114);
 @import "bootstrap";
 
 @mixin flex-center{
@@ -17,8 +18,7 @@ $btn-info-bg: rgba(240, 248, 255, 0.23);
  
 
 body {
-  // background-color: rgba(7, 236, 108, 0.38); 
-  background-color: rgb(127, 180, 114); 
+  background-color: $bodybg; 
 }
 
 .btn {
@@ -35,7 +35,7 @@ body {
   }
 
 .bodycontainer {
-  background-color: $bodybkg; 
+  background-color: $containerbg; 
   height: 100%;
   padding-top: 50px;
   box-shadow: 9px 10px 100px 10px $mainGreen;
@@ -90,7 +90,7 @@ body {
 .spinner { 
   @include flex-center;
   margin: 10% auto;
-  background-color: $bodybkg; 
+  background-color: $containerbg; 
   height: 69%%;
   width: 370px;
   border-radius: 75%;
@@ -108,12 +108,7 @@ body {
    float:left;
    background: black;
    position:relative;
-   // -webkit-box-shadow:0px 0px 5px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 8px rgba(22, 21, 21, 0.91), 0px 0px 0px 9px rgba(49, 48, 48, 0.72);
-   // -moz-box-shadow:0px 0px 5px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 8px rgba(22, 21, 21, 0.91), 0px 0px 0px 9px rgba(49, 48, 48, 0.72);
    box-shadow:0px 0px 5px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 8px rgba(22, 21, 21, 0.91), 0px 0px 0px 9px rgba(49, 48, 48, 0.72);
-   // -webkit-transition:(all 0.3s linear);
-   // -moz-transition:all 0.3s linear;
-   // -o-transition:all 0.3s linear;
    @include transition (all 0.3s linear);
 }
 .home_button span{
@@ -127,9 +122,6 @@ body {
     color:#fff;
     text-shadow:0px 1px 1px #A03F16;
     font-family:"Arvo", "Myriad Pro", "Trebuchet MS", sans-serif;
-    // -webkit-transition:(all 0.3s linear);
-    // -moz-transition:(all 0.3s linear);
-    // -o-transition:(all 0.3s linear);
     @include transition (all 0.3s linear);
 }
 .home_button span:nth-child(1), 
@@ -146,14 +138,12 @@ body {
   margin-left: -7px;
 }
 .home_button span:nth-child(1){
-    background:transparent url(../assets/star.png) no-repeat center center;
+    background:transparent asset-url("star.png") no-repeat center center;
     background-size: 240px 240px;
     opacity:0.2;
 }
 .home_button:hover{
     background: $mainGreen;
-    // -webkit-box-shadow:0px 0px 5px 0px rgba(246, 212, 163, 0.5) inset, 0px -1px 5px 4px rgba(170, 77, 27, 0.1) inset, 0px 0px 0px 7px rgba(255, 255, 255, 0.17), 1px 4px 5px 8px rgba(243, 240, 240, 0.24), 0px 0px 0px 9px rgba(255, 255, 255, 0.38);
-    // -moz-box-shadow:0px 0px 5px 0px rgba(246, 212, 163, 0.5) inset, 0px -1px 5px 4px rgba(170, 77, 27, 0.1) inset, 0px 0px 0px 7px rgba(255, 255, 255, 0.17), 1px 4px 5px 8px rgba(243, 240, 240, 0.24), 0px 0px 0px 9px rgba(255, 255, 255, 0.38);
     box-shadow:0px 0px 5px 0px rgba(246, 212, 163, 0.5) inset, 0px -1px 5px 4px rgba(170, 77, 27, 0.1) inset, 0px 0px 0px 7px rgba(255, 255, 255, 0.17), 1px 4px 5px 8px rgba(243, 240, 240, 0.24), 0px 0px 0px 9px rgba(255, 255, 255, 0.38);
 }
 .home_button:hover span:nth-child(3){
@@ -161,18 +151,12 @@ body {
 }
 .home_button:hover span:nth-child(2){
     opacity: 0; 
-    // -webkit-transform: scale(0);
-    // -moz-transform: scale(0);
     @include transform (scale(0));
 }
 .home_button:hover span:nth-child(1){
-    // -webkit-animation:rotate 1s linear;
-    // -moz-animation:rotate 1s linear;
     @include animation (rotate 1s linear);
 }
 .home_button:active{
-    // -webkit-box-shadow:0px 0px 5px 0px rgba(246, 212, 163, 0.5) inset, 0px -1px 5px 4px rgba(170, 77, 27, 0.2) inset, 0px 0px 0px 7px #fff,  0px -1px 0px 8px rgba(188, 188, 188, 0.3), 0px 0px 0px 10px #fff;
-    // -moz-box-shadow:0px 0px 5px 0px rgba(246, 212, 163, 0.5) inset, 0px -1px 5px 4px rgba(170, 77, 27, 0.2) inset, 0px 0px 0px 7px #fff,  0px -1px 0px 8px rgba(188, 188, 188, 0.3), 0px 0px 0px 10px #fff;
     box-shadow:0px 0px 5px 0px rgba(246, 212, 163, 0.5) inset, 0px -1px 5px 4px rgba(170, 77, 27, 0.2) inset, 0px 0px 0px 7px #fff,  0px -1px 0px 8px rgba(188, 188, 188, 0.3), 0px 0px 0px 10px #fff;
 }
 .home_button:active span:nth-child(2){
@@ -186,24 +170,12 @@ body {
 #spinner_right{
   right: -3%;
 }
+
 @include keyframes (rotate){
     0% { @include transform (scale(1) rotate(0));}
     50% { @include transform (scale(0.5) rotate(180deg));}
     100% { @include transform (scale(1) rotate(360deg));}
 }
-// @-webkit-keyframes rotate{
-//     0% { -webkit-transform: scale(1) rotate(0);}
-//     50% { -webkit-transform: scale(0.5) rotate(180deg);}
-//     100% { -webkit-transform: scale(1) rotate(360deg);}
-// }
-// @-moz-keyframes rotate{
-//     0% { -moz-transform: scale(1) rotate(0);}
-//     50% { -moz-transform: scale(0.5) rotate(180deg);}
-//     100% { -moz-transform: scale(1) rotate(360deg);}
-// }
-
-
-
 
 // original music page
 
@@ -260,7 +232,7 @@ body {
       }
     }
     .even {
-      background-color: $bodybkg;
+      background-color: $containerbg;
       color: white; 
       .listen{
         color: white; 
@@ -310,7 +282,7 @@ body {
 
 #jp_container_1{
   font-size: 30px;
-  border : 2px $bodybkg solid;
+  border : 2px $containerbg solid;
   margin: 5% auto 2%;
   .jp-type-single{
     border: 1px black solid; 
