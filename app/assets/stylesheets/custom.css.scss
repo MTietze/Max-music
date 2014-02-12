@@ -64,7 +64,16 @@ body {
   border-radius: 10%;
   border: 20px gray solid;
   box-shadow: 30px 0px 10px 10px;
-  // -webkit-box-shadow: 10px 100px 5px 10px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 20px rgba(22, 21, 21, 0.91), 0px 0px 0px 12px rgba(124, 123, 123, 0);
+  position: relative; 
+  #home_title_container{
+    position: absolute;
+    left: 25%;
+    top: 2%;
+  }
+  #spinner_container{
+    position: relative;
+    top: 7%;
+  }
 }
 
 #home_title{
@@ -78,7 +87,7 @@ body {
   height: 100%;
   display: flex; 
 }
-.slider { 
+.spinner { 
   @include flex-center;
   margin: 10% auto;
   background-color: $bodybkg; 
@@ -88,6 +97,7 @@ body {
   border: 10px solid black;
   box-shadow: 5px 5px 8px 20px #5943CC;
   position:relative; 
+  display: inline-block; 
 }
 .home_button{
    width:300px;
@@ -170,10 +180,10 @@ body {
     text-shadow:0px 1px 1px rgba(255, 255, 255, 0.6);
 }
 
-#slider_left{
+#spinner_left{
   left: -4%;
 }
-#slider_right{
+#spinner_right{
   right: -3%;
 }
 @include keyframes (rotate){
