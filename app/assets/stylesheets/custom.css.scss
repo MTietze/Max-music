@@ -60,7 +60,7 @@ body {
   height: 600px;
   width: 900px;
   background-color: black;
-  margin: auto;
+  margin: 7% auto 0;
   border-radius: 10%;
   border: 20px gray solid;
   box-shadow: 30px 0px 10px 10px;
@@ -83,16 +83,11 @@ body {
   margin-top: 20px;
   margin-bottom: -20px;
 }
-#row_home{
-  height: 100%;
-  display: flex; 
-}
+
 .spinner { 
   @include flex-center;
   margin: 10% auto;
   background-color: $containerbg; 
-  height: 69%%;
-  width: 370px;
   border-radius: 75%;
   border: 10px solid black;
   box-shadow: 5px 5px 8px 20px #5943CC;
@@ -124,6 +119,8 @@ body {
     font-family:"Arvo", "Myriad Pro", "Trebuchet MS", sans-serif;
     @include transition (all 0.3s linear);
 }
+
+
 .home_button span:nth-child(1), 
 .home_button span:nth-child(3){
     position:absolute;
@@ -133,10 +130,7 @@ body {
     line-height:36px;
     opacity:0;
 }
-.home_button span:nth-child(3){
-  margin-top: 30%; 
-  margin-left: -7px;
-}
+
 .home_button span:nth-child(1){
     background:transparent asset-url("star.png") no-repeat center center;
     background-size: 240px 240px;
@@ -166,9 +160,15 @@ body {
 
 #spinner_left{
   left: -4%;
+  .home_button span:nth-child(3){
+    margin: 25% 0 0 -7px; 
+  }
 }
 #spinner_right{
   right: -3%;
+  .home_button span:nth-child(3){
+    margin: 30% 0 0 -7px; 
+  }
 }
 
 @include keyframes (rotate){
@@ -177,6 +177,106 @@ body {
     100% { @include transform (scale(1) rotate(360deg));}
 }
 
+@media (max-width: 1000px){
+  #cassette{
+    height: 300px;
+    width: 450px;
+    border: 10px gray solid;
+    box-shadow: 15px 0px 5px 5px;
+    margin: 10% auto 0;
+
+  }
+  #home_title{
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: -10px;
+  }
+  .spinner { 
+    border: 5px solid black;
+    box-shadow: 5px 5px 8px 10px #5943CC;
+  }
+  .home_button{
+     width:150px;
+     height:150px;
+     margin:10px;
+     box-shadow:0px 0px 2px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 3px 2px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 3px rgba(0, 0, 0, 0), 0px 0px 1px 4px rgba(22, 21, 21, 0.91), 0px 0px 0px 5px rgba(49, 48, 48, 0.72);
+  }
+  .home_button span{
+      width:150px;
+      height:150px;
+      padding:10px;
+  }
+  .home_button span:nth-child(1), 
+  .home_button span:nth-child(3){
+      font-size: 17px;
+      line-height:18px;
+  }
+  .home_button span:nth-child(3){
+    margin-left: -4px;
+  }
+  .home_button span:nth-child(1){
+      background-size: 120px 120px;
+  }
+  #spinner_left .home_button span:nth-child(3){
+      margin-left: -4px; 
+    }
+  
+  #spinner_right .home_button span:nth-child(3){
+      margin-left: -4px; 
+    }
+}
+
+@media (max-width: 500px){
+  #cassette{
+    height: 150px;
+    width: 225px;
+    border: 5px gray solid;
+    box-shadow: 7px 0px 2px 2px;
+    margin: 35% auto 0;
+    #home_title_container{
+      left: 12%;
+      top: 0; 
+    }
+  }
+  #home_title{
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: -5px;
+  }
+
+  .spinner { 
+    border: 2px solid black;
+    box-shadow: 2px 2px 4px 5px #5943CC;
+  }
+  .home_button{
+     width:75px;
+     height:75px;
+     margin:5px;
+     box-shadow:0px 0px 1px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 2px 1px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 2px rgba(0, 0, 0, 0), 0px 0px 1px 2px rgba(22, 21, 21, 0.91), 0px 0px 0px 3px rgba(49, 48, 48, 0.72);
+  }
+  .home_button span{
+      width:75px;
+      height:75px;
+      padding:0 0 0 3px;
+      font-size:15px;
+  }
+  .home_button span:nth-child(1), 
+  .home_button span:nth-child(3){
+      font-size: 13px;
+      line-height:13px;
+  }
+  
+  .home_button span:nth-child(1){
+      background-size: 60px 60px;
+  }
+  #spinner_left .home_button span:nth-child(3){
+      margin-left: -2px; 
+    }
+  
+  #spinner_right .home_button span:nth-child(3){
+      margin-left: -2px; 
+    }
+}
 // original music page
 
 
@@ -330,12 +430,6 @@ body {
   width: 155px; 
 }
 
-// #check {
-//   margin: 3% auto;
-//   display: block; 
-//   width: 10%;
-//   height: 10%; 
-// }
 
 #sorry {
   color: #A30010;
