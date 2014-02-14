@@ -1,20 +1,36 @@
 <% provide(:title, 'Music Training') %>
 <div class="container bodycontainer">
   <div class="row">
-    <div class= 'col-xs-12' id="checkcolumn">
-      <h1 id= "options-title"> Options | </h1>
-      <label>
-        <input type="checkbox" id= "randomKeys"> Random keys
-      </label>
-      <label>
-        <input type="checkbox" id= "major" checked> Major intervals
-      </label>
-      <label>
-        <input type="checkbox" id= "minor"> Minor intervals
-      </label>
-      <label>
-        <input type="checkbox" id= "other" checked> Perfect intervals
-      </label>
+  <div class="navbar navbar-default" role="navigation">
+    <div class="col-xs-12" id="optionsbox">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#checkcolumn">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+      <h1 id= "options-title"> Options</h1>
+      </div>
+      <div class= 'navbar-collapse collapse' id="checkcolumn">
+        <label>
+          <input type="checkbox" id= "randomKeys"> 
+          <p> Random keys </p>
+        </label>
+        <label>
+          <input type="checkbox" id= "major" checked> 
+          <p>Major intervals</p>
+        </label>
+        <label>
+          <input type="checkbox" id= "minor"> 
+          <p>Minor intervals</p>
+        </label>
+        <label>
+          <input type="checkbox" id= "other" checked> 
+          <p>Perfect intervals</p>
+        </label>
+      </div>
+    </div>
     </div>
   </div>
   <div class="row" >
@@ -25,9 +41,11 @@
             <button type="button" class="btn btn-default quiz ear-quiz">Chords</button>
             <button type="button" class="btn btn-default quiz ear-quiz">Scales</button>
           </div>
-          <div class="btn-group-vertical pull-right" id= 'typeTraining'>
+          <div class="row">
+          <div class="btn-group" id= 'typeTraining'>
             <button type="button" id='earTraining' class="btn btn-default currentTraining">Ear Training</button>
             <button type="button" id='theoryTraining' class="btn btn-default">Theory Training</button>
+          </div>
           </div>
           <div class="row" id="quizrow">
             <div class="btn-group" id= 'play'>

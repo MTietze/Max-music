@@ -6,6 +6,7 @@ $containerbg: rgba(125, 149, 160, 1);
 $btn-primary-bg: $containerbg;
 $btn-info-bg: rgba(240, 248, 255, 0.23);
 $bodybg: rgb(127, 180, 114);
+$navbar-default-bg: rgba(245, 245, 220, 0.16); 
 @import "bootstrap";
 
 @mixin flex-center{
@@ -16,6 +17,9 @@ $bodybg: rgb(127, 180, 114);
     align-items: center;
   } 
  
+html, body{
+  height: 100%; 
+}
 
 body {
   background-color: $bodybg; 
@@ -427,9 +431,28 @@ body {
 }
 
 #typeTraining button {
-  width: 155px; 
+  width: 225px;
+  border-top: 0;
+  &:first-child{
+    border-top-left-radius: 0
+  }
+  &:last-child{
+    border-top-right-radius: 0
+  }
 }
-
+#typeQuiz button{
+  &:first-child{
+    border-bottom-left-radius: 0;
+    border-right: 0; 
+  }
+  &:last-child{
+    border-bottom-right-radius: 0;
+    border-left: 0; 
+  } 
+}
+#typeTraining button, #typeQuiz button{
+  margin: 0; 
+}
 
 #sorry {
   color: #A30010;
@@ -444,16 +467,17 @@ body {
 
 //theory training
 .currentQuiz, .currentTraining{
-    background-color: $borderblack !important;
-    color: $mainGreen !important;
+    background-color: rgba(28, 29, 27, 0.78) !important;
+    color: #12FC12 !important;
     font-family: $mainFont !important;
     font-weight: bold !important;
+    text-shadow: 5px 5px 15px black;
   }
 
 
 #play, #hearagain{
     button {
-    margin-left: 1px; 
+    // margin-left: 1px; 
     &:focus {
       background-color: white; 
       border: 1px black solid;
@@ -490,21 +514,77 @@ body {
   display:  inline;
   top: 3px;
   position: relative;
+  margin-right: 50px; 
 }
 
-#checkcolumn {
-  margin-bottom: 3%;
+
+#optionsbox{
   background-color: rgba(245, 245, 220, 0.16);
+  width: 100%; 
+  button{
+    margin-right: -2px; 
+  }
+}
+#checkcolumn {
+  margin-bottom: 1%;
   label {
-    background-color: rgba(255, 255, 255, 0.57);
-    margin-left: 3%;
-    padding: 6px;
-    border-radius: 10%;
-    box-shadow: 2px 2px 10px black;
+    cursor: pointer; 
+    font-size: medium; 
+    margin: 15px 4% 0;
+    input{
+      display: none; 
+    }
+    input[type="checkbox"]:checked + p{
+      background-color: green;
+      color: white;
+      border-radius: 50%;
+      padding: 0 20px;
+      margin: 0 -20px 10px;
+      box-shadow: 10px 10px 10px black;
+      border: 2px solid white; 
+    }
   }
 }
 
-#typeQuiz {
-  margin-left: 15%;
+@media (max-width: 1200px){
+  #checkcolumn label {
+    margin: 15px 3% 0;
+  }
 }
+
+@media (max-width: 992px){
+  #checkcolumn {
+    label{
+      margin: 15px 1% 0;
+      input[type="checkbox"]:checked + p{
+        padding: 0 5px;
+        margin: 0 -5px 10px;
+      }
+    }
+  }
+  #options-title{
+    margin-right: 20px;
+  }
+
+
+}
+
+@media (max-width: 768px){
+  #optionsbox{
+    text-align: center; 
+  }
+}
+
+@media (max-width: 406px){
+  #title{
+    font-size: large; 
+  }
+}
+
+@media (max-width: 328px){
+  #title{
+    font-size: medium; 
+  }
+}
+
 
