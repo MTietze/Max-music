@@ -276,13 +276,13 @@ $(document).on 'ready page:change', ->
       $('#quizbody').addClass('hidden')
       $('#randomKeys').parent().siblings('label').remove()
       if $(this).text() is 'Chords'
-        $('#checkcolumn').append('<label><input type="checkbox" id= "major" checked> Major scale</label>')
-        $('#checkcolumn').append('<label><input type="checkbox" id= "minor"> Minor scale</label>')
-        $('#checkcolumn').append('<label><input type="checkbox" id= "other"> All Chords</label>')
+        $('#checkcolumn').append('<label><input type="checkbox" id= "major" checked> <p>Major scale</p></label>')
+        $('#checkcolumn').append('<label><input type="checkbox" id= "minor"><p> Minor scale</p></label>')
+        $('#checkcolumn').append('<label><input type="checkbox" id= "other"><p> All Chords</p></label>')
       else if $(this).text() is 'Intervals'
-        $('#checkcolumn').append('<label><input type="checkbox" id= "major" checked> Major intervals</label>')
-        $('#checkcolumn').append('<label><input type="checkbox" id= "minor"> Minor intervals</label>')
-        $('#checkcolumn').append('<label><input type="checkbox" id= "other" checked> Perfect intervals</label>')
+        $('#checkcolumn').append('<label><input type="checkbox" id= "major" checked><p> Major intervals</p></label>')
+        $('#checkcolumn').append('<label><input type="checkbox" id= "minor"><p> Minor intervals</p></label>')
+        $('#checkcolumn').append('<label><input type="checkbox" id= "other" checked> <p>Perfect intervals</p></label>')
   
     $(document).on "click", '#quiz.ear-quiz', ->
       $("#question").children().remove()

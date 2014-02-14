@@ -434,10 +434,11 @@ body {
   width: 225px;
   border-top: 0;
   &:first-child{
-    border-top-left-radius: 0
+    border-top-left-radius: 0;
   }
   &:last-child{
-    border-top-right-radius: 0
+    border-top-right-radius: 0;
+    border-left: 0;
   }
 }
 #typeQuiz button{
@@ -467,30 +468,39 @@ body {
 
 //theory training
 .currentQuiz, .currentTraining{
-    background-color: rgba(28, 29, 27, 0.78) !important;
-    color: #12FC12 !important;
-    font-family: $mainFont !important;
+    background-color: $containerbg !important; 
+    color: white !important;
     font-weight: bold !important;
     text-shadow: 5px 5px 15px black;
+}
+
+
+#play button{
+  &:focus{
+    background-color: white;
   }
-
-
-#play, #hearagain{
-    button {
-    // margin-left: 1px; 
-    &:focus {
-      background-color: white; 
-      border: 1px black solid;
-      z-index: 0;
-    }
+  &:hover{
+    background-color: #ebebeb;
   }
 }
+
 #intervaldrop{
   width: auto; 
 }
 
 #interval_list{
-  z-index: 1000000;
+  li div{
+    width: 250px;
+    padding: 0 6px; 
+    text-align: left; 
+    ul li a{
+      color: black; 
+      &:hover{
+        text-decoration: none;
+        color: $containerbg; 
+      }
+    }
+  }
 }
 
 #quizrow{
@@ -512,11 +522,14 @@ body {
 
 #options-title{
   display:  inline;
-  top: 3px;
+  top: 5px;
   position: relative;
   margin-right: 50px; 
 }
 
+.btn-group button{
+  box-shadow: none; 
+}
 
 #optionsbox{
   background-color: rgba(245, 245, 220, 0.16);
@@ -533,15 +546,15 @@ body {
     margin: 15px 4% 0;
     input{
       display: none; 
+      &+p{
+        color: rgb(109, 96, 96)
+      }
     }
     input[type="checkbox"]:checked + p{
-      background-color: green;
       color: white;
-      border-radius: 50%;
       padding: 0 20px;
       margin: 0 -20px 10px;
-      box-shadow: 10px 10px 10px black;
-      border: 2px solid white; 
+      text-shadow: 2px 2px 25px black;
     }
   }
 }
@@ -573,6 +586,9 @@ body {
   #optionsbox{
     text-align: center; 
   }
+  .choice{
+    padding:2px 0; 
+  }
 }
 
 @media (max-width: 406px){
@@ -581,10 +597,30 @@ body {
   }
 }
 
-@media (max-width: 328px){
+// works to 312px
+@media (max-width: 343px){
   #title{
     font-size: medium; 
   }
 }
 
+@media (max-width: 520px) and (min-width: 344px){
+  #interval_list{
+    right: 0;
+    left: initial;  
+  }
+}
 
+// works down to 315 px
+@media (max-width: 495px){
+  #typeTraining button {
+    width: 135px;
+  }
+  #typeQuiz button{
+    width: 90px; 
+  }
+  .currentQuiz, .currentTraining{
+      font-size: 13px;
+      height: 33px; 
+    }
+}

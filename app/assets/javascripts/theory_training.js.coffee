@@ -78,10 +78,13 @@ $(document).on 'ready page:change', ->
       
       $('#question').html(" What is the name of the <div class='btn-group'>
       <div class='btn-group dropup'><button type='button' id= 'intervaldrop' class='btn btn-default dropdown-toggle' data-toggle='dropdown'>
-      Interval<span class='caret'></span></button><ul class='dropdown-menu' id='interval_list'></ul></div></div> ascending from #{first_note} to #{second_note}?")
+      Interval<span class='caret'></span></button><ul class='dropdown-menu' id='interval_list'><li><div class='row'><ul class='list-unstyled col-xs-6'></ul><ul class='list-unstyled col-xs-6'></ul>
+      </div></li></ul></div></div> 
+      ascending from #{first_note} to #{second_note}?")
   
-      $('#interval_list').append("<li><a href='#' class= 'interval_choice'>#{interval_name}</a></li>") for interval_name in intervals 
-    
+      $('#interval_list li .row ul:first').append("<li><a href='#' class= 'interval_choice'>#{interval_name}</a></li>") for interval_name in intervals[0...5] 
+      $('#interval_list li .row ul:last').append("<li><a href='#' class= 'interval_choice'>#{interval_name}</a></li>") for interval_name in intervals[6...11] 
+      
     evaluateAnswer = ->
       answer = $('#answer').val().trim().toLowerCase()
       if answer is current_note.toLowerCase() 
@@ -127,10 +130,12 @@ $(document).on 'ready page:change', ->
       if training_type is 'theory'    
         other_training = 'ear'
         $('#hearAgain').remove()
-        $('#checkcolumn').css('visibility', 'hidden')
+        $('#checkrow').addClass('hidden')
+        $('#trainingrow').css('margin-top', '4%')
       else  
         other_training = 'theory'
         $('#quizform').addClass('hidden')
-        $('#checkcolumn').css('visibility', 'visible')
+        $('#checkrow').removeClass('hidden')
+        $('#trainingrow').css('margin-top', '0')
       $('.quiz').removeClass("#{other_training}-quiz")
       $('.quiz').addClass("#{training_type}-quiz")  
