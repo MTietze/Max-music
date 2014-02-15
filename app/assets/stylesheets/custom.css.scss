@@ -297,10 +297,13 @@ body {
       th {
         font-size: 30px;
         color: black; 
+        &:first-child{
+          padding-left: 2%; 
+        }
         a{
           color:black; 
          }
-        .glyphicon{
+        span.glyphicon{
           top: -2px;
           font-size: medium;
           margin-left: 2%; 
@@ -325,11 +328,11 @@ body {
         }
       }
       .year {
-        // color: rgb(207, 96, 75);
         width: 15%; 
       }
       .title{
         width: 40%;
+        padding-left: 2%; 
       }
       .artist{
         width: 30%;
@@ -356,7 +359,7 @@ body {
   }
   
   #dl{
-    text-align: right;
+    text-align: center;
   }
   
 
@@ -380,9 +383,34 @@ body {
   }
 }
 
-
-
-
+@media (max-width: 460px){
+  #songtable table tr{
+    td {
+      font-size: 12px;
+      .download{
+        padding: 0; 
+        height: 20px;
+        width: 20px;
+        .glyphicon{
+          top: 0;
+          font-size: 12px; 
+        }
+      }
+    }
+    th{
+      font-size: 20px; 
+      span.glyphicon{
+        top: 0px;
+        font-size: small;
+      }
+    }
+  }
+  #songs_search #search_song_box{
+    input, #search{
+      width: 120px; 
+    }
+  }
+}
 
 #jp_container_1{
   font-size: 30px;
@@ -591,7 +619,7 @@ body {
   }
 }
 
-@media (max-width: 406px){
+@media (max-width: 420px){
   #title{
     font-size: large; 
   }

@@ -5,7 +5,7 @@
         <th><%= sortable "title" %><span class="<%=add_icon "title" %>"></span></th>
         <th><%= sortable "artist", "With"%><span class="<%=add_icon "artist" %>"></span></th>
         <th><%= sortable "year" %><span class="<%=add_icon "year" %>"></span></th>
-        <th  id="dl">Download</th>
+        <th id='dl'><div class="glyphicon glyphicon-download"></div></th>
       </tr>
       <% @songs.each do |song| %>  
         <tr class="<%= cycle('odd', 'even') -%>" data-blurb = "<%= song.blurb %>" data-title= "<%= song.title %>"> 
@@ -17,3 +17,5 @@
       <% end %>  
     </table>  
     <%= will_paginate @songs, renderer: BootstrapPagination::Rails %> 
+
+    

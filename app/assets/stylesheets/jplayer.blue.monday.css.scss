@@ -638,3 +638,37 @@ a.jp-shuffle-off:hover {
 }
 
 /* @end */
+@media (max-width: 460px){
+	#jp_container_1{
+		width: 270px;
+    .jp-interface{
+      padding: 0 3%;
+      .jp-controls{
+        padding: 20px 1px 0 1px;
+        .jp-mute, .jp-unmute{
+          margin-top: -10px;
+          margin-left: 90px;
+        }
+        .jp-stop{
+          margin-left: 5px; 
+        }
+      }
+      .jp-progress{
+        left: 90px;
+        width: 150px;
+      }
+      .jp-volume-bar{
+        top: 15px;
+        left: 194px;
+      }
+      .jp-time-holder{
+        left: 90px;
+        width: 150px;
+      }
+    }
+    .jp-title ul li{
+      font-size: 15px; 
+      padding: 2px 0;
+    }
+	}
+}
