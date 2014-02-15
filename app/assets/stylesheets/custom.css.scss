@@ -298,7 +298,8 @@ body {
         font-size: 30px;
         color: black; 
         &:first-child{
-          padding-left: 2%; 
+          left: 2%; 
+          position: relative; //on ie link shifts with padding
         }
         a{
           color:black; 
@@ -332,7 +333,8 @@ body {
       }
       .title{
         width: 40%;
-        padding-left: 2%; 
+        left: 2%; 
+        position: relative; //on ie link shifts with padding
       }
       .artist{
         width: 30%;
