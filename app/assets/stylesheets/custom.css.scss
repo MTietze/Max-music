@@ -25,6 +25,10 @@ body {
   background-color: $bodybg; 
 }
 
+p{
+  font-size: 18px; 
+}
+
 .btn {
     display: block;
     margin: 0 auto;
@@ -45,12 +49,18 @@ body {
   box-shadow: 9px 10px 100px 10px $mainGreen;
 }
 
+.textbody { 
+  background-color: azure !important; 
+}
+
 //navigation bar
 
 .navbar-collapse {
   font-size: large;
   }
-
+.dropdown-menu li a{
+  font-weight: bold; 
+}
 #title {
   font-family: $mainFont;
   color: $mainGreen;
@@ -305,7 +315,7 @@ body {
           color:black; 
          }
         span.glyphicon{
-          top: -2px;
+          top: -1px;
           font-size: medium;
           margin-left: 2%; 
         }
@@ -379,8 +389,19 @@ body {
 
     }
     #search_song_box{
-      margin-left: 5px; 
+      margin: 0 0 0 5px; 
       display: inline-flex;
+    }
+  }
+}
+@media (max-width: 621px){
+  #songtable {
+    table tr th span.glyphicon{
+      margin-left: 0
+    }
+    #songs_search #search_song_box{
+      margin: 5px 0 0 0;
+      float: none !important; 
     }
   }
 }
@@ -596,6 +617,9 @@ body {
 }
 
 @media (max-width: 992px){
+  .nav li a {
+    padding: 15px 9px; 
+  }
   #checkcolumn {
     label{
       margin: 15px 1% 0;
@@ -634,6 +658,12 @@ body {
   }
 }
 
+@media (max-width: 312px){
+  #title{
+    font-size: x-small; 
+  }
+}
+
 @media (max-width: 520px) and (min-width: 344px){
   #interval_list{
     right: 0;
@@ -653,4 +683,161 @@ body {
       font-size: 13px;
       height: 33px; 
     }
+}
+
+// getting started
+#started_body{
+  font-size: 18px; 
+  #circle_of_fifths{
+    width: 280px; 
+    margin: 15px 0; 
+    border-radius:50%; 
+  }
+  #cdiagram{
+    width: 250px;
+    height: 250px;
+    border-radius: 10%;
+    margin: 15px 0; 
+  }
+  #chord_compare{
+    // margin-left:100px;
+    // width: 310px;
+  }
+  h3{
+    margin: 0 15px 10px 0;
+    text-align: center;
+  }
+  hr{
+    border-top: 1px solid green;
+  }
+  .glyphicon-arrow-right{
+    font-size: smaller; 
+  }
+  .center {
+    margin-right: auto;
+    margin-left: auto;
+  }
+  table{
+    margin-bottom: 10px; 
+    td:nth-child(n+2), th:nth-child(n+2){
+      padding-left: 10px; 
+    }
+    &#interval_table td:nth-child(n+2) {
+      padding: 1px 10px; 
+    }
+    &#harmonized_example tr{
+      td:nth-child(n+2){
+        padding-left: 0; 
+      }
+    }
+    &#harmonized_table tr{
+      th{
+        padding-left: 8px
+      }
+      td:nth-child(n+2){
+        padding-left: 10px; 
+      }
+    }
+  }
+  .scale{
+    letter-spacing: 3px; 
+    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
+//contact
+#contact{
+  margin: 5% auto;
+  width: 80%;
+  img{
+    border-radius: 30%;
+    
+    border: 20px black dotted;
+    box-shadow: 0px 0px 30px gray;
+  }
+  h1{
+    margin-bottom: 2%; 
+  }
+  ul{
+    padding-left: 20px; 
+    li{
+      margin-bottom: 5px; 
+      font-size: x-large; 
+    }
+  }
+}
+@media (max-width: 1200px){
+  #contact{
+    margin: 5% auto;
+    width: 100%;
+  }
+}
+@media (max-width: 991px){
+  #contact{
+    margin: 5% auto;
+    width: 100%;
+    ul li{
+      font-size: large; 
+    }
+    h1{
+      font-size: 30px;
+    }
+  }
+}
+@media (max-width: 730px){
+  #contact{
+    h1{
+      font-size: 22px; 
+    }
+    ul li{
+      font-size: medium; 
+    }
+    img{
+      width: 290px;
+    }
+  }
+}
+
+//about 
+#about{
+  margin: 5% 0; 
+  form{
+    margin: 0 35%; 
+  }
+  .col-sm-4{
+    margin-top: 70px; 
+  }
+  img{
+    width: 100%;
+    &:nth-child(-n+2){
+      margin-bottom: 50%; 
+    } 
+  }
+}
+@media (max-width: 1200px){
+  #about img:nth-child(-n+2){
+    margin-bottom: 150%;  
+  }
+}
+@media (max-width: 991px){
+  #about img:nth-child(-n+2){
+    margin-bottom: 425%;  
+  }
+}
+@media (max-width: 768px){
+  #about img:nth-child(n){
+    width: 32%;
+    margin-bottom: 0; 
+  }
+}
+@media (max-width: 600px){
+  #about {
+    .col-sm-4{
+      margin-top: 0; 
+    }
+    img:nth-child(n){
+      width: 80%;
+      margin: 0 10% 10%;
+    }  
+  }
 }

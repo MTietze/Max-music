@@ -56,18 +56,19 @@
       <% end %>
     </div>
   </div>
+  <h2>Upload music file:</h2>  
+  <%= form_tag upload_path, method: "post", multipart: true do %>  
+      <%= file_field_tag "musicfile" %>  
+      <%= submit_tag "Upload" %>  
+  <% end %>   
+
+  <%= button_to "update", method: "post", action: "update" %>  
 </div>
 
 
 
 <% if false %>
-<h2>Upload music file:</h2>  
-<%= form_tag upload_path, method: "post", multipart: true do %>  
-    <%= file_field_tag "musicfile" %>  
-    <%= submit_tag "Upload" %>  
-<% end %>   
+  download_url_for(song.filename)  
 
-<%= button_to "update", method: "post", action: "update" %>  
-download_url_for(song.filename)  
  <td><%= link_to "Delete",  "destroy/?song=" + song.filename, :data => {confirm: 'Are you sure you want to delete ' + song.title + '?'}, :class=> "delete" %></td>  
 <%end%>

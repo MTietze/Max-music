@@ -1,5 +1,5 @@
 $(document).on 'ready page:change', ->
-  if $('#typeQuiz').length 
+  if $('#typeQuiz').length || $('#started_body').length
     # MIDI.loader = new widgets.Loader
     MIDI.loadPlugin
       soundfontUrl: "/assets/MIDI.js-master/soundfont/"
@@ -282,7 +282,7 @@ $(document).on 'ready page:change', ->
       else if $(this).text() is 'Intervals'
         $('#checkcolumn').append('<label><input type="checkbox" id= "major" checked><p> Major intervals</p></label>')
         $('#checkcolumn').append('<label><input type="checkbox" id= "minor"><p> Minor intervals</p></label>')
-        $('#checkcolumn').append('<label><input type="checkbox" id= "other" checked> <p>Perfect intervals</p></label>')
+        $('#checkcolumn').append('<label><input type="checkbox" id= "other"> <p>Perfect intervals</p></label>')
   
     $(document).on "click", '#quiz.ear-quiz', ->
       $("#question").children().remove()
@@ -317,5 +317,35 @@ $(document).on 'ready page:change', ->
       else
         $(this).addClass('wrong')
   
-    $(document).on "click", "button", (e)  ->
+    $(document).on "click", '#major_scale',  ->
+      playNotes [60,62,64,65,67,69,71,72]
+    
+    $(document).on "click", '#minor_scale',  ->
+      playNotes [57,59,60,62,64,65,67,69]
+    
+    $(document).on "click", '#harmonic_scale',  ->
+      playNotes [57,59,60,62,64,65,68,69]
+
+    $(document).on "click", '#melodic_scale',  ->
+      playNotes [57,59,60,62,64,66,68,69]
+
+    $(document).on "click", '#chromatic_scale',  ->
+      playNotes [57..69]
+
+    $(document).on "click", 'a[id$=_interval]',  ->
+      note = 60 + parseInt $(this).attr('id')
+      playNotes [60, note]
+
+    $(document).on "click", 'a[id$=_mode]',  ->
+      cmajor = [60,62,64,65,67,69,71,72,74,76,77,79,81,83]
+      note = parseInt $(this).attr('id')
+      playNotes cmajor[note..note+7]
+
+    $(document).on "click", 'a[id$=_chord]',  ->
+      cmajor = [60,62,64,65,67,69,71,72,74,76,77,79,81,83]
+      note = parseInt $(this).attr('id')
+      chord= [[cmajor[note], cmajor[note+2], cmajor[note+4]]]
+      playChords chord
+
+    $(document).on "click", "button, a.notes", (e)  ->
       e.preventDefault()
