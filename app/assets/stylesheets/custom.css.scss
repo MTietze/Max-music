@@ -8,14 +8,6 @@ $btn-info-bg: rgba(240, 248, 255, 0.23);
 $bodybg: rgb(127, 180, 114);
 $navbar-default-bg: rgba(245, 245, 220, 0.16); 
 @import "bootstrap";
-
-@mixin flex-center{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  } 
  
 html, body{
   height: 100%; 
@@ -25,8 +17,10 @@ body {
   background-color: $bodybg; 
 }
 
-p{
-  font-size: 18px; 
+@media (max-width: 991px){
+  .container { 
+    width: inherit; 
+  }
 }
 
 .btn {
@@ -55,12 +49,17 @@ p{
 
 //navigation bar
 
-.navbar-collapse {
-  font-size: large;
+.nav {
+  li a{
+    font-size: 20px; 
   }
-.dropdown-menu li a{
-  font-weight: bold; 
+
+ 
+  .dropdown-menu li a{
+    font-weight: bold; 
+  }
 }
+
 #title {
   font-family: $mainFont;
   color: $mainGreen;
@@ -70,7 +69,9 @@ p{
 
 //home page 
 #cassette{
-  @include flex-center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 600px;
   width: 900px;
   background-color: black;
@@ -81,7 +82,7 @@ p{
   position: relative; 
   #home_title_container{
     position: absolute;
-    left: 25%;
+    left: 20%;
     top: 2%;
   }
   #spinner_container{
@@ -99,7 +100,6 @@ p{
 }
 
 .spinner { 
-  @include flex-center;
   margin: 10% auto;
   background-color: $containerbg; 
   border-radius: 75%;
@@ -109,12 +109,9 @@ p{
   display: inline-block; 
 }
 .home_button{
-   width:300px;
-   height:300px;
    border-radius:50%;
    display:block;
    margin:20px;
-   float:left;
    background: black;
    position:relative;
    box-shadow:0px 0px 5px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 5px 4px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 7px rgba(0, 0, 0, 0), 0px 0px 1px 8px rgba(22, 21, 21, 0.91), 0px 0px 0px 9px rgba(49, 48, 48, 0.72);
@@ -125,7 +122,7 @@ p{
     width:300px;
     height:300px;
     padding:20px;
-    text-align:center;
+    // text-align:center;
     vertical-align:middle;
     font-size:26px;
     color:#fff;
@@ -210,8 +207,6 @@ p{
     box-shadow: 5px 5px 8px 10px #5943CC;
   }
   .home_button{
-     width:150px;
-     height:150px;
      margin:10px;
      box-shadow:0px 0px 2px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 3px 2px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 3px rgba(0, 0, 0, 0), 0px 0px 1px 4px rgba(22, 21, 21, 0.91), 0px 0px 0px 5px rgba(49, 48, 48, 0.72);
   }
@@ -248,7 +243,7 @@ p{
     box-shadow: 7px 0px 2px 2px;
     margin: 35% auto 0;
     #home_title_container{
-      left: 12%;
+      left: 6%;
       top: 0; 
     }
   }
@@ -263,8 +258,6 @@ p{
     box-shadow: 2px 2px 4px 5px #5943CC;
   }
   .home_button{
-     width:75px;
-     height:75px;
      margin:5px;
      box-shadow:0px 0px 1px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 2px 1px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 2px rgba(0, 0, 0, 0), 0px 0px 1px 2px rgba(22, 21, 21, 0.91), 0px 0px 0px 3px rgba(49, 48, 48, 0.72);
   }
@@ -511,11 +504,6 @@ p{
   font-size: large;
 }
 
-#options {
-  label {
-    font-size: medium;
-  }
-}
 
 //theory training
 .currentQuiz, .currentTraining{
@@ -554,11 +542,18 @@ p{
   }
 }
 
+#performance{
+  font-size: 11px;
+  margin-top: 10px; 
+  a { 
+    color: white; 
+  }
+}
 #quizrow{
   background-color: beige;
   width: auto;
   box-shadow: 3px 3px 10px black;
-  margin-top: 5%;
+  margin-top: 2%;
   padding: 3% 0;
 }
 
@@ -573,9 +568,10 @@ p{
 
 #options-title{
   display:  inline;
-  top: 5px;
+  vertical-align: middle;
   position: relative;
-  margin-right: 50px; 
+  margin-right: 50px;
+  line-height: inherit; 
 }
 
 .btn-group button{
@@ -590,11 +586,10 @@ p{
   }
 }
 #checkcolumn {
-  margin-bottom: 1%;
   label {
     cursor: pointer; 
-    font-size: medium; 
     margin: 15px 4% 0;
+    font-size: 18px; 
     input{
       display: none; 
       &+p{
@@ -612,17 +607,19 @@ p{
 
 @media (max-width: 1200px){
   #checkcolumn label {
-    margin: 15px 3% 0;
+    margin: 15px 4% 0;
+    font-size: 15px; 
   }
 }
 
-@media (max-width: 992px){
+@media (max-width: 991px){
   .nav li a {
     padding: 15px 9px; 
+    font-size: 18px; 
   }
   #checkcolumn {
     label{
-      margin: 15px 1% 0;
+      margin: 15px 13px 0;
       input[type="checkbox"]:checked + p{
         padding: 0 5px;
         margin: 0 -5px 10px;
@@ -637,6 +634,9 @@ p{
 }
 
 @media (max-width: 768px){
+  #checkcolumn{
+    margin-bottom: 1%;
+  }
   #optionsbox{
     text-align: center; 
   }
@@ -699,10 +699,6 @@ p{
     border-radius: 10%;
     margin: 15px 0; 
   }
-  #chord_compare{
-    // margin-left:100px;
-    // width: 310px;
-  }
   h3{
     margin: 0 15px 10px 0;
     text-align: center;
@@ -749,6 +745,9 @@ p{
 #contact{
   margin: 5% auto;
   width: 80%;
+  p{
+    font-size: 18px; 
+  }
   img{
     border-radius: 30%;
     
@@ -783,6 +782,9 @@ p{
       font-size: 30px;
     }
   }
+  #contact_text{
+    margin: 0 10%; 
+  }
 }
 @media (max-width: 730px){
   #contact{
@@ -801,10 +803,13 @@ p{
 //about 
 #about{
   margin: 5% 0; 
+  p{
+    font-size: 18px; 
+  }
   form{
     margin: 0 35%; 
   }
-  .col-sm-4{
+  .col-md-4{
     margin-top: 70px; 
   }
   img{
@@ -821,18 +826,14 @@ p{
 }
 @media (max-width: 991px){
   #about img:nth-child(-n+2){
-    margin-bottom: 425%;  
-  }
-}
-@media (max-width: 768px){
-  #about img:nth-child(n){
     width: 32%;
-    margin-bottom: 0; 
+    margin-bottom: 0;  
   }
 }
+
 @media (max-width: 600px){
   #about {
-    .col-sm-4{
+    .col-md-4{
       margin-top: 0; 
     }
     img:nth-child(n){

@@ -50,7 +50,8 @@ $(document).on 'ready page:change', ->
   
     ScaleQuestion = ->
       createScale()
-      $('#question').html("What is the #{current_degree} degree in the key of #{current_scale_root} #{scale_type}?")
+      article = if current_scale_root[0] == 'A' || current_scale_root[0] == 'E' || current_scale_root[0] == 'F' then "an" else "a" 
+      $('#question').html("What is the #{current_degree} note in #{article} #{current_scale_root} #{scale_type} scale?")
   
     ChordQuestion = ->
       createScale()
@@ -132,10 +133,12 @@ $(document).on 'ready page:change', ->
         $('#hearAgain').remove()
         $('#checkrow').addClass('hidden')
         $('#trainingrow').css('margin-top', '4%')
+        $('#performance').css('display', 'none')
       else  
         other_training = 'theory'
         $('#quizform').addClass('hidden')
         $('#checkrow').removeClass('hidden')
         $('#trainingrow').css('margin-top', '0')
+        $('#performance').css('display', 'inherit')
       $('.quiz').removeClass("#{other_training}-quiz")
       $('.quiz').addClass("#{training_type}-quiz")  
