@@ -14,7 +14,7 @@ html, body{
 }
 
 body {
-  background-color: $bodybg; 
+  background-color: aliceblue; 
 }
 
 @media (max-width: 991px){
@@ -40,7 +40,7 @@ body {
   background-color: $containerbg; 
   min-height: 100%;
   padding-top: 50px;
-  box-shadow: 9px 10px 100px 10px $mainGreen;
+  box-shadow: 9px 10px 100px 40px #949292;
 }
 
 .textbody { 
@@ -53,12 +53,45 @@ body {
   li a{
     font-size: 20px; 
   }
+}
 
- 
-  .dropdown-menu li a{
-    font-weight: bold; 
+@media (min-width: 768px){
+  .navbar-inverse .navbar-nav {
+    li.dropdown.open a{
+    background-color: inherit; 
+    }
+    .dropdown-menu li a{
+      padding: 3px 20px 3px 15px 
+    }
+  }  
+}
+@media (max-width: 767px){
+  .navbar-nav .open .dropdown-menu > li > a{
+    padding: 10px 15px 5px 9px;
   }
 }
+  .navbar-nav .dropdown-menu {
+    background-color: #222222; 
+    border-bottom-right-radius: 10%;
+    border-bottom-left-radius: 10%;
+    width: 150px;
+    min-width: 0;
+    padding-left: 0; 
+    li a{
+        font-size: 17px; 
+        font-weight: bold; 
+        color: #999999;
+        &:hover{
+          color: white; 
+          background-color: inherit; 
+        }
+      }
+  }
+
+//   li a{
+//     font-weight: bold; 
+//   }
+// }
 
 #title {
   font-family: $mainFont;
@@ -82,8 +115,9 @@ body {
   position: relative; 
   #home_title_container{
     position: absolute;
-    left: 20%;
+    left: -1%;
     top: 2%;
+    width: 100%
   }
   #spinner_container{
     position: relative;
@@ -97,6 +131,7 @@ body {
   font-size: 40px;
   margin-top: 20px;
   margin-bottom: -20px;
+  width: 100%; 
 }
 
 .spinner { 
@@ -243,7 +278,7 @@ body {
     box-shadow: 7px 0px 2px 2px;
     margin: 35% auto 0;
     #home_title_container{
-      left: 6%;
+      left: 1%;
       top: 0; 
     }
   }
@@ -322,9 +357,6 @@ body {
           border-radius: 100%; 
           height: 25px;
           width: 25px;
-          &:active{
-            box-shadow: 10px 10px 5px black; 
-          }
           .glyphicon{
             top: -2px; 
             margin: -8px -6px -3px;
@@ -374,16 +406,17 @@ body {
        box-shadow: none; 
        border:none;
        height:33px;
+       margin: 0 auto 0 0 ;
     }
     #search{
       width: 150px; 
       height:33px;
       border-radius: 10%;
-
+      margin: 0 0 0 auto;
     }
     #search_song_box{
-      margin: 0 0 0 5px; 
       display: inline-flex;
+      width: 100%; 
     }
   }
 }
@@ -391,10 +424,6 @@ body {
   #songtable {
     table tr th span.glyphicon{
       margin-left: 0
-    }
-    #songs_search #search_song_box{
-      margin: 5px 0 0 0;
-      float: none !important; 
     }
   }
 }
@@ -457,9 +486,8 @@ body {
 
 // ear training page
 #question{
-  margin-top: 20px;
+  margin: 20px 0 10px;
   font-size: x-large;
-  margin-bottom: 3%;
   #otherChordButtons {
     margin-top: 20px; 
   }
@@ -514,12 +542,15 @@ body {
 }
 
 
-#play button{
-  &:focus{
-    background-color: white;
-  }
-  &:hover{
-    background-color: #ebebeb;
+#play {
+  margin-bottom: 10px;
+  button{
+    &:focus{
+      background-color: white;
+    }
+    &:hover{
+      background-color: #ebebeb;
+    }
   }
 }
 
@@ -529,7 +560,7 @@ body {
 
 #interval_list{
   li div{
-    width: 250px;
+    width: 270px;
     padding: 0 6px; 
     text-align: left; 
     ul li a{
@@ -552,7 +583,6 @@ body {
 #quizrow{
   background-color: beige;
   width: auto;
-  box-shadow: 3px 3px 10px black;
   margin-top: 2%;
   padding: 3% 0;
 }
@@ -570,8 +600,11 @@ body {
   display:  inline;
   vertical-align: middle;
   position: relative;
-  margin-right: 50px;
+  margin-right: 35px;
+  margin-left: 15px; 
   line-height: inherit; 
+  color: rgba(255, 255, 255, 0.48);
+  font-family: "Audiowide", cursive;
 }
 
 .btn-group button{
@@ -579,11 +612,8 @@ body {
 }
 
 #optionsbox{
-  background-color: rgba(245, 245, 220, 0.16);
+  // background-color: rgba(245, 245, 220, 0.16);
   width: 100%; 
-  button{
-    margin-right: -2px; 
-  }
 }
 #checkcolumn {
   label {
@@ -633,7 +663,7 @@ body {
 
 }
 
-@media (max-width: 768px){
+@media (max-width: 767px){
   #checkcolumn{
     margin-bottom: 1%;
   }
@@ -645,26 +675,20 @@ body {
   }
 }
 
-@media (max-width: 420px){
+@media (max-width: 350px){
   #title{
     font-size: large; 
   }
 }
 
 // works to 312px
-@media (max-width: 343px){
+@media (max-width: 280px){
   #title{
     font-size: medium; 
   }
 }
 
-@media (max-width: 312px){
-  #title{
-    font-size: x-small; 
-  }
-}
-
-@media (max-width: 520px) and (min-width: 344px){
+@media (max-width: 531px) and (min-width: 359px){
   #interval_list{
     right: 0;
     left: initial;  
@@ -788,12 +812,6 @@ body {
 }
 @media (max-width: 730px){
   #contact{
-    h1{
-      font-size: 22px; 
-    }
-    ul li{
-      font-size: medium; 
-    }
     img{
       width: 290px;
     }
@@ -825,7 +843,7 @@ body {
   }
 }
 @media (max-width: 991px){
-  #about img:nth-child(-n+2){
+  #about img:nth-child(n){
     width: 32%;
     margin-bottom: 0;  
   }

@@ -12,10 +12,9 @@
           <td class='title'><a class ='listen' href= "<%=download_url_for(song.filename)%>"> <%= song.title %></a></td> 
           <td class = "artist"><%= song.artist || "Solo" %></td>
           <td class = "year"><%= song.year %> </td>
-          <td><a class = "btn btn-success download" href= "#"><span class="glyphicon glyphicon-arrow-down"></span></a></td> 
+          <td><a class = "btn btn-success download" href= "<%=download_url_for(song.filename)%>"><span class="glyphicon glyphicon-arrow-down"></span></a></td> 
         </tr>  
       <% end %>  
     </table>  
-    <%= will_paginate @songs, renderer: BootstrapPagination::Rails %> 
 
     

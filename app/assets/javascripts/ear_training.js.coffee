@@ -18,6 +18,8 @@ $(document).on 'ready page:change', ->
     cols = undefined
     chord2 =undefined
     notes= []
+    $question = $('#question')
+    $randomKeys = $('#randomKeys')
     
     createScales = ->
       checkRandom()
@@ -34,7 +36,7 @@ $(document).on 'ready page:change', ->
       current_scale = scales[Math.floor(scales.length * Math.random())]
       scale_name = current_scale.quality
       notes = (note += root for note in current_scale.formula)
-      $("#question").append "<div id= 'majorButtons'> </div>"
+      $question.append "<div id= 'majorButtons'> </div>"
       cols = 1
       checkCols()
       createScaleButton scale for scale in scales
@@ -60,7 +62,7 @@ $(document).on 'ready page:change', ->
           a.degree - b.degree
         cols = 2
         all = true 
-        $("#question").append "<div id= 'majorButtons'> </div> <div id= 'minorButtons'> </div>"
+        $question.append "<div id= 'majorButtons'> </div> <div id= 'minorButtons'> </div>"
       else
         
         if $("#major").prop("checked")
@@ -68,13 +70,13 @@ $(document).on 'ready page:change', ->
           allchords = createMajorChords([0,5,7], scale).concat(createMinorChords([2,4,9], scale).concat(createDiminishedChords([11],scale)))
           allchords.sort (a,b) -> 
             a.degree - b.degree
-          $("#question").append "<div id= 'majorButtons'> </div>"
+          $question.append "<div id= 'majorButtons'> </div>"
         if $("#minor").prop("checked")
           allchords = allchords.concat createMajorChords([3,8,10], scale).concat(createMinorChords([0,5,7,], scale).concat(createDiminishedChords([2],scale)))
           allchords.sort (a,b) -> 
             a.degree - b.degree
           cols += 1
-          $("#question").append "<div id= 'minorButtons'> </div>"
+          $question.append "<div id= 'minorButtons'> </div>"
         if $("#major").prop("checked") and $("#minor").prop("checked")
           all = true
           $('#question').append('<div id="otherChordButtons" class="col-sm-12"></div>') 
@@ -153,17 +155,17 @@ $(document).on 'ready page:change', ->
         scale = scale.concat([2, 4, 9, 11])
         intervals = intervals.concat(["Major second", "Major third", "Major sixth", "Major seventh"])
         cols += 1
-        $("#question").append "<div id= 'majorButtons'> </div>"
+        $question.append "<div id= 'majorButtons'> </div>"
       if $("#minor").prop("checked")
         scale = scale.concat([1, 3, 6, 8, 10])
         intervals = intervals.concat(["Minor second", "Minor third", "Diminished fifth", "Minor sixth", "Minor seventh"])
         cols += 1
-        $("#question").append "<div id= 'minorButtons'> </div>"
+        $question.append "<div id= 'minorButtons'> </div>"
       if $("#other").prop("checked")
         scale = scale.concat([0, 5, 7, 12])
         intervals = intervals.concat(["Perfect unison", "Perfect fourth", "Perfect fifth", "Perfect octave"])
         cols += 1
-        $("#question").append "<div id= 'otherButtons'> </div>"
+        $question.append "<div id= 'otherButtons'> </div>"
       
       checkCols()
   
@@ -218,7 +220,7 @@ $(document).on 'ready page:change', ->
     
     checkRandom = () ->
       # if checked put in a random key between E 52 and Eb 63
-      if $("#randomKeys").prop("checked")
+      if $randomKeys.prop("checked")
         root = 52 + Math.floor(Math.random() * 11)
       else
         root = 60
@@ -226,8 +228,8 @@ $(document).on 'ready page:change', ->
     checkCols = () ->
       #set column size based on how many there are
       if cols is 2
-        $("#question").children(":nth-child(2)").addClass "col-sm-4"
-        $("#question").children(":first").addClass "col-sm-4 col-sm-offset-2"
+        $question.children(":nth-child(2)").addClass "col-sm-4"
+        $question.children(":first").addClass "col-sm-4 col-sm-offset-2"
       else
         $('#question').children().attr('class', "col-sm-" + (12/cols))
     
@@ -274,7 +276,7 @@ $(document).on 'ready page:change', ->
     $(document).on "click", '#typeQuiz button', ->
       $('#hearAgain').remove()
       $('#quizbody').addClass('hidden')
-      $('#randomKeys').parent().siblings('label').remove()
+      $randomKeys.parent().siblings('label').remove()
       if $(this).text() is 'Chords'
         $('#checkcolumn').append('<label><input type="checkbox" id= "major" checked> <p>Major scale</p></label>')
         $('#checkcolumn').append('<label><input type="checkbox" id= "minor"><p> Minor scale</p></label>')
@@ -285,7 +287,7 @@ $(document).on 'ready page:change', ->
         $('#checkcolumn').append('<label><input type="checkbox" id= "other"> <p>Perfect intervals</p></label>')
   
     $(document).on "click", '#quiz.ear-quiz', ->
-      $("#question").children().remove()
+      $question.children().remove()
       quiz_type = $('.currentQuiz').text()
       eval("create" + quiz_type + "()")
       hearNotes()
@@ -297,7 +299,7 @@ $(document).on 'ready page:change', ->
       interval = Training.checkInterval current_interval
       #if correct clear interval buttons then display the correct one and check mark image
       if $(this).attr("id") is "interval_#{interval.replace(' ','_')}"
-        $("#question").html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
+        $question.html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
       
       #if incorrect button becomes red and crossed out
       else
@@ -305,14 +307,14 @@ $(document).on 'ready page:change', ->
   
     $(document).on "click", "[id^=chord_]",  ->
       if $(this).attr("id") is "chord_#{chord2.degree}_#{chord2.quality}"
-        $("#question").html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
+        $question.html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
   
       else
         $(this).addClass('wrong')
     
     $(document).on "click", "[id^=scale_]",  ->
       if $(this).attr("id") is "scale_#{scale_name.replace(' ','_')}"
-        $("#question").html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
+        $question.html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
       
       else
         $(this).addClass('wrong')

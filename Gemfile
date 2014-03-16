@@ -6,31 +6,24 @@ gem 'rails', '4.0.1'
 gem 'bootstrap-sass', '~> 3.0.3.0'
 
 gem 'bourbon'
-  # Use SCSS for stylesheets
-  gem 'sass-rails', '~> 4.0.1'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 4.0.1'
 
-  # Use Uglifier as compressor for JavaScript assets
-  gem 'uglifier', '>= 1.3.0'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
 
-  # Use CoffeeScript for .js.coffee assets and views
-  gem 'coffee-rails', '~> 4.0.0'
+# Use CoffeeScript for .js.coffee assets and views
+gem 'coffee-rails', '~> 4.0.0'
 
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-# gem 'jquery-turbolinks'
-
-gem 'newrelic_rpm'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-# gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
 gem 'aws-sdk', '~> 1.0' 
-
-gem 'will_paginate-bootstrap', '~> 1.0'
 
 gem 'pg', '0.15.1'
 
