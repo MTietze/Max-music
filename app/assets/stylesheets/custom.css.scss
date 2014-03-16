@@ -556,9 +556,11 @@ body {
 
 #intervaldrop{
   width: auto; 
+  border-radius: 10%; 
 }
 
 #interval_list{
+  border: 1px solid black;
   li div{
     width: 270px;
     padding: 0 6px; 
@@ -688,7 +690,7 @@ body {
   }
 }
 
-@media (max-width: 531px) and (min-width: 359px){
+@media (max-width: 531px) and (min-width: 344px){
   #interval_list{
     right: 0;
     left: initial;  
@@ -814,6 +816,13 @@ body {
   #contact{
     img{
       width: 290px;
+    }
+  }
+}
+@media (max-width: 450px){
+  #contact{
+    h1{
+      font-size: 20px; 
     }
   }
 }
