@@ -53,7 +53,8 @@
 
       <p>H = half step W = whole step</p>
       
-      <p>When played on one string on the guitar it looks like this: <major scale pic>
+      <p>When played on one string on the guitar it looks like this: 
+      <div class="text-center"><%= image_tag "Astring.jpg", id:"Astring", title: "A Major Scale"%></div>
       If we start on the open A string and play this pattern, it will produce the following notes: <span class="scale">A B C&#9839 D E F&#9839 G&#9839 A</span>. This is the A major scale.</p> <p>By starting on C, you would get <span class="scale">C D E F G A B C</span>. The C major scale is special in that it is the only major scale without any sharps or flats. On the piano, the C major scale is made up of all the white keys.
       Generally, guitarists will play scales over several or all of the strings to avoid travelling up and down the neck, but a scale played on one string is just as good.</p> 
       
@@ -195,7 +196,7 @@
      <p>The scale portion may look like greek to some of you. If so you're right!
      The greek scale names are of the <em>modes</em> of the major scale. Modes can be a tricky concept to grasp, but essentially we are taking the notes of the major scale and creating new scales starting on each one. This is where the idea of relative major and minor scales originates. </p>
      
-     <table id = "scale_table" class="center">
+     <table class="center scale_table">
        <tr><td><a href='#'id="0_mode" class='notes'>C Ionian (Major Scale) </a></td>    <td><span class="scale">C D E F G A B C</span></td>    <td>W W H W W W H</td></tr>
        <tr><td><a href='#'id="1_mode" class='notes'>D Dorian               </a></td>    <td><span class="scale">D E F G A B C D</span></td>    <td>W H W W W H W</td></tr>
        <tr><td><a href='#'id="2_mode" class='notes'>E Phrygian             </a></td>    <td><span class="scale">E F G A B C D E</span></td>    <td>H W W W H W W</td></tr>
@@ -208,7 +209,7 @@
      <p>You can identify these scales by listening to the pattern of half steps and whole steps, which are equivalent to minor second and major second intervals.</p>
 
      <p>The two additional scales are other types of minor scales.</p>
-     <table class="center">
+     <table class="center scale_table">
        <tr><td><a href='#'id="harmonic_scale" class='notes'>Harmonic Minor </a></td><td> <span class="scale">A B C D E F  G&#9839 A      </span> </td><td>    W H W W W W+1/2 H  </td></tr>
        <tr><td><a href='#'id="melodic_scale" class='notes'> Melodic Minor  </a></td><td> <span class="scale">A B C D E F&#9839 G&#9839 A </span> </td><td>W H W W W W H          </td></tr>
      </table>

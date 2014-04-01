@@ -1,0 +1,23 @@
+<div style="margin-top: 100px;">
+  <h2>Upload music file:</h2>  
+    <%= form_tag upload_path, method: "post" do %>  
+        <%= file_field_tag "musicfile" %>  
+        <%= submit_tag "Upload" %>  
+    <% end %>   
+  
+    <%= button_to "update", method: "post", action: "update" %>  
+  
+  <h2>Delete music file:</h2>  
+    <%= form_tag destroy_path, method: "post" do %>  
+        <%= text_field_tag "destroysong"%>  
+        <%= submit_tag "Delete" %>  
+    <% end %>   
+  
+  <ul class="dropdown-menu"style="display: block; top:inherit;" >
+      <% @songs.each do |song| %>
+        <li> 
+        	<%= link_to song.title, "#", :class => "deletesong" %> 
+        </li>
+      <% end %>
+  </ul>
+</div>

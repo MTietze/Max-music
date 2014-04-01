@@ -10,10 +10,12 @@ MaxMusic::Application.routes.draw do
    root 'static_pages#home'
    match '/upload', to: 'songs#upload', via: 'post'
    match '/update', to: 'songs#update', via: 'post'
+   match '/destroy', to: 'songs#destroy', via: 'post'
    match '/contact', to: 'static_pages#contact', via: 'get'
    match '/music_training', to: 'static_pages#training', via: 'get'
    match '/getting_started', to: 'static_pages#getting_started', via: 'get'
    match '/about', to: 'static_pages#about', via: 'get'
+   match '/edit', to: 'songs#edit', via: 'get'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,6 +1,7 @@
 class SongsController < ApplicationController
   include SongsHelper
   helper_method :sort_column, :sort_direction
+  before_filter :authentication_check, :only => [:create, :update, :upload, :edit, :destroy]
   
 
   def index
@@ -31,8 +32,26 @@ class SongsController < ApplicationController
     obj = s3.buckets[BUCKET].objects[filename]
     obj.write(params[:musicfile].read, acl: :public_read, content_disposition: "attachment")
     Song.create(title: @title, filename: filename)
-    redirect_to songs_path  
+    redirect_to edit_path  
   end
+
+  def edit
+    @songs = Song.search(params[:search]).order(title: :asc)
+  end
+
+  def destroy
+   if (params[:destroysong]) 
+     s3 = AWS::S3.new 
+     if song = Song.find_by(title: params[:destroysong]) 
+       filename = song.filename
+       song.delete 
+       if obj  = s3.buckets[BUCKET].objects[filename] then obj.delete end 
+     end
+     render text: "#{filename} deleted"
+   end 
+  end
+
+
 
   private  
   
@@ -42,6 +61,12 @@ class SongsController < ApplicationController
   
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
+  def authentication_check
+    authenticate_or_request_with_http_basic do |user, password|
+      user == ENV['USER'] && password == ENV['PASSWORD']
+    end
   end
 end
 

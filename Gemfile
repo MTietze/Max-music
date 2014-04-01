@@ -30,7 +30,6 @@ gem 'pg', '0.15.1'
 gem 'soundmanager-rails'
 
 group :development, :test do
-  # gem 'sqlite3'
   gem 'rspec-rails', '2.13.1'
   gem 'guard-rspec', '2.5.0'
   gem 'spork-rails', github: 'sporkrb/spork-rails'

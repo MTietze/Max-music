@@ -1,6 +1,6 @@
 module ApplicationHelper
 	def full_title(page_title)
-	  base_title = "Music World"
+	  base_title = "Max Tietze Music"
 	  if page_title.empty?
 	    base_title
     else 
