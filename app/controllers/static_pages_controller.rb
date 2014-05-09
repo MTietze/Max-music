@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
 
 	def home
-	  @disable_nav = true
+    @home_page = true 
 	end
 end

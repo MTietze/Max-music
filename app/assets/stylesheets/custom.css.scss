@@ -1,11 +1,11 @@
 @import "bourbon"; 
 $borderblack: rgba(19, 18, 18, 0.94);
-$mainGreen: #006600; 
+$mainGreen: #218B4F; 
 $mainFont: 'Audiowide', cursive;
-$containerbg: rgba(125, 149, 160, 1);
-$btn-primary-bg: $containerbg;
-$btn-info-bg: rgba(240, 248, 255, 0.23);
-$bodybg: rgb(127, 180, 114);
+$containerbg: #9C9C92; 
+$spinnershade: rgba(125, 149, 160, 1);
+$btn-primary-bg: #66a9ca;
+$btn-info-bg: rgba(29, 37, 78, 0.65);
 $navbar-default-bg: rgba(245, 245, 220, 0.16); 
 @import "bootstrap";
  
@@ -13,8 +13,12 @@ html, body{
   height: 100%; 
 }
 
+.no_scroll {
+  overflow-y: hidden; 
+}
+
 body {
-  background-color: aliceblue; 
+  background-color: #E7FFFF; 
 }
 
 @media (max-width: 991px){
@@ -29,6 +33,7 @@ body {
     border: 1px solid black;
     box-shadow: 3px 3px 20px black;
     width: 150px;
+    font-weight: bold; 
     &:focus, &:hover{
       outline: none; 
       border-color: black;
@@ -88,11 +93,6 @@ body {
       }
   }
 
-//   li a{
-//     font-weight: bold; 
-//   }
-// }
-
 #title {
   font-family: $mainFont;
   color: $mainGreen;
@@ -113,33 +113,13 @@ body {
   border: 20px gray solid;
   box-shadow: 30px 0px 10px 10px;
   position: relative; 
-  #home_title_container{
-    position: absolute;
-    left: -1%;
-    top: 2%;
-    width: 100%
-  }
-  #spinner_container{
-    position: relative;
-    top: 7%;
-  }
-}
-
-#home_title{
-  font-family: $mainFont;
-  color: $mainGreen;
-  font-size: 40px;
-  margin-top: 20px;
-  margin-bottom: -20px;
-  width: 100%; 
 }
 
 .spinner { 
   margin: 10% auto;
-  background-color: $containerbg; 
+  background-color: $spinnershade; 
   border-radius: 75%;
-  border: 10px solid black;
-  box-shadow: 5px 5px 8px 20px #5943CC;
+  box-shadow: 5px 5px 8px 20px $spinnershade;
   position:relative; 
   display: inline-block; 
 }
@@ -157,7 +137,6 @@ body {
     width:300px;
     height:300px;
     padding:20px;
-    // text-align:center;
     vertical-align:middle;
     font-size:26px;
     color:#fff;
@@ -229,7 +208,7 @@ body {
     width: 450px;
     border: 10px gray solid;
     box-shadow: 15px 0px 5px 5px;
-    margin: 10% auto 0;
+    margin: 15% auto 0;
 
   }
   #home_title{
@@ -238,12 +217,14 @@ body {
     margin-bottom: -10px;
   }
   .spinner { 
-    border: 5px solid black;
-    box-shadow: 5px 5px 8px 10px #5943CC;
+    box-shadow: 2px 2px 5px 10px $spinnershade;
   }
   .home_button{
-     margin:10px;
-     box-shadow:0px 0px 2px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 3px 2px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 3px rgba(0, 0, 0, 0), 0px 0px 1px 4px rgba(22, 21, 21, 0.91), 0px 0px 0px 5px rgba(49, 48, 48, 0.72);
+    margin:10px;
+    box-shadow:0px 0px 2px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 3px 2px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 3px rgba(0, 0, 0, 0), 0px 0px 1px 4px rgba(22, 21, 21, 0.91), 0px 0px 0px 5px rgba(49, 48, 48, 0.72);
+    &:hover{
+      box-shadow:0px 0px 2px 0px rgba(246, 212, 163, 0.5) inset, 0px -1px 3px 2px rgba(170, 77, 27, 0.1) inset, 0px 0px 0px 3px rgba(255, 255, 255, 0.17), 0px 0px 1px 4px rgba(243, 240, 240, 0.24), 0px 0px 0px 5px rgba(255, 255, 255, 0.38);
+    }
   }
   .home_button span{
       width:150px;
@@ -289,12 +270,14 @@ body {
   }
 
   .spinner { 
-    border: 2px solid black;
-    box-shadow: 2px 2px 4px 5px #5943CC;
+    box-shadow: 1px 0px 4px 7px $spinnershade;
   }
   .home_button{
-     margin:5px;
-     box-shadow:0px 0px 1px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 2px 1px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 2px rgba(0, 0, 0, 0), 0px 0px 1px 2px rgba(22, 21, 21, 0.91), 0px 0px 0px 3px rgba(49, 48, 48, 0.72);
+    margin:5px;
+    box-shadow:0px 0px 1px 0px rgba(15, 15, 15, 0.25) inset, 0px -1px 2px 1px rgba(44, 39, 39, 0.46) inset, 0px 0px 0px 2px rgba(0, 0, 0, 0), 0px 0px 1px 2px rgba(22, 21, 21, 0.91), 0px 0px 0px 3px rgba(49, 48, 48, 0.72);
+    &:hover{
+      box-shadow:0px 0px 1px 0px rgba(246, 212, 163, 0.5) inset, 0px -1px 2px 1px rgba(170, 77, 27, 0.1) inset, 0px 0px 0px 2px rgba(255, 255, 255, 0.17), 0px 0px 1px 2px rgba(243, 240, 240, 0.24), 0px 0px 0px 3px rgba(255, 255, 255, 0.38);
+    }
   }
   .home_button span{
       width:75px;
@@ -320,8 +303,6 @@ body {
     }
 }
 // original music page
-
-
 
 #songtable {
   padding: 0;
@@ -499,10 +480,11 @@ body {
   .choice {
     width: 200px;
     font-size: x-large;
+    font-weight: normal; 
   }
   .wrong {
     text-decoration: line-through; 
-    background-color: #A30010;
+    background-color: #E04B3E;
     background-image: none;
   }
 }
@@ -540,7 +522,7 @@ body {
 
 //theory training
 .currentQuiz, .currentTraining{
-    background-color: $containerbg !important; 
+    background-color: $btn-primary-bg !important; 
     color: white !important;
     font-weight: bold !important;
     text-shadow: 5px 5px 15px black;
@@ -795,7 +777,6 @@ body {
 
 //contact
 #contactbody{
-  background-color: rgb(194, 194, 194); 
   .row:first-of-type{
     background: asset-url("email.jpg") repeat;
     height:200px; 

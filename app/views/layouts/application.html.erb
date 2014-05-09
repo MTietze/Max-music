@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html class=<%= @home_page ? 'no_scroll' : '' %>  >
+
 <head>
   <title><%= full_title(yield(:title)) %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,9 @@
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class=<%= @home_page ? 'no_scroll' : '' %>>
 
-<%= render 'layouts/header' unless @disable_nav %>
+<%= render 'layouts/header'%>
 
 <%= yield %>
 </body>
