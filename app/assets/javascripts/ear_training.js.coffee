@@ -16,6 +16,7 @@ $(document).on 'ready page:change', ->
     current_interval = undefined
     scale_name = undefined
     cols = undefined
+    chord1 = undefined
     chord2 =undefined
     notes= []
     $question = $('#question')
@@ -50,6 +51,8 @@ $(document).on 'ready page:change', ->
       cols = 0
       allchords= []
       all = false
+      $major = $("#major")
+      $minor = $("#minor")
   
       checkRandom()
       #put scale in correct key
@@ -65,21 +68,21 @@ $(document).on 'ready page:change', ->
         $question.append "<div id= 'majorButtons'> </div> <div id= 'minorButtons'> </div>"
       else
         
-        if $("#major").prop("checked")
+        if $major.prop("checked")
           cols += 1
           allchords = createMajorChords([0,5,7], scale).concat(createMinorChords([2,4,9], scale).concat(createDiminishedChords([11],scale)))
           allchords.sort (a,b) -> 
             a.degree - b.degree
           $question.append "<div id= 'majorButtons'> </div>"
-        if $("#minor").prop("checked")
+        if $minor.prop("checked")
           allchords = allchords.concat createMajorChords([3,8,10], scale).concat(createMinorChords([0,5,7,], scale).concat(createDiminishedChords([2],scale)))
           allchords.sort (a,b) -> 
             a.degree - b.degree
           cols += 1
           $question.append "<div id= 'minorButtons'> </div>"
-        if $("#major").prop("checked") and $("#minor").prop("checked")
+        if $major.prop("checked") and $minor.prop("checked")
           all = true
-          $('#question').append('<div id="otherChordButtons" class="col-sm-12"></div>') 
+          $question.append('<div id="otherChordButtons" class="col-sm-12"></div>') 
   
       checkCols()
       #randomly decide between major and minor scale
@@ -218,14 +221,14 @@ $(document).on 'ready page:change', ->
       if chord.quality is "diminished" then x += "&deg" #degree symbol
       return x
     
-    checkRandom = () ->
+    checkRandom = ->
       # if checked put in a random key between E 52 and Eb 63
       if $randomKeys.prop("checked")
         root = 52 + Math.floor(Math.random() * 11)
       else
         root = 60
   
-    checkCols = () ->
+    checkCols = ->
       #set column size based on how many there are
       if cols is 2
         $question.children(":nth-child(2)").addClass "col-sm-4"
@@ -269,22 +272,31 @@ $(document).on 'ready page:change', ->
         playChords(notes)
       else if $("#major").prop("checked") || $("#minor").prop("checked") || $("#other").prop("checked") || quiz_type is "Scales"
         playNotes(notes)  
-  
+
+    checkOptions = ->
+      options = ""
+      boxes = ['randomKeys', 'major', 'minor', 'other']
+      options += "#{box} " for box in boxes when $("##{box}").prop('checked')
+      return options[0..-2] #omit space at end
+   
     $(document).on "click", '#hearAgain', ->
       hearNotes()
-  
+      ga 'send', 'event', 'Ear Quiz', 'hear again', quiz_type
+
     $(document).on "click", '#typeQuiz button', ->
+      $this = $(this)
+      $checkcolumn = $('#checkcolumn')
       $('#hearAgain').remove()
       $('#quizbody').addClass('hidden')
       $randomKeys.parent().siblings('label').remove()
-      if $(this).text() is 'Chords'
-        $('#checkcolumn').append('<label><input type="checkbox" id= "major" checked> <p>Major scale</p></label>')
-        $('#checkcolumn').append('<label><input type="checkbox" id= "minor"><p> Minor scale</p></label>')
-        $('#checkcolumn').append('<label><input type="checkbox" id= "other"><p> All Chords</p></label>')
-      else if $(this).text() is 'Intervals'
-        $('#checkcolumn').append('<label><input type="checkbox" id= "major" checked><p> Major intervals</p></label>')
-        $('#checkcolumn').append('<label><input type="checkbox" id= "minor"><p> Minor intervals</p></label>')
-        $('#checkcolumn').append('<label><input type="checkbox" id= "other"> <p>Perfect intervals</p></label>')
+      if $this.text() is 'Chords'
+        $checkcolumn.append('<label><input type="checkbox" id= "major" checked> <p>Major scale</p></label>')
+        $checkcolumn.append('<label><input type="checkbox" id= "minor"><p> Minor scale</p></label>')
+        $checkcolumn.append('<label><input type="checkbox" id= "other"><p> All Chords</p></label>')
+      else if $this.text() is 'Intervals'
+        $checkcolumn.append('<label><input type="checkbox" id= "major" checked><p> Major intervals</p></label>')
+        $checkcolumn.append('<label><input type="checkbox" id= "minor"><p> Minor intervals</p></label>')
+        $checkcolumn.append('<label><input type="checkbox" id= "other"> <p>Perfect intervals</p></label>')
   
     $(document).on "click", '#quiz.ear-quiz', ->
       $question.children().remove()
@@ -293,61 +305,77 @@ $(document).on 'ready page:change', ->
       hearNotes()
       unless $('#hearAgain').length 
         $('#play').append('<button type="button" id= "hearAgain" class= "btn btn-default btn-md">Hear again</button>')
-  
+      options = checkOptions()
+      ga 'send', 'event', 'Ear Quiz', quiz_type, options
+
     $(document).on "click", "[id^=interval_].choice",  ->
-      
+      $this = $(this)
       interval = Training.checkInterval current_interval
+      choice = $this.attr("id")[9...].replace('_',' ')
       #if correct clear interval buttons then display the correct one and check mark image
-      if $(this).attr("id") is "interval_#{interval.replace(' ','_')}"
-        $question.html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
-      
+      if choice is interval
+        $question.html($this.css("pointer-events", "none").toggleClass('btn-primary btn-success'))
+        ga 'send', 'event', 'Ear Quiz', 'chord', interval, 1
       #if incorrect button becomes red and crossed out
       else
-        $(this).addClass('wrong')
-  
+        $this.addClass('wrong')
+        ga 'send', 'event', 'Ear Quiz', 'interval', "#{interval} chose #{choice}", -1
+
     $(document).on "click", "[id^=chord_]",  ->
-      if $(this).attr("id") is "chord_#{chord2.degree}_#{chord2.quality}"
+      $this = $(this)
+      if $this.attr("id") is "chord_#{chord2.degree}_#{chord2.quality}"
         $question.html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
-  
+        ga 'send', 'event', 'Ear Quiz', 'chord', "#{chord1.quality} 1 to #{chord2.quality} #{chord2.degree - 1}", 1
       else
-        $(this).addClass('wrong')
+        $this.addClass('wrong')
+        ga 'send', 'event', 'Ear Quiz', 'chord', "#{chord1.quality} 1 to #{chord2.quality} #{chord2.degree - 1} chose #{$this.text()}", -1
     
     $(document).on "click", "[id^=scale_]",  ->
-      if $(this).attr("id") is "scale_#{scale_name.replace(' ','_')}"
+      $this = $(this)
+      if $this.attr("id") is "scale_#{scale_name.replace(' ','_')}"
         $question.html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
-      
+        ga 'send', 'event', 'Ear Quiz', 'scale', scale_name, 1
       else
-        $(this).addClass('wrong')
-  
+        $this.addClass('wrong')
+        ga 'send', 'event', 'Ear Quiz', 'scale', "#{scale_name} chose #{$this.text()}", -1
+
     $(document).on "click", '#major_scale',  ->
       playNotes [60,62,64,65,67,69,71,72]
+      ga 'send', 'event', 'Getting Started', 'click', 'major scale'
     
     $(document).on "click", '#minor_scale',  ->
       playNotes [57,59,60,62,64,65,67,69]
+      ga 'send', 'event', 'Getting Started', 'click', 'minor scale'
     
     $(document).on "click", '#harmonic_scale',  ->
       playNotes [57,59,60,62,64,65,68,69]
+      ga 'send', 'event', 'Getting Started', 'click', 'harmonic scale'
 
     $(document).on "click", '#melodic_scale',  ->
       playNotes [57,59,60,62,64,66,68,69]
+      ga 'send', 'event', 'Getting Started', 'click', 'melodic scale'
 
     $(document).on "click", '#chromatic_scale',  ->
       playNotes [57..69]
+      ga 'send', 'event', 'Getting Started', 'click', 'chromatic scale'
 
     $(document).on "click", 'a[id$=_interval]',  ->
       note = 60 + parseInt $(this).attr('id')
       playNotes [60, note]
+      ga 'send', 'event', 'Getting Started', 'click', 'interval'
 
     $(document).on "click", 'a[id$=_mode]',  ->
       cmajor = [60,62,64,65,67,69,71,72,74,76,77,79,81,83]
       note = parseInt $(this).attr('id')
       playNotes cmajor[note..note+7]
+      ga 'send', 'event', 'Getting Started', 'click', 'modal scale'
 
     $(document).on "click", 'a[id$=_chord]',  ->
       cmajor = [60,62,64,65,67,69,71,72,74,76,77,79,81,83]
       note = parseInt $(this).attr('id')
       chord= [[cmajor[note], cmajor[note+2], cmajor[note+4]]]
       playChords chord
+      ga 'send', 'event', 'Getting Started', 'click', 'chord'
 
     $(document).on "click", "button, a.notes", (e)  ->
       e.preventDefault()

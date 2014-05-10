@@ -8,6 +8,7 @@ $(document).on 'ready page:change', ->
     current_position = undefined
     key_number = undefined
     scale_type = undefined
+    timeoutID = undefined
     $evaluation = $('#evaluation')
     $question = $('#question')
     $answer = $('#answer')
@@ -54,7 +55,8 @@ $(document).on 'ready page:change', ->
       current_position = Math.floor(Math.random()*6) + 1
       current_degree = current_scale[current_position][0]
       current_note = current_scale[current_position][1]
-  
+
+    #first letter of these functions are capital to facilitate using eval plus quiz_type
     ScaleQuestion = ->
       createScale()
       article = if current_scale_root[0] == 'A' || current_scale_root[0] == 'E' || current_scale_root[0] == 'F' then "an" else "a" 
@@ -76,7 +78,7 @@ $(document).on 'ready page:change', ->
       createScale()
       first_note_position = Math.floor(Math.random()*12)
       second_note_position = Math.floor(Math.random()*12)
-      interval = second_note_position - first_note_position #swap position for descending
+      interval = second_note_position - first_note_position #swap position to implement descending 
       first_note = chromatic_scale[first_note_position]
       second_note = chromatic_scale[second_note_position]
       if interval <= 0
@@ -98,26 +100,31 @@ $(document).on 'ready page:change', ->
       if answer is current_note.toLowerCase() 
         $evaluation.html('')
         $('#submitanswer').replaceWith('<button class="btn btn-sm btn-success" id="correctanswer">Correct</button>')
+        ga 'send', 'event', 'Theory Quiz', "answer", answer, 1
+        timeoutID = setTimeout -> 
+          if $('#correctanswer') then $('#quiz.theory-quiz').trigger('click') 
+        , 2000
         return true
       else 
         $evaluation.html('<p id="sorry"> Sorry, try again </p>')
+        ga 'send', 'event', 'Theory Quiz', 'answer', "#{current_note} chose #{answer}", -1
         return false
     
   
     $(document).on 'click', '.interval_choice', ->
       $answer.val($(this).text()) 
-      
       if evaluateAnswer()
         $('#intervaldrop').trigger('click')
     
     $(document).on 'click', '#quiz.theory-quiz', ->
+      clearTimeout timeoutID
       $answer.val('')
       $('#correctanswer').replaceWith('<button class="btn btn-sm btn-primary" id="submitanswer">Submit</button>')
       $quizform.removeClass('hidden')
       quiz_type = $('.currentQuiz').text()[0...-1]
       eval(quiz_type + 'Question()')
-      
-  
+      ga 'send', 'event', 'Theory Quiz', quiz_type
+
     $(document).on 'click', '#submitanswer', ->
       evaluateAnswer()
 	  
@@ -127,12 +134,14 @@ $(document).on 'ready page:change', ->
       evaluateAnswer()
     
     $(document).on 'click', '#typeQuiz > button, #typeTraining > button', ->
+      clearTimeout timeoutID
       $this = $(this)
       group = $this.parent().attr('id')[4...]
       $this.siblings().removeClass("current#{group}")
       $this.addClass("current#{group}")
     
     $(document).on 'click', '#typeTraining > button', ->
+      $quiz = $('.quiz')
       training_type = $(this).attr('id')[0...-8] 
       $question.html('')
       $evaluation.html('')
@@ -148,5 +157,5 @@ $(document).on 'ready page:change', ->
         $checkrow.removeClass('hidden')
         $trainingrow.css('margin-top', '0')
         $performance.css('display', 'inherit')
-      $('.quiz').removeClass("#{other_training}-quiz")
-      $('.quiz').addClass("#{training_type}-quiz")  
+      $quiz.removeClass("#{other_training}-quiz")
+      $quiz.addClass("#{training_type}-quiz")  

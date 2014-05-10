@@ -15,11 +15,17 @@ $(document).on 'ready', ->
     $this = $(this)
     next = $this.parents("tr").next().find(".listen")
     url = $this.attr("href")
+    title = $this.parents("tr").data("title")
     $("#jquery_jplayer_1").jPlayer("setMedia",
       m4a: url
     ).jPlayer "play"
-    $("#jptitle").text $this.parents("tr").data("title")
+    $("#jptitle").text title
     $("#blurb").text $this.parents('tr').data('blurb')
+    ga 'send', 'event', 'Songs', 'listen', title
     false
+
+  $(document).on "click", "a.download",  ->
+    title = $this.parents("tr").data("title")
+    ga 'send', 'event', 'Songs', 'download', title
 
 
