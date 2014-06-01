@@ -17,8 +17,13 @@ html, body{
   overflow-y: hidden; 
 }
 
+.navbar {
+  margin-bottom: 0; 
+}
+
 body {
   background-color: #E7FFFF; 
+  overflow-x: hidden;
 }
 
 @media (max-width: 991px){
@@ -44,7 +49,7 @@ body {
 .bodycontainer {
   background-color: $containerbg; 
   min-height: 100%;
-  padding-top: 50px;
+  // padding-top: 50px;
   box-shadow: 9px 10px 100px 40px #949292;
 }
 
@@ -375,9 +380,6 @@ body {
       }
     }
   }
-  .pagination{
-    display: inline; 
-  }
   
   #dl{
     text-align: center;
@@ -386,7 +388,6 @@ body {
 
   #songs_search{
     .btn-info{
-       margin: 0 0 0 1px;
        box-shadow: none; 
        border:none;
        height:33px;
@@ -399,7 +400,8 @@ body {
       margin: 0 0 0 auto;
     }
     #search_song_box{
-      display: inline-flex;
+      display: flex;
+      display: -webkit-flex;
       width: 100%; 
       margin-bottom: 15px; 
     }
@@ -795,7 +797,7 @@ body {
     h1{
       padding-left: 20px; 
       margin-bottom: 2%; 
-      font-family: fantasy; 
+      font-family: Impact, fantasy; 
     }
     ul{
       padding-left: 20px; 
@@ -856,13 +858,13 @@ body {
   img{
     width: 100%;
     &:nth-child(-n+2){
-      margin-bottom: 35%; 
+      margin-bottom: 60%; 
     } 
   }
 }
 @media (max-width: 1200px){
   #about img:nth-child(-n+2){
-    margin-bottom: 135%;  
+    margin-bottom: 160%;  
   }
 }
 @media (max-width: 991px){

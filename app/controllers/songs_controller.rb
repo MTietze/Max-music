@@ -5,7 +5,7 @@ class SongsController < ApplicationController
   
 
   def index
-  	@songs = Song.search(params[:search]).order(sort_column + ' ' + sort_direction)
+    @songs = Song.search(params[:search]).order(sort_column + ' ' + sort_direction)
   end
 
   def create
