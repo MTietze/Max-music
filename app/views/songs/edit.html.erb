@@ -1,6 +1,6 @@
 <div style="margin-top: 100px;">
   <h2>Upload music file:</h2>  
-    <%= form_tag upload_path, method: "post" do %>  
+    <%= form_tag upload_path, method: "post", multipart: true do %>  
         <%= file_field_tag "musicfile" %>  
         <%= submit_tag "Upload" %>  
     <% end %>   

@@ -57,7 +57,7 @@ body {
   background-color: white; 
 }
 
-//navigation bar
+// navigation bar
 
 .nav {
   li a{
@@ -469,8 +469,6 @@ body {
 }
 
 
-
-
 // ear training page
 #question{
   margin: 20px 0 10px;
@@ -501,16 +499,20 @@ body {
     border-left: 0;
   }
 }
-#typeQuiz button{
-  &:first-child{
-    border-bottom-left-radius: 0;
-    border-right: 0; 
+#typeQuiz{
+  margin-top: 3%; 
+  button{
+    &:first-child{
+      border-bottom-left-radius: 0;
+      border-right: 0; 
+    }
+    &:last-child{
+      border-bottom-right-radius: 0;
+      border-left: 0; 
+    } 
   }
-  &:last-child{
-    border-bottom-right-radius: 0;
-    border-left: 0; 
-  } 
 }
+  
 #typeTraining button, #typeQuiz button{
   margin: 0; 
 }

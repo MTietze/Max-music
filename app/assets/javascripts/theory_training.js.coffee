@@ -149,13 +149,11 @@ $(document).on 'ready page:change', ->
         other_training = 'ear'
         $('#hearAgain').remove()
         $checkrow.addClass('hidden')
-        $trainingrow.css('margin-top', '4%')
         $performance.css('display', 'none')
       else  
         other_training = 'theory'
         $quizform.addClass('hidden')
         $checkrow.removeClass('hidden')
-        $trainingrow.css('margin-top', '0')
         $performance.css('display', 'inherit')
       $quiz.removeClass("#{other_training}-quiz")
       $quiz.addClass("#{training_type}-quiz")  
