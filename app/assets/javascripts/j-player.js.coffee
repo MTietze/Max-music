@@ -5,7 +5,7 @@ $(document).on 'ready', ->
       $(this).jPlayer "setMedia",
         m4a: "#"
     ended: -> 
-      next.trigger('click')    
+      next.trigger('click') unless $(this).jPlayer "option", "loop"    
 
     swfPath: "/assets/jQuery.jPlayer.2.5.0"
     supplied: "m4a"
