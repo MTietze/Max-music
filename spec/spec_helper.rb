@@ -6,6 +6,8 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
+  require File.dirname(__FILE__) + "/custom_matchers"
+
 
 
 
@@ -46,6 +48,7 @@ Spork.prefork do
     #     --seed 1234
     config.order = "random"
     config.include Capybara::DSL
+    config.include(CustomMatchers)
     Capybara.javascript_driver = :webkit
   end
 end

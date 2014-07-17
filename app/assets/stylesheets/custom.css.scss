@@ -26,6 +26,14 @@ body {
   overflow-x: hidden;
 }
 
+footer { 
+  font-size: 10px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 @media (max-width: 991px){
   .container { 
     width: inherit; 

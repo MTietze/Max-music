@@ -27,4 +27,4 @@ doc/
 .secret
 notes.txt
 config/application.yml
-
+.env
