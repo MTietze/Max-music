@@ -13,6 +13,6 @@
 <%= render 'layouts/header'%>
 
 <%= yield %>
-<footer>&copy2014 Max Tietze</footer>
+<footer class=<%= @home_page ? 'home_foot' : '' %>>&copy2014 Max Tietze</footer>
 </body>
 </html>
