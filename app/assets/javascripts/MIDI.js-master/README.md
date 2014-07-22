@@ -7,6 +7,11 @@ CODE EXAMPLES (from the repo)
 
 -------------
 
+SOUND FONTS
+
+* <a href="https://github.com/SHMEDIALIMITED/SoundFontJS">NodeJS CLI for MIDI.js sound font creation</a>
+* <a href="https://github.com/gleitz/midi-js-soundfonts">Pre-rendered sound fonts</a>
+
 DEMOS
 
 * <a href="http://mudcu.be/piano/">Color Piano</a> by Michael Deal @mudcube
@@ -17,10 +22,11 @@ DEMOS
 * <a href="http://my.vexflow.com/articles/53">VexFlow</a> by Mohit Muthanna @11111110b
 * <a href="http://spiral.qet.me/">Spiral Keyboard</a> by Patrick Snels
 * <a href="http://online-compute.rhcloud.com/ragamroll/">Ragamroll</a> by Mani Balasubramanian
+* <a href="http://gbloink.com/alpha/">Gbloink!</a> by Phil Jones
 
 -------------
 
-* <a href="./js/MIDI.loadPlugin.js">MIDI.loadPlugin.js</a>: Decides which framework is best to use, and sends request.
+* <a href="./js/MIDI/LoadPlugin.js">MIDI.loadPlugin.js</a>: Decides which framework is best to use, and sends request.
 
 <pre>
 // interface to download soundfont, then execute callback;
@@ -33,19 +39,18 @@ MIDI.loadPlugin({
 });
 </pre>
 
-* <a href="./soundfont/soundfont-ogg.js">MIDI.Soundfont.js</a>: Customizable base64 Soundfont.
-* <a href="./js/MIDI.Plugin.js">MIDI.Plugin.js</a>: Ties together the following frameworks;
+* <a href="./js/MIDI/Plugin.js">MIDI.Plugin.js</a>: Ties together the following frameworks;
 
 <pre>
 MIDI.noteOn(channel, note, velocity, delay);
 MIDI.noteOff(channel, note, delay);
-MIDI.chordOn(channel, chord, velocity, delay);
-MIDI.chordOff(channel, chord, delay);
+MIDI.chordOn(channel, [note, note, note], velocity, delay);
+MIDI.chordOff(channel, [note, note, note], delay);
 MIDI.keyToNote = object; // A0 => 21
 MIDI.noteToKey = object; // 21 => A0
 </pre>
 
-* <a href="./js/MIDI.Player.js">MIDI.Player.js</a>: Streams the MIDI to the browser.
+* <a href="./js/MIDI/Player.js">MIDI.Player.js</a>: Streams the MIDI to the browser.
 
 <pre>
 MIDI.Player.currentTime = integer; // time we are at now within the song.
@@ -78,15 +83,15 @@ MIDI.Player.setAnimation(function(data) {
     // then do what you want with the information!
 });</pre>
 
-* <a href="./js/Color.js">Color.js</a>: Color conversions, music isn&rsquo;t complete without!
+* <a href="./js/Color/SpaceW3.js">Color.js</a>: Color conversions, music isn&rsquo;t complete without!
 <pre>Color.Space(0xff0000, "HEX>RGB>HSL");</pre>
-* <a href="./js/DOMLoader.script.js">DOMLoader.script.js</a>: Loads scripts in synchronously, or asynchronously.
+* <a href="./js/Window/DOMLoader.script.js">DOMLoader.script.js</a>: Loads scripts in synchronously, or asynchronously.
 <pre>DOMLoader.script.add(src, callback);</pre>
-* <a href="./js/DOMLoader.XMLHttp.js">DOMLoader.XMLHttp.js</a>: Cross-browser XMLHttpd request.
+* <a href="./js/Window/DOMLoader.XMLHttp.js">DOMLoader.XMLHttp.js</a>: Cross-browser XMLHttpd request.
 <pre>DOMLoader.sendRequest(src, callback);</pre>
-* <a href="./js/MusicTheory.Synesthesia.js">MusicTheory.Synesthesia.js</a>: Note-to-color mappings (from Isaac Newton onwards).
+* <a href="./js/MusicTheory/Synesthesia.js">MusicTheory.Synesthesia.js</a>: Note-to-color mappings (from Isaac Newton onwards).
  <h3>Many thanks to the authors of these libraries;</h3>
-* <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/midi/specification.html">Web MIDI API</a>: W3C proposal by Jussi Kalliokoski & Chris Wilson
+* <a href="http://webaudio.github.io/web-midi-api/">Web MIDI API</a>: W3C proposal by Jussi Kalliokoski & Chris Wilson
 * <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html">Web Audio API</a>: W3C proposal by Chris Rogers
 * <a href="http://dev.w3.org/html5/spec/Overview.html">&lt;audio&gt;</a>: HTML5 specs
 * Flash package: <a href="http://www.schillmania.com/projects/soundmanager2/">SoundManager2</a> by <a href="http://schillmania.com">Scott Schiller</a>

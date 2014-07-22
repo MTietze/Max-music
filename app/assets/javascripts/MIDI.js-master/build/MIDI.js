@@ -117,7 +117,7 @@ MIDI.loadPlugin = function(conf) {
 		}
 		if (!connect[type]) return;
 		// use audio/ogg when supported
-		var filetype = types["audio/ogg"] ? "mp3" : "mp3";
+		var filetype = types["audio/ogg"] ? "ogg" : "mp3";
 		// load the specified plugin
 		connect[type](filetype, instruments, conf.callback);
 	});
