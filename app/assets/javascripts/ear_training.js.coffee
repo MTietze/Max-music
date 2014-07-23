@@ -2,7 +2,7 @@ $(document).on 'ready page:change', ->
   if $('#typeQuiz').length || $('#started_body').length
     # MIDI.loader = new widgets.Loader
     MIDI.loadPlugin
-      soundfontUrl: "/assets/MIDI.js-master/soundfont/"
+      soundfontUrl: "sound/"
       instrument: "acoustic_grand_piano"
       callback: -> 
         # MIDI.loader.stop() 
