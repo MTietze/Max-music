@@ -58,8 +58,6 @@ footer {
 
 .bodycontainer {
   background-color: $containerbg; 
-  min-height: 100%;
-  // padding-top: 50px;
   box-shadow: 9px 10px 100px 40px #949292;
 }
 
@@ -480,6 +478,11 @@ footer {
 
 
 // ear training page
+
+#trainingcontainer{
+  min-height: 100%;
+}
+
 #question{
   margin: 20px 0 10px;
   font-size: x-large;
@@ -511,6 +514,7 @@ footer {
 }
 #typeQuiz{
   margin-top: 3%; 
+  z-index: 10; 
   button{
     &:first-child{
       border-bottom-left-radius: 0;
