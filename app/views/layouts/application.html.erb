@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class=<%= @home_page ? 'no_scroll' : '' %>  >
+<html>
 
 <head>
   <title><%= full_title(yield(:title)) %></title>
@@ -8,7 +8,7 @@
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= csrf_meta_tags %>
 </head>
-<body class=<%= @home_page ? 'no_scroll' : '' %>>
+<body>
 
 <%= render 'layouts/header'%>
 

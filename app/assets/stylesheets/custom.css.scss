@@ -13,10 +13,6 @@ html, body{
   height: 100%; 
 }
 
-.no_scroll {
-  overflow-y: hidden; 
-}
-
 .navbar {
   margin-bottom: 0; 
 }
@@ -121,7 +117,7 @@ footer {
   height: 600px;
   width: 900px;
   background-color: black;
-  margin: 7% auto 0;
+  margin: 5% auto;
   border-radius: 10%;
   border: 20px gray solid;
   box-shadow: 30px 0px 10px 10px;
@@ -215,13 +211,12 @@ footer {
     100% { @include transform (scale(1) rotate(360deg));}
 }
 
-@media (max-width: 1000px){
+@media (max-width: 1000px), (max-height: 780px){
   #cassette{
     height: 300px;
     width: 450px;
     border: 10px gray solid;
     box-shadow: 15px 0px 5px 5px;
-    margin: 15% auto 0;
 
   }
   #home_title{
@@ -264,13 +259,13 @@ footer {
     }
 }
 
-@media (max-width: 500px){
+@media (max-width: 500px), (max-height: 515px){
   #cassette{
     height: 150px;
     width: 225px;
     border: 5px gray solid;
     box-shadow: 7px 0px 2px 2px;
-    margin: 35% auto 0;
+    margin: 10% auto;
     #home_title_container{
       left: 1%;
       top: 0; 
