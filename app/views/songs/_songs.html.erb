@@ -1,20 +1,17 @@
-<%= hidden_field_tag :direction, params[:direction] %>
-<%= hidden_field_tag :sort, params[:sort] %>
-<table >  
+<table>  
       <tr>
-        <th><%= sortable "title" %><span class="<%=add_icon "title" %>"></span></th>
-        <th><%= sortable "artist", "With"%><span class="<%=add_icon "artist" %>"></span></th>
-        <th><%= sortable "year" %><span class="<%=add_icon "year" %>"></span></th>
+        <th><span class="title">Title</span></th>
+        <th><span class="artist">Artist</span></th>
+        <th><span class="year">Year</span></th>
         <th id='dl'><div class="glyphicon glyphicon-download"></div></th>
       </tr>
-      <% @songs.each do |song| %>  
-        <tr class="<%= cycle('odd', 'even') -%>" data-blurb = "<%= song.blurb %>" data-title= "<%= song.title %>"> 
-          <td class='title'><a class ='listen' href= "<%=download_url_for(song.filename)%>"> <%= song.title %></a></td> 
-          <td class = "artist"><%= song.artist || "Solo" %></td>
-          <td class = "year"><%= song.year %> </td>
-          <td><a class = "btn btn-success download" href= "<%=download_url_for(song.filename)%>" title="Download"><span class="glyphicon glyphicon-arrow-down"></span></a></td> 
-        </tr>  
-      <% end %>  
+ 
+        <tr  ng-repeat = "song in songs track by $index | orderBy : 'year'"> 
+          <td class='title'>{{song.title}}</td> 
+          <td class = "artist">{{song.artist}}</td>
+          <td class = "year">{{song.year}}</td>
+          <td><a class = "btn btn-success download" ng-href = {{download_url_for(song.filename)}} title="Download"><span class="glyphicon glyphicon-arrow-down"></span></a></td>
+        </tr>    
     </table>  
 
     

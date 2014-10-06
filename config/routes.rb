@@ -8,6 +8,7 @@ MaxMusic::Application.routes.draw do
 
   
    root 'static_pages#home'
+   match '/show', to: 'songs#show', via: 'get'
    match '/upload', to: 'songs#upload', via: 'post'
    match '/update', to: 'songs#update', via: 'post'
    match '/destroy', to: 'songs#destroy', via: 'post'

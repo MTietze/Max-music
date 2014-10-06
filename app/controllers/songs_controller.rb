@@ -1,11 +1,21 @@
 class SongsController < ApplicationController
   include SongsHelper
   helper_method :sort_column, :sort_direction
-  before_filter :authentication_check, :only => [:create, :update, :upload, :edit, :destroy]
+  before_filter :authentication_check, :except => [:index, :show]
   
 
   def index
-    @songs = Song.search(params[:search]).order(sort_column + ' ' + sort_direction)
+    #@songs = Song.search(params[:search]).order(sort_column + ' ' + sort_direction)
+    @songs = Song.all 
+    respond_to do |format|
+      format.html
+      format.json { render json: @songs }
+    end
+  end
+
+  def show
+    @songs = Song.all 
+    render json: @songs 
   end
 
   def create

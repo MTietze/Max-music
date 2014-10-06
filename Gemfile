@@ -29,6 +29,7 @@ gem 'pg', '0.15.1'
 
 gem 'soundmanager-rails'
 
+gem 'angularjs-rails'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
