@@ -5,6 +5,22 @@ app = angular.module("Songs", [])
   $scope.download_url_for = (song_key) ->
     #hack to make mp3 files downloadable 
    "https://s3.amazonaws.com/Max-music/" + song_key.replace /\s/g, "+"
+  $scope.order = 'year'
+  $scope.reverse = true 
+  $scope.setOrder = (column)->
+  	if $scope.order == column
+  	  $scope.reverse = !$scope.reverse
+  	else
+  		$scope.order = column 
+  		$scope.reverse = if column == 'year' then true else false 
+  $scope.arrow = (column)->
+  	if $scope.order == column
+  		if column == 'year' 
+        if $scope.reverse then "glyphicon glyphicon-arrow-down" else "glyphicon glyphicon-arrow-up"
+      else
+      	if !$scope.reverse then "glyphicon glyphicon-arrow-down" else "glyphicon glyphicon-arrow-up"
+  	else
+  		""
 
 
 ]

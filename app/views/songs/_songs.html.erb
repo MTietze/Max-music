@@ -1,17 +1,16 @@
 <table>  
-      <tr>
-        <th><span class="title">Title</span></th>
-        <th><span class="artist">Artist</span></th>
-        <th><span class="year">Year</span></th>
-        <th id='dl'><div class="glyphicon glyphicon-download"></div></th>
-      </tr>
- 
-        <tr  ng-repeat = "song in songs track by $index | orderBy : 'year'"> 
-          <td class='title'>{{song.title}}</td> 
-          <td class = "artist">{{song.artist}}</td>
-          <td class = "year">{{song.year}}</td>
-          <td><a class = "btn btn-success download" ng-href = {{download_url_for(song.filename)}} title="Download"><span class="glyphicon glyphicon-arrow-down"></span></a></td>
-        </tr>    
-    </table>  
+  <tr>  
+    <th ><span ng-click = "setOrder('title')">Title   <span ng-class="arrow('title')" ></span>  </span></th>
+    <th ><span ng-click = "setOrder('artist')">Artist  <span ng-class="arrow('artist')" ></span></span></th>
+    <th ><span ng-click = "setOrder('year')">Year    <span ng-class="arrow('year')" ></span>    </span></th>
+    <th id='dl'><div class="glyphicon glyphicon-download"></div></th>
+  </tr>
+  <tr  ng-repeat = "song in songs | orderBy:order:reverse"  ng-class-odd="'odd'" ng-class-even="'even'"> 
+    <td class='title'>{{song.title}}</td> 
+    <td class = "artist">{{song.artist}}</td>
+    <td class = "year">{{song.year}}</td>
+    <td><a class = "btn btn-success download" ng-href = {{download_url_for(song.filename)}} title="Download"><span class="glyphicon glyphicon-arrow-down"></span></a></td>
+  </tr>    
+</table>  
 
     

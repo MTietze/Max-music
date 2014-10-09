@@ -333,13 +333,13 @@ footer {
         &:nth-child(2){
           padding-left: 10px; 
         }
-        a{
-          color:black; 
-         }
-        span.glyphicon{
+        span{
+          cursor: pointer;
+          .glyphicon{
           top: -1px;
           font-size: medium;
           margin-left: 2%; 
+          }
         }
       }
       td {
