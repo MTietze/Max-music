@@ -33,8 +33,8 @@
           </div>
           <div class="jp-title">
             <ul>
-              <li id = 'jptitle'>Click a song to play!</li>
-              <li id="blurb"></li>
+              <li id = 'jptitle'>{{current_song.title || "Click a song to play!"}}</li>
+              <li id="blurb">{{current_song.blurb}}</li>
             </ul>
           </div>
           <div class="jp-no-solution">
@@ -47,12 +47,10 @@
   </div>
   <div class ='row' >
     <div class = "col-xs-12" id="songtable"> 
-      <%= form_tag songs_path, :method => 'get', id: "songs_search" do %>
         <div id='songs'><%= render 'songs' %></div>
         <div id="search_song_box">
           <input id="search" ng-model="searchParam" placeholder="Search Music" class="text-center">
         </div>
-      <% end %>
     </div>
   </div>
   

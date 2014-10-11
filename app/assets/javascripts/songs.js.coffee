@@ -21,6 +21,13 @@ app = angular.module("Songs", [])
       	if !$scope.reverse then "glyphicon glyphicon-arrow-down" else "glyphicon glyphicon-arrow-up"
   	else
   		""
+  $scope.currentSong = undefined
+  $scope.setCurrentSong = (song) ->
+     $scope.currentSong = song
+  # $scope.play = (song)->
+  #   $scope.currentSong = song
+  #   play(download_url_for song)
+
 ]
 $ ->
   $(document).on "click", "#songs th a", ->
