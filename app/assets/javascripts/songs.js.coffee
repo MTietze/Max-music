@@ -15,14 +15,12 @@ app = angular.module("Songs", [])
   		$scope.reverse = if column == 'year' then true else false 
   $scope.arrow = (column)->
   	if $scope.order == column
-  		if column == 'year' 
+  		if column == 'year' #make year have down arrow for descending years
         if $scope.reverse then "glyphicon glyphicon-arrow-down" else "glyphicon glyphicon-arrow-up"
       else
       	if !$scope.reverse then "glyphicon glyphicon-arrow-down" else "glyphicon glyphicon-arrow-up"
   	else
   		""
-
-
 ]
 $ ->
   $(document).on "click", "#songs th a", ->

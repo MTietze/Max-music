@@ -5,7 +5,7 @@
     <th ><span ng-click = "setOrder('year')">Year    <span ng-class="arrow('year')" ></span>    </span></th>
     <th id='dl'><div class="glyphicon glyphicon-download"></div></th>
   </tr>
-  <tr  ng-repeat = "song in songs | orderBy:order:reverse"  ng-class-odd="'odd'" ng-class-even="'even'"> 
+  <tr  ng-repeat = "song in songs | filter:searchParam | orderBy:order:reverse"  ng-class-odd="'odd'" ng-class-even="'even'"> 
     <td class='title'>{{song.title}}</td> 
     <td class = "artist">{{song.artist}}</td>
     <td class = "year">{{song.year}}</td>

@@ -50,8 +50,7 @@
       <%= form_tag songs_path, :method => 'get', id: "songs_search" do %>
         <div id='songs'><%= render 'songs' %></div>
         <div id="search_song_box">
-          <%= text_field_tag :search, params[:search], autocomplete: "off" %>
-          <%= submit_tag "Search", :name => nil, class: "btn btn-sm btn-info " %>
+          <input id="search" ng-model="searchParam" placeholder="Search Music" class="text-center">
         </div>
       <% end %>
     </div>

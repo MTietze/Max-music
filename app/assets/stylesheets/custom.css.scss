@@ -391,26 +391,17 @@ footer {
     text-align: center;
   }
   
-
-  #songs_search{
-    .btn-info{
-       box-shadow: none; 
-       border:none;
-       height:33px;
-       margin: 0 auto 0 0 ;
-    }
-    #search{
-      width: 150px; 
-      height:33px;
-      border-radius: 10%;
-      margin: 0 0 0 auto;
-    }
-    #search_song_box{
-      display: flex;
-      display: -webkit-flex;
-      width: 100%; 
-      margin-bottom: 15px; 
-    }
+  #search{
+    width: 150px; 
+    height:33px;
+    border-radius: 10%;
+    margin: 0 auto;
+  }
+  #search_song_box{
+    display: flex;
+    display: -webkit-flex;
+    width: 100%; 
+    margin-bottom: 15px; 
   }
 }
 @media (max-width: 621px){
