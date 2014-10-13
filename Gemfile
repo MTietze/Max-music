@@ -31,6 +31,9 @@ gem 'soundmanager-rails'
 
 gem 'angularjs-rails'
 
+gem 'thin'
+
+
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
   gem 'guard-rspec', '2.5.0'
@@ -40,16 +43,15 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara', '2.1.0'
-  gem 'capybara-webkit', '1.1.0'
-  gem 'factory_girl_rails', '4.2.1'
-  gem 'cucumber-rails', '1.4.0', :require => false
-  gem 'database_cleaner', github: 'bmabey/database_cleaner'
-  gem 'libnotify', '0.8.0'
+  # gem 'capybara', '2.1.0'
+  # gem 'capybara-webkit', '1.1.0'
+  # gem 'factory_girl_rails', '4.2.1'
+  # gem 'cucumber-rails', '1.4.0', :require => false
+  # gem 'database_cleaner', github: 'bmabey/database_cleaner'
+  # gem 'libnotify', '0.8.0'
 end
 group :production do
   gem 'rails_12factor', '0.0.2'
-  gem 'thin'
 end
 
 group :doc do

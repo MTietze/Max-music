@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/bmabey/database_cleaner.git
-  revision: 072492166e82969136d1abaeccbcadaae4fe6539
-  specs:
-    database_cleaner (1.2.0)
-
-GIT
   remote: git://github.com/sporkrb/spork-rails.git
   revision: 0dd45e59d3237b4c8f9efc215b46d9c07072a95e
   specs:
@@ -52,15 +46,6 @@ GEM
       sass (>= 3.2.0)
       thor
     builder (3.1.4)
-    capybara (2.1.0)
-      mime-types (>= 1.16)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (~> 2.0)
-    capybara-webkit (1.1.0)
-      capybara (~> 2.0, >= 2.0.2)
-      json
     celluloid (0.15.2)
       timers (~> 1.1.0)
     childprocess (0.3.9)
@@ -73,31 +58,15 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    cucumber (1.3.10)
-      builder (>= 2.1.2)
-      diff-lcs (>= 1.1.3)
-      gherkin (~> 2.12)
-      multi_json (>= 1.7.5, < 2.0)
-      multi_test (>= 0.0.2)
-    cucumber-rails (1.4.0)
-      capybara (>= 1.1.2)
-      cucumber (>= 1.2.0)
-      nokogiri (>= 1.5.0)
-      rails (>= 3.0.0)
     daemons (1.1.9)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    eventmachine (1.0.3-x86-mingw32)
     execjs (2.0.2)
-    factory_girl (4.2.0)
-      activesupport (>= 3.0.0)
-    factory_girl_rails (4.2.1)
-      factory_girl (~> 4.2.0)
-      railties (>= 3.0.0)
     ffi (1.9.3)
+    ffi (1.9.3-x86-mingw32)
     formatador (0.2.4)
-    gherkin (2.12.2)
-      multi_json (~> 1.3)
     guard (2.2.5)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -120,8 +89,6 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
-    libnotify (0.8.0)
-      ffi (>= 1.0.11)
     listen (2.4.0)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -135,15 +102,22 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.4)
-    multi_test (0.0.3)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    nokogiri (1.6.1-x86-mingw32)
+      mini_portile (~> 0.5.0)
     pg (0.15.1)
+    pg (0.15.1-x86-mingw32)
     polyglot (0.3.3)
     pry (0.9.12.4)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry (0.9.12.4-x86-mingw32)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+      win32console (~> 1.3)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -197,6 +171,8 @@ GEM
     slop (3.4.7)
     soundmanager-rails (1.0.0)
     spork (1.0.0rc4)
+    spork (1.0.0rc4-x86-mingw32)
+      win32-process
     sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -223,29 +199,25 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uuidtools (2.1.4)
-    xpath (2.0.0)
-      nokogiri (~> 1.3)
+    win32-process (0.7.4)
+      ffi (>= 1.0.0)
+    win32console (1.3.2-x86-mingw32)
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   angularjs-rails
   aws-sdk (~> 1.0)
   bootstrap-sass (~> 3.0.3.0)
   bourbon
-  capybara (= 2.1.0)
-  capybara-webkit (= 1.1.0)
   childprocess (= 0.3.9)
   coffee-rails (~> 4.0.0)
-  cucumber-rails (= 1.4.0)
-  database_cleaner!
-  factory_girl_rails (= 4.2.1)
   guard-rspec (= 2.5.0)
   guard-spork (= 1.5.0)
   jbuilder (~> 1.2)
   jquery-rails
-  libnotify (= 0.8.0)
   pg (= 0.15.1)
   rails (= 4.0.1)
   rails_12factor (= 0.0.2)
