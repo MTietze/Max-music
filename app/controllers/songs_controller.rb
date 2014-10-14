@@ -2,15 +2,9 @@ class SongsController < ApplicationController
   include SongsHelper
   helper_method :sort_column, :sort_direction
   before_filter :authentication_check, :except => [:index, :show]
-  
 
   def index
-    #@songs = Song.search(params[:search]).order(sort_column + ' ' + sort_direction)
     @songs = Song.all 
-    respond_to do |format|
-      format.html
-      format.json { render json: @songs }
-    end
   end
 
   def show
@@ -65,14 +59,6 @@ class SongsController < ApplicationController
 
   private  
   
-  def sort_column
-    Song.column_names.include?(params[:sort]) ? params[:sort] : "year"
-  end
-  
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-  end
-
   def authentication_check
     authenticate_or_request_with_http_basic do |user, password|
       user == ENV['USER'] && password == ENV['PASSWORD']
