@@ -6,7 +6,7 @@
     <th id='dl'><div class="glyphicon glyphicon-download"></div></th>
   </tr>
   <tr ng-repeat = "song in songs | filter:searchParam | orderBy:order:reverse"  ng-class-odd="'odd'" ng-class-even="'even'"> 
-    <td class='title'>{{song.title}}</td> 
+    <td class='title'><a class ='listen' data-blurb = {{song.blurb}} data-title= {{song.title}} href= {{download_url_for(song.filename)}}>{{song.title}}</a></td> 
     <td class = "artist">{{song.artist}}</td>
     <td class = "year">{{song.year}}</td>
     <td><a class = "btn btn-success download" ng-href = {{download_url_for(song.filename)}} title="Download"><span class="glyphicon glyphicon-arrow-down"></span></a></td>
