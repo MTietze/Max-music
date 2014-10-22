@@ -1,5 +1,5 @@
 <% provide(:title, 'Music Training') %>
-<div class="container bodycontainer" id="trainingcontainer">
+<div class="container bodycontainer" id="trainingcontainer" ng-app="Quiz" ng-controller="TheoryCtrl">
   <div class="row" id="checkrow">
   <div class="navbar navbar-default" role="navigation">
     <div id="optionsbox">
@@ -52,11 +52,14 @@
             <div class="btn-group" id= 'play'>
               <button type="button" id= 'quiz' class= 'btn btn-default btn-md quiz ear-quiz'>Quiz me!</button>
             </div>
-            <div id='quizbody' class='hidden'>
-              <div id="question"></div>
-              <div id= "evaluation"></div>
-              <form id="quizform" class="hidden" ><input type="text" id="answer" autocomplete="off">
-                <button class="btn btn-sm btn-primary" id="submitanswer">Submit</button>
+            <div id='quizbody' ng-show="question">
+              <div id="question"><p>Hi</p></div>
+              <div id= "evaluation" >
+                <p id="sorry" ng-show="evaluation == false"> Sorry, try again </p>
+                <p id="correct" ng-show="evaluation == true"> Correct! </p>
+              </div>
+              <form id="quizform" class="hidden" ><input ng-model="answer" type="text" id="answer" autocomplete="off">
+                <button class="btn btn-sm btn-primary" ng-hide="evaluation" id="submitanswer">Submit</button>
               </form>
             </div>
           </div>
