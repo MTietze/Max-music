@@ -1,4 +1,4 @@
-quiz = angular.module("Quiz", [])
+angular.module("Quiz", ['ngSanitize'])
 
 @TheoryCtrl = ["$scope", ($scope) ->
   $scope.chromatic_scale = undefined
@@ -10,11 +10,14 @@ quiz = angular.module("Quiz", [])
   $scope.key_number = undefined
   $scope.scale_type = undefined
   $scope.timeoutID = undefined
+  $scope.quizBtnText = "Submit"
+  $scope.quizBtnState = "primary"
+  $scope.showIntervals = false 
   
-  $scope.evaulation = null
+  $scope.evaluation = null
   $scope.answer = ""
   $scope.question = null
-
+                                              
   $evaluation = $('#evaluation')
   $question = $('#question')
   $answer = $('#answer')
@@ -84,59 +87,62 @@ quiz = angular.module("Quiz", [])
     first_note_position = Math.floor(Math.random()*12)
     second_note_position = Math.floor(Math.random()*12)
     interval = second_note_position - first_note_position #swap position to implement descending 
-    first_note = $scope.chromatic_scale[first_note_position]
-    second_note = $scope.chromatic_scale[second_note_position]
+    $scope.first_note = $scope.chromatic_scale[first_note_position]
+    $scope.second_note = $scope.chromatic_scale[second_note_position]
     if interval <= 0
       interval += 12
     $scope.current_note = Training.checkInterval(interval)
-    intervals = ['Minor second','Major second','Minor third','Major third','Perfect fourth','Diminished fifth','Perfect fifth','Minor sixth','Major sixth','Minor seventh','Major seventh','Perfect octave']
+    $scope.intervals = ['Minor second','Major second','Minor third','Major third','Perfect fourth','Diminished fifth','Perfect fifth','Minor sixth','Major sixth','Minor seventh','Major seventh','Perfect octave']
     
-    $scope.question = " What is the name of the <div class='btn-group'>
-    <div class='btn-group dropup'><button type='button' id= 'intervaldrop' class='btn btn-default dropdown-toggle' data-toggle='dropdown'>
-    Interval<span class='caret'></span></button><ul class='dropdown-menu' id='interval_list'><li><div class='row'><ul class='list-unstyled col-xs-6'></ul><ul class='list-unstyled col-xs-6'></ul>
-    </div></li></ul></div></div> 
-    ascending from #{first_note} to #{second_note}?"
+    $scope.question = "intervalQuestion"
   
-    $('#interval_list li .row ul:first').append("<li><a href='#' class= 'interval_choice'>#{interval_name}</a></li>") for interval_name in intervals[0..5] 
-    $('#interval_list li .row ul:last').append("<li><a href='#' class= 'interval_choice'>#{interval_name}</a></li>") for interval_name in intervals[6..11] 
+    # $('#interval_list li .row ul:first').append("<li><a href='#' class= 'interval_choice'>#{interval_name}</a></li>") for interval_name in intervals[0..5] 
+    # $('#interval_list li .row ul:last').append("<li><a href='#' class= 'interval_choice'>#{interval_name}</a></li>") for interval_name in intervals[6..11] 
 
-  evaluateAnswer = ->
+  $scope.evaluateAnswer = ->
     answer = $scope.answer.trim().toLowerCase()
     if answer is $scope.current_note.toLowerCase() 
-      $scope.evaluation = false
-      # $('#submitanswer').replaceWith('<button class="btn btn-sm btn-success" id="correctanswer">Correct</button>')
+      $scope.evaluation = true
+      $scope.quizBtnText = "Correct"
+      $scope.quizBtnState = "success"
       ga 'send', 'event', 'Theory Quiz', "answer", answer, 1
       $scope.timeoutID = setTimeout -> 
         if $scope.evaluation then $('#quiz.theory-quiz').trigger('click') 
       , 2000
       return true
     else 
-      $scope.evaluation = true
+      $scope.evaluation = false
       ga 'send', 'event', 'Theory Quiz', 'answer', "#{$scope.current_note} chose #{$scope.answer}", -1
       return false
 
-  $(document).on 'click', '.interval_choice', ->
-    $answer.val($(this).text()) 
-    if evaluateAnswer()
-      $('#intervaldrop').trigger('click')
+  # $(document).on 'click', '.interval_choice', ->
+  #   $answer.val($(this).text()) 
+  #   if $scope.evaluateAnswer()
+  #     $('#intervaldrop').trigger('click')
+
+  $scope.selectInterval = (interval) -> 
+    $scope.answer = interval
+    if $scope.evaluateAnswer()
+        $scope.showIntervals = false 
   
-  $(document).on 'click', '#quiz.theory-quiz', ->
+  $scope.theoryQuiz = ->
     clearTimeout $scope.timeoutID
     $answer.val('')
-    # $('#correctanswer').replaceWith('<button class="btn btn-sm btn-primary" id="submitanswer">Submit</button>')
+    $scope.quizBtnText = "Submit"
+    $scope.quizBtnState = "primary"
     $scope.evaluation = null; 
-    $quizform.removeClass('hidden')
     quiz_type = $('.currentQuiz').text()[0...-1]
     eval(quiz_type + 'Question()')
     ga 'send', 'event', 'Theory Quiz', quiz_type
-
-  $(document).on 'click', '#submitanswer', ->
-    evaluateAnswer()
+  
+  $scope.quiz = (type) ->
+    if type is "theory"
+      $scope.theoryQuiz()
   
   # prevent clicking enter on text box from refreshing page
-  $quizform.submit (e) -> 
-    e.preventDefault()
-    evaluateAnswer()
+  # $quizform.submit (e) -> 
+  #   e.preventDefault()
+  #   evaluateAnswer()
   
   $(document).on 'click', '#typeQuiz > button, #typeTraining > button', ->
     clearTimeout $scope.timeoutID
@@ -148,8 +154,8 @@ quiz = angular.module("Quiz", [])
   $(document).on 'click', '#typeTraining > button', ->
     $quiz = $('.quiz')
     training_type = $(this).attr('id')[0...-8] 
-    $question.html('')
-    $evaluation.html('')
+    $scope.question = ''
+    $scope.evaluation = ''
     if training_type is 'theory'    
       other_training = 'ear'
       $('#hearAgain').remove()

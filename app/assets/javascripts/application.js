@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require angular
+//= require angular-sanitize
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
