@@ -37,14 +37,14 @@
     <div class="col-xs-12">
         <div class= 'text-center'>
           <div class="btn-group" id= 'typeQuiz'>
-            <button type="button" class="btn btn-default currentQuiz quiz ear-quiz">Intervals</button>
-            <button type="button" class="btn btn-default quiz ear-quiz">Chords</button>
-            <button type="button" class="btn btn-default quiz ear-quiz">Scales</button>
+            <button type="button" class="btn btn-default currentQuiz quiz ear-quiz" ng-click="changeQuestionType('intervals')">Intervals</button>
+            <button type="button" class="btn btn-default quiz ear-quiz" ng-click="changeQuestionType('chords')">Chords</button>
+            <button type="button" class="btn btn-default quiz ear-quiz" ng-click="changeQuestionType('scales')">Scales</button>
           </div>
           <div class="row">
           <div class="btn-group" id= 'typeTraining'>
-            <button type="button" id='earTraining' class="btn btn-default currentTraining">Ear Training</button>
-            <button type="button" id='theoryTraining' class="btn btn-default">Theory Training</button>
+            <button type="button" id='earTraining' class="btn btn-default currentTraining" ng-click="changeTrainingType('ear')">Ear Training</button>
+            <button type="button" id='theoryTraining' class="btn btn-default" ng-click="changeTrainingType('theory')">Theory Training</button>
           </div>
           </div>
           <p id="performance" class="text-center">Use Google Chrome for best performance. Confused? Check out <%= link_to "getting started", getting_started_path %></p>

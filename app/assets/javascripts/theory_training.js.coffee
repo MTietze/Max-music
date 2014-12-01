@@ -1,6 +1,23 @@
-angular.module("Quiz", ['ngSanitize', 'ui.router'])
+quiz = angular.module("Quiz", ['ngSanitize', 'ui.router'])
 
-@TheoryCtrl = ["$scope", ($scope) ->
+quiz.config ['$stateProvider', ($stateProvider) ->
+  $stateProvider
+    .state('theory', {
+      url: "/theory/:questionType",
+      template: "training.html.erb"
+    })
+    .state('ear', {
+      url: "/ear/:questionType",
+      template: "training.html.erb"
+    })
+]
+
+quiz.run ['$rootScope', '$stateParams', '$state', ($rootScope, $stateParams, $state) ->
+  $rootScope.$stateParams = $stateParams
+  $rootScope.$state = $state
+]
+
+@TheoryCtrl = ["$scope",'$stateParams', '$state', ($scope, $stateParams, $state) ->
   $scope.chromatic_scale = undefined
   $scope.current_scale = undefined
   $scope.current_degree = undefined 
@@ -136,6 +153,12 @@ angular.module("Quiz", ['ngSanitize', 'ui.router'])
   $scope.quiz = (type) ->
     if type is "theory"
       $scope.theoryQuiz()
+
+  $scope.changeQuestionType = (type) ->
+    $state.transitionTo($state.current, {questionType: type})
+
+  $scope.changeTrainingType = (state) ->
+    $state.transitionTo(state, {questionType: $stateParams.questionType})
   
   # prevent clicking enter on text box from refreshing page
   # $quizform.submit (e) -> 
