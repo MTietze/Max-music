@@ -12,7 +12,6 @@ angular.module("Quiz", ['ngSanitize'])
   $scope.timeoutID = undefined
   $scope.quizBtnText = "Submit"
   $scope.quizBtnState = "primary"
-  $scope.showIntervals = false 
   
   $scope.evaluation = null
   $scope.answer = ""
@@ -122,8 +121,7 @@ angular.module("Quiz", ['ngSanitize'])
 
   $scope.selectInterval = (interval) -> 
     $scope.answer = interval
-    if $scope.evaluateAnswer()
-        $scope.showIntervals = false 
+    $scope.evaluateAnswer()
   
   $scope.theoryQuiz = ->
     clearTimeout $scope.timeoutID
