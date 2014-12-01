@@ -12,12 +12,12 @@ quiz.config ['$stateProvider', ($stateProvider) ->
     })
 ]
 
-quiz.run ['$rootScope', '$stateParams', '$state', ($rootScope, $stateParams, $state) ->
+quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $stateParams, $state, $location) ->
   $rootScope.$stateParams = $stateParams
   $rootScope.$state = $state
 ]
 
-@TheoryCtrl = ["$scope",'$stateParams', '$state', ($scope, $stateParams, $state) ->
+@TheoryCtrl = ["$scope",'$stateParams', '$state', '$location', ($scope, $stateParams, $state, $location) ->
   $scope.chromatic_scale = undefined
   $scope.current_scale = undefined
   $scope.current_degree = undefined 
@@ -31,8 +31,8 @@ quiz.run ['$rootScope', '$stateParams', '$state', ($rootScope, $stateParams, $st
   $scope.quizBtnState = "primary"
   
   $scope.evaluation = null
-  $scope.answer = ""
-  $scope.question = null
+  $scope.answer = ''
+  $scope.question = ''
                                               
   $evaluation = $('#evaluation')
   $question = $('#question')
@@ -41,6 +41,11 @@ quiz.run ['$rootScope', '$stateParams', '$state', ($rootScope, $stateParams, $st
   $checkrow = $('#checkrow')
   $trainingrow = $('#trainingrow')
   $performance = $('#performance')
+  
+  $scope.$on '$locationChangeStart', (event, toState, toParams, fromState, fromParams) ->
+    clearTimeout $scope.timeoutID
+    $scope.question = ''
+    $scope.evaluation = ''
 
   createScale = ->
     #clear previous evaluated answer
@@ -165,30 +170,30 @@ quiz.run ['$rootScope', '$stateParams', '$state', ($rootScope, $stateParams, $st
   #   e.preventDefault()
   #   evaluateAnswer()
   
-  $(document).on 'click', '#typeQuiz > button, #typeTraining > button', ->
-    clearTimeout $scope.timeoutID
-    $this = $(this)
-    group = $this.parent().attr('id')[4...]
-    $this.siblings().removeClass("current#{group}")
-    $this.addClass("current#{group}")
+  # $(document).on 'click', '#typeQuiz > button, #typeTraining > button', ->
+  #   clearTimeout $scope.timeoutID
+  #   $this = $(this)
+  #   group = $this.parent().attr('id')[4...]
+  #   $this.siblings().removeClass("current#{group}")
+  #   $this.addClass("current#{group}")
   
-  $(document).on 'click', '#typeTraining > button', ->
-    $quiz = $('.quiz')
-    training_type = $(this).attr('id')[0...-8] 
-    $scope.question = ''
-    $scope.evaluation = ''
-    if training_type is 'theory'    
-      other_training = 'ear'
-      $('#hearAgain').remove()
-      $checkrow.addClass('hidden')
-      $performance.css('display', 'none')
-    else  
-      other_training = 'theory'
-      $quizform.addClass('hidden')
-      $checkrow.removeClass('hidden')
-      $performance.css('display', 'inherit')
-    $quiz.removeClass("#{other_training}-quiz")
-    $quiz.addClass("#{training_type}-quiz") 
+  # $(document).on 'click', '#typeTraining > button', ->
+  #   $quiz = $('.quiz')
+  #   training_type = $(this).attr('id')[0...-8] 
+  #   $scope.question = ''
+  #   $scope.evaluation = ''
+  #   if training_type is 'theory'    
+  #     other_training = 'ear'
+  #     $('#hearAgain').remove()
+  #     $checkrow.addClass('hidden')
+  #     $performance.css('display', 'none')
+  #   else  
+  #     other_training = 'theory'
+  #     $quizform.addClass('hidden')
+  #     $checkrow.removeClass('hidden')
+  #     $performance.css('display', 'inherit')
+  #   $quiz.removeClass("#{other_training}-quiz")
+  #   $quiz.addClass("#{training_type}-quiz") 
 
 ]
 # $(document).on 'ready page:change', ->
