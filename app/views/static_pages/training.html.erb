@@ -1,36 +1,36 @@
 <% provide(:title, 'Music Training') %>
 <div class="container bodycontainer" id="trainingcontainer" ng-app="Quiz" ng-controller="TheoryCtrl">
-  <div class="row" id="checkrow">
-  <div class="navbar navbar-default" role="navigation">
-    <div id="optionsbox">
-    <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#checkcolumn">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-      <h1 id= "options-title"> Options</h1>
+  <div class="row" id="checkrow" ng-show=" $state.current.name === 'ear'">
+    <div class="navbar navbar-default" role="navigation">
+      <div id="optionsbox">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#checkcolumn">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <h1 id= "options-title"> Options</h1>
+        </div>
+        <div class= 'navbar-collapse collapse' id="checkcolumn">
+          <label>
+            <input type="checkbox" id= "randomKeys"> 
+            <p> Random keys </p>
+          </label>
+          <label>
+            <input type="checkbox" id= "major" checked> 
+            <p>Major intervals</p>
+          </label>
+          <label>
+            <input type="checkbox" id= "minor"> 
+            <p>Minor intervals</p>
+          </label>
+          <label>
+            <input type="checkbox" id= "other"> 
+            <p>Perfect intervals</p>
+          </label>
+        </div>
       </div>
-      <div class= 'navbar-collapse collapse' id="checkcolumn">
-        <label>
-          <input type="checkbox" id= "randomKeys"> 
-          <p> Random keys </p>
-        </label>
-        <label>
-          <input type="checkbox" id= "major" checked> 
-          <p>Major intervals</p>
-        </label>
-        <label>
-          <input type="checkbox" id= "minor"> 
-          <p>Minor intervals</p>
-        </label>
-        <label>
-          <input type="checkbox" id= "other"> 
-          <p>Perfect intervals</p>
-        </label>
-      </div>
-    </div>
     </div>
   </div>
   <div class="row">
@@ -50,7 +50,7 @@
           <p id="performance" class="text-center">Use Google Chrome for best performance. Confused? Check out <%= link_to "getting started", getting_started_path %></p>
           <div class="row" id="quizrow">
             <div class="btn-group" id= 'play'>
-              <button type="button" id= 'quiz' class= 'btn btn-default btn-md quiz ear-quiz' ng-click='quiz("theory")'>Quiz me!</button>
+              <button type="button" id= 'quiz' class= 'btn btn-default btn-md quiz ear-quiz' ng-click='quiz($state.current.name)'>Quiz me!</button>
             </div>
             <div id='quizbody' ng-show="question">
               <div class="question" ng-show="question === 'intervalQuestion'">What is the name of the 

@@ -1,6 +1,6 @@
 quiz = angular.module("Quiz", ['ngSanitize', 'ui.router'])
 
-quiz.config ['$stateProvider', ($stateProvider) ->
+quiz.config ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) ->
   $stateProvider
     .state('theory', {
       url: "/theory/:questionType",
@@ -15,9 +15,10 @@ quiz.config ['$stateProvider', ($stateProvider) ->
 quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $stateParams, $state, $location) ->
   $rootScope.$stateParams = $stateParams
   $rootScope.$state = $state
+  $state.transitionTo('ear', {questionType: 'intervals'})
 ]
 
-@TheoryCtrl = ["$scope",'$stateParams', '$state', '$location', ($scope, $stateParams, $state, $location) ->
+@TheoryCtrl = ["$scope",'$stateParams', '$state', '$location', '$timeout', ($scope, $stateParams, $state, $location, $timeout) ->
   $scope.chromatic_scale = undefined
   $scope.current_scale = undefined
   $scope.current_degree = undefined 
@@ -43,7 +44,7 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
   $performance = $('#performance')
   
   $scope.$on '$locationChangeStart', (event, toState, toParams, fromState, fromParams) ->
-    clearTimeout $scope.timeoutID
+    $timeout.cancel $scope.timeoutID
     $scope.question = ''
     $scope.evaluation = ''
 
@@ -85,41 +86,38 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
     $scope.current_position = Math.floor(Math.random()*6) + 1
     $scope.current_degree = $scope.current_scale[$scope.current_position][0]
     $scope.current_note = $scope.current_scale[$scope.current_position][1]
+  questions =   
+    scales: ->
+      createScale()
+      article = if $scope.current_scale_root[0] == 'A' || $scope.current_scale_root[0] == 'E' || $scope.current_scale_root[0] == 'F' then "an" else "a" 
+      $scope.question = "What is the #{$scope.current_degree} note in #{article} #{$scope.current_scale_root} #{$scope.scale_type} scale?"
     
-  ScaleQuestion = ->
-    createScale()
-    article = if $scope.current_scale_root[0] == 'A' || $scope.current_scale_root[0] == 'E' || $scope.current_scale_root[0] == 'F' then "an" else "a" 
-    $scope.question = "What is the #{$scope.current_degree} note in #{article} #{$scope.current_scale_root} #{$scope.scale_type} scale?"
-  
-  ChordQuestion = ->
-    createScale()
-    $scope.current_chord = [$scope.current_scale[$scope.current_position], $scope.current_scale[($scope.current_position + 2) % 7], $scope.current_scale[($scope.current_position + 4) % 7]]
-    missing_note = Math.floor(Math.random()*2) + 1
-    $scope.current_note = $scope.current_chord[missing_note][1]
-    if missing_note is 1
-      $scope.question = "Enter the missing note to complete the #{$scope.current_chord[0][1]} #{$scope.current_chord[0][2]} chord. <br>
-      #{$scope.current_chord[0][1]} ___ #{$scope.current_chord[2][1]}"
-    else
-      $scope.question = "Enter the missing note to complete the #{$scope.current_chord[0][1]} #{$scope.current_chord[0][2]} chord. <br>
-      #{$scope.current_chord[0][1]}  #{$scope.current_chord[1][1]} ___"
-  
-  IntervalQuestion = ->
-    createScale()
-    first_note_position = Math.floor(Math.random()*12)
-    second_note_position = Math.floor(Math.random()*12)
-    interval = second_note_position - first_note_position #swap position to implement descending 
-    $scope.first_note = $scope.chromatic_scale[first_note_position]
-    $scope.second_note = $scope.chromatic_scale[second_note_position]
-    if interval <= 0
-      interval += 12
-    $scope.current_note = Training.checkInterval(interval)
-    $scope.intervals = ['Minor second','Major second','Minor third','Major third','Perfect fourth','Diminished fifth','Perfect fifth','Minor sixth','Major sixth','Minor seventh','Major seventh','Perfect octave']
+    chords: ->
+      createScale()
+      $scope.current_chord = [$scope.current_scale[$scope.current_position], $scope.current_scale[($scope.current_position + 2) % 7], $scope.current_scale[($scope.current_position + 4) % 7]]
+      missing_note = Math.floor(Math.random()*2) + 1
+      $scope.current_note = $scope.current_chord[missing_note][1]
+      if missing_note is 1
+        $scope.question = "Enter the missing note to complete the #{$scope.current_chord[0][1]} #{$scope.current_chord[0][2]} chord. <br>
+        #{$scope.current_chord[0][1]} ___ #{$scope.current_chord[2][1]}"
+      else
+        $scope.question = "Enter the missing note to complete the #{$scope.current_chord[0][1]} #{$scope.current_chord[0][2]} chord. <br>
+        #{$scope.current_chord[0][1]}  #{$scope.current_chord[1][1]} ___"
     
-    $scope.question = "intervalQuestion"
+    intervals: ->
+      createScale()
+      first_note_position = Math.floor(Math.random()*12)
+      second_note_position = Math.floor(Math.random()*12)
+      interval = second_note_position - first_note_position #swap position to implement descending 
+      $scope.first_note = $scope.chromatic_scale[first_note_position]
+      $scope.second_note = $scope.chromatic_scale[second_note_position]
+      if interval <= 0
+        interval += 12
+      $scope.current_note = Training.checkInterval(interval)
+      $scope.intervals = ['Minor second','Major second','Minor third','Major third','Perfect fourth','Diminished fifth','Perfect fifth','Minor sixth','Major sixth','Minor seventh','Major seventh','Perfect octave']
+      
+      $scope.question = "intervalQuestion"
   
-    # $('#interval_list li .row ul:first').append("<li><a href='#' class= 'interval_choice'>#{interval_name}</a></li>") for interval_name in intervals[0..5] 
-    # $('#interval_list li .row ul:last').append("<li><a href='#' class= 'interval_choice'>#{interval_name}</a></li>") for interval_name in intervals[6..11] 
-
   $scope.evaluateAnswer = ->
     answer = $scope.answer.trim().toLowerCase()
     if answer is $scope.current_note.toLowerCase() 
@@ -127,33 +125,27 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
       $scope.quizBtnText = "Correct"
       $scope.quizBtnState = "success"
       ga 'send', 'event', 'Theory Quiz', "answer", answer, 1
-      $scope.timeoutID = setTimeout -> 
-        if $scope.evaluation then $('#quiz.theory-quiz').trigger('click') 
-      , 2000
+      evaluate = ->
+         if $scope.evaluation then $scope.quiz($state.current.name)
+      $scope.timeoutID = $timeout evaluate, 2000
       return true
     else 
       $scope.evaluation = false
       ga 'send', 'event', 'Theory Quiz', 'answer', "#{$scope.current_note} chose #{$scope.answer}", -1
       return false
 
-  # $(document).on 'click', '.interval_choice', ->
-  #   $answer.val($(this).text()) 
-  #   if $scope.evaluateAnswer()
-  #     $('#intervaldrop').trigger('click')
-
   $scope.selectInterval = (interval) -> 
     $scope.answer = interval
     $scope.evaluateAnswer()
   
   $scope.theoryQuiz = ->
-    clearTimeout $scope.timeoutID
-    $answer.val('')
+    $timeout.cancel $scope.timeoutID
+    $scope.answer = ''
     $scope.quizBtnText = "Submit"
     $scope.quizBtnState = "primary"
     $scope.evaluation = null; 
-    quiz_type = $('.currentQuiz').text()[0...-1]
-    eval(quiz_type + 'Question()')
-    ga 'send', 'event', 'Theory Quiz', quiz_type
+    questions[$stateParams.questionType]() 
+    ga 'send', 'event', 'Theory Quiz', $state.current.name
   
   $scope.quiz = (type) ->
     if type is "theory"
