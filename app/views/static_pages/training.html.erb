@@ -53,7 +53,7 @@
               <button type="button" id= 'quiz' class= 'btn btn-default btn-md quiz ear-quiz' ng-click='quiz($state.current.name)'>Quiz me!</button>
             </div>
             <div id='quizbody' ng-show="question">
-              <div class="question" ng-show="question === 'intervalQuestion'">What is the name of the 
+              <div class="question" ng-show="$stateParams.questionType === 'intervals'">What is the name of the 
                 <div class="btn-group dropup">
                   <button type='button' id= 'intervaldrop' class='btn btn-default dropdown-toggle' data-toggle="dropdown" >Interval<span class='caret'></span></button>
                   <ul class="dropdown-menu" id="interval_list">
@@ -61,12 +61,12 @@
                       <div id="interval_box" class='row'>
                         <ul class='list-unstyled col-xs-6'>
                           <li ng-repeat="interval in intervals.slice(0,6)">
-                            <a href='#' ng-click="selectInterval(interval)" class= 'interval_choice'>{{interval}}</a>
+                            <a href='' ng-click="selectInterval(interval)" class= 'interval_choice'>{{interval}}</a>
                           </li>
                         </ul>
                       <ul class='list-unstyled col-xs-6'>
                         <li ng-repeat="interval in intervals.slice(6,12)">
-                          <a href='#' ng-click="selectInterval(interval)" class= 'interval_choice'>{{interval}}</a>
+                          <a href='' ng-click="selectInterval(interval)" class= 'interval_choice'>{{interval}}</a>
                         </li>
                       </ul>
                       </div>
@@ -75,7 +75,7 @@
                 </div>
                 ascending from {{first_note}} to {{second_note}}?
               </div>
-              <div class="question" ng-show="question !== 'intervalQuestion'" ng-bind-html='question'></div>
+              <div class="question" ng-show="$stateParams.questionType !== 'intervals'" ng-bind-html='question'></div>
               <div id= "evaluation" >
                 <p id="sorry" ng-show="evaluation === false"> Sorry, try again </p>
               </div>

@@ -27,26 +27,13 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
   $scope.current_position = undefined
   $scope.key_number = undefined
   $scope.scale_type = undefined
-  $scope.timeoutID = undefined
   $scope.quizBtnText = "Submit"
   $scope.quizBtnState = "primary"
-  
-  $scope.evaluation = null
-  $scope.answer = ''
-  $scope.question = ''
-                                              
-  $evaluation = $('#evaluation')
-  $question = $('#question')
-  $answer = $('#answer')
-  $quizform = $('#quizform')
-  $checkrow = $('#checkrow')
-  $trainingrow = $('#trainingrow')
-  $performance = $('#performance')
-  
+                                                
   $scope.$on '$locationChangeStart', (event, toState, toParams, fromState, fromParams) ->
     $timeout.cancel $scope.timeoutID
     $scope.question = ''
-    $scope.evaluation = ''
+    $scope.evaluation = 'doodles'
 
   createScale = ->
     #clear previous evaluated answer
@@ -115,9 +102,7 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
         interval += 12
       $scope.current_note = Training.checkInterval(interval)
       $scope.intervals = ['Minor second','Major second','Minor third','Major third','Perfect fourth','Diminished fifth','Perfect fifth','Minor sixth','Major sixth','Minor seventh','Major seventh','Perfect octave']
-      
       $scope.question = "intervalQuestion"
-  
   $scope.evaluateAnswer = ->
     answer = $scope.answer.trim().toLowerCase()
     if answer is $scope.current_note.toLowerCase() 
@@ -128,11 +113,9 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
       evaluate = ->
          if $scope.evaluation then $scope.quiz($state.current.name)
       $scope.timeoutID = $timeout evaluate, 2000
-      return true
     else 
       $scope.evaluation = false
       ga 'send', 'event', 'Theory Quiz', 'answer', "#{$scope.current_note} chose #{$scope.answer}", -1
-      return false
 
   $scope.selectInterval = (interval) -> 
     $scope.answer = interval
