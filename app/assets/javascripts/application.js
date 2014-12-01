@@ -12,8 +12,9 @@
 //
 //= require angular
 //= require angular-sanitize
+//= require angular-ui-router
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
 //= require soundmanager
-//= require_tree 
+//= require_tree .

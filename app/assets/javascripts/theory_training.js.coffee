@@ -1,4 +1,4 @@
-angular.module("Quiz", ['ngSanitize'])
+angular.module("Quiz", ['ngSanitize', 'ui.router'])
 
 @TheoryCtrl = ["$scope", ($scope) ->
   $scope.chromatic_scale = undefined
