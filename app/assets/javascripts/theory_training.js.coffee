@@ -18,7 +18,7 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
   $state.transitionTo('ear', {questionType: 'intervals'})
 ]
 
-@TheoryCtrl = ["$scope",'$stateParams', '$state', '$location', '$timeout', ($scope, $stateParams, $state, $location, $timeout) ->
+@TheoryCtrl = ["$scope",'$stateParams', '$state', '$location', '$timeout', 'sharedFunctions', ($scope, $stateParams, $state, $location, $timeout, sharedFunctions) ->
   $scope.chromatic_scale = undefined
   $scope.current_scale = undefined
   $scope.current_degree = undefined 
@@ -100,7 +100,7 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
       $scope.second_note = $scope.chromatic_scale[second_note_position]
       if interval <= 0
         interval += 12
-      $scope.current_note = Training.checkInterval(interval)
+      $scope.current_note = sharedFunctions.checkInterval(interval)
       $scope.intervals = ['Minor second','Major second','Minor third','Major third','Perfect fourth','Diminished fifth','Perfect fifth','Minor sixth','Major sixth','Minor seventh','Major seventh','Perfect octave']
       $scope.question = "intervalQuestion"
   $scope.evaluateAnswer = ->

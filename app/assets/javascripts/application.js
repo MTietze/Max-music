@@ -13,6 +13,8 @@
 //= require angular
 //= require angular-sanitize
 //= require angular-ui-router
+//= require theory_training
+//= require shared_training
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
