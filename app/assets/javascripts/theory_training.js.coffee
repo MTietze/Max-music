@@ -2,14 +2,14 @@ quiz = angular.module("Quiz", ['ngSanitize', 'ui.router'])
 
 quiz.config ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) ->
   $stateProvider
-    .state('theory', {
-      url: "/theory/:questionType",
+    .state 'theory', 
+      url: "/theory/:questionType"
       template: "training.html.erb"
-    })
-    .state('ear', {
-      url: "/ear/:questionType",
+      controller: 'TheoryCtrl'
+    
+    .state 'ear',
+      url: "/ear/:questionType"
       template: "training.html.erb"
-    })
 ]
 
 quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $stateParams, $state, $location) ->
@@ -18,22 +18,14 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
   $state.transitionTo('ear', {questionType: 'intervals'})
 ]
 
-@TheoryCtrl = ["$scope",'$stateParams', '$state', '$location', '$timeout', 'sharedFunctions', ($scope, $stateParams, $state, $location, $timeout, sharedFunctions) ->
-  $scope.chromatic_scale = undefined
-  $scope.current_scale = undefined
-  $scope.current_degree = undefined 
-  $scope.current_scale_root = undefined
-  $scope.current_note = undefined
-  $scope.current_position = undefined
-  $scope.key_number = undefined
-  $scope.scale_type = undefined
+quiz.controller 'TheoryCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', 'sharedFunctions', ($scope, $stateParams, $state, $location, $timeout, sharedFunctions) ->
   $scope.quizBtnText = "Submit"
   $scope.quizBtnState = "primary"
-                                                
+
   $scope.$on '$locationChangeStart', (event, toState, toParams, fromState, fromParams) ->
     $timeout.cancel $scope.timeoutID
     $scope.question = ''
-    $scope.evaluation = 'doodles'
+    $scope.evaluation = ''
 
   createScale = ->
     #clear previous evaluated answer
@@ -131,8 +123,7 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
     ga 'send', 'event', 'Theory Quiz', $state.current.name
   
   $scope.quiz = (type) ->
-    if type is "theory"
-      $scope.theoryQuiz()
+    $scope[type + 'Quiz']()
 
   $scope.changeQuestionType = (type) ->
     $state.transitionTo($state.current, {questionType: type})
