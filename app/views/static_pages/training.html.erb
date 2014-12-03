@@ -1,5 +1,5 @@
 <% provide(:title, 'Music Training') %>
-<div class="container bodycontainer" id="trainingcontainer" ng-app="Quiz" ng-controller="TheoryCtrl">
+<div class="container bodycontainer" id="trainingcontainer" ng-app="Quiz" ng-controller="EarCtrl">
   <div class="row" id="checkrow" ng-show=" $state.current.name === 'ear'">
     <div class="navbar navbar-default" role="navigation">
       <div id="optionsbox">
@@ -35,56 +35,77 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-        <div class= 'text-center'>
-          <div class="btn-group" id= 'typeQuiz'>
-            <button type="button" class="btn btn-default  quiz ear-quiz" ng-class="{'currentQuiz': $stateParams.questionType === 'intervals'}" ng-click="changeQuestionType('intervals')">Intervals</button>
-            <button type="button" class="btn btn-default quiz ear-quiz" ng-class="{'currentQuiz': $stateParams.questionType === 'chords'}" ng-click="changeQuestionType('chords')">Chords</button>
-            <button type="button" class="btn btn-default quiz ear-quiz" ng-class="{'currentQuiz': $stateParams.questionType === 'scales'}" ng-click="changeQuestionType('scales')">Scales</button>
+      <div class= 'text-center'>
+        <div class="btn-group" id= 'typeQuiz'>
+          <button type="button" class="btn btn-default  quiz ear-quiz" ng-class="{'currentQuiz': $stateParams.questionType === 'intervals'}" ng-click="changeQuestionType('intervals')">Intervals</button>
+          <button type="button" class="btn btn-default quiz ear-quiz" ng-class="{'currentQuiz': $stateParams.questionType === 'chords'}" ng-click="changeQuestionType('chords')">Chords</button>
+          <button type="button" class="btn btn-default quiz ear-quiz" ng-class="{'currentQuiz': $stateParams.questionType === 'scales'}" ng-click="changeQuestionType('scales')">Scales</button>
+        </div>
+        <div class="row">
+        <div class="btn-group" id= 'typeTraining'>
+          <button type="button" id='earTraining' class="btn btn-default" ng-class="{'currentTraining': $state.current.name === 'ear'}" ng-click="changeTrainingType('ear')">Ear Training</button>
+          <button type="button" id='theoryTraining' class="btn btn-default"  ng-class="{'currentTraining': $state.current.name === 'theory'}" ng-click="changeTrainingType('theory')">Theory Training</button>
+        </div>
+        </div>
+        <p id="performance" class="text-center">Use Google Chrome for best performance. Confused? Check out <%= link_to "getting started", getting_started_path %></p>
+        <div class="row" id="quizrow" ng-show="$state.current.name === 'theory'">
+          <div class="btn-group" id= 'play'>
+            <button type="button" id= 'quiz' class= 'btn btn-default btn-md quiz ear-quiz' ng-click='quiz($state.current.name)'>Quiz me!</button>
           </div>
-          <div class="row">
-          <div class="btn-group" id= 'typeTraining'>
-            <button type="button" id='earTraining' class="btn btn-default" ng-class="{'currentTraining': $state.current.name === 'ear'}" ng-click="changeTrainingType('ear')">Ear Training</button>
-            <button type="button" id='theoryTraining' class="btn btn-default"  ng-class="{'currentTraining': $state.current.name === 'theory'}" ng-click="changeTrainingType('theory')">Theory Training</button>
-          </div>
-          </div>
-          <p id="performance" class="text-center">Use Google Chrome for best performance. Confused? Check out <%= link_to "getting started", getting_started_path %></p>
-          <div class="row" id="quizrow">
-            <div class="btn-group" id= 'play'>
-              <button type="button" id= 'quiz' class= 'btn btn-default btn-md quiz ear-quiz' ng-click='quiz($state.current.name)'>Quiz me!</button>
-            </div>
-            <div id='quizbody' ng-show="question">
-              <div class="question" ng-show="$stateParams.questionType === 'intervals'">What is the name of the 
-                <div class="btn-group dropup">
-                  <button type='button' id= 'intervaldrop' class='btn btn-default dropdown-toggle' data-toggle="dropdown" >Interval<span class='caret'></span></button>
-                  <ul class="dropdown-menu" id="interval_list">
-                    <li>
-                      <div id="interval_box" class='row'>
-                        <ul class='list-unstyled col-xs-6'>
-                          <li ng-repeat="interval in intervals.slice(0,6)">
-                            <a href='' ng-click="selectInterval(interval)" class= 'interval_choice'>{{interval}}</a>
-                          </li>
-                        </ul>
+          <div id='quizbody' ng-show="question">
+            <div class="question" ng-show="$stateParams.questionType === 'intervals'">What is the name of the 
+              <div class="btn-group dropup">
+                <button type='button' id= 'intervaldrop' class='btn btn-default dropdown-toggle' data-toggle="dropdown" >Interval<span class='caret'></span></button>
+                <ul class="dropdown-menu" id="interval_list">
+                  <li>
+                    <div id="interval_box" class='row'>
                       <ul class='list-unstyled col-xs-6'>
-                        <li ng-repeat="interval in intervals.slice(6,12)">
+                        <li ng-repeat="interval in intervals.slice(0,6)">
                           <a href='' ng-click="selectInterval(interval)" class= 'interval_choice'>{{interval}}</a>
                         </li>
                       </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                ascending from {{first_note}} to {{second_note}}?
+                    <ul class='list-unstyled col-xs-6'>
+                      <li ng-repeat="interval in intervals.slice(6,12)">
+                        <a href='' ng-click="selectInterval(interval)" class= 'interval_choice'>{{interval}}</a>
+                      </li>
+                    </ul>
+                    </div>
+                  </li>
+                </ul>
               </div>
-              <div class="question" ng-show="$stateParams.questionType !== 'intervals'" ng-bind-html='question'></div>
-              <div id= "evaluation" >
-                <p id="sorry" ng-show="evaluation === false"> Sorry, try again </p>
+              ascending from {{first_note}} to {{second_note}}?
+            </div>
+            <div class="question" ng-show="$stateParams.questionType !== 'intervals'" ng-bind-html='question'></div>
+          </div>
+          <div id= "evaluation" >
+            <p id="sorry" ng-show="evaluation === false"> Sorry, try again </p>
+          </div>
+          <form id="quizform" ><input ng-model="answer" type="text" id="answer" autocomplete="off">
+            <button class="btn btn-sm btn-{{quizBtnState}}"  id="{{quizBtnText | lowercase}}answer" ng-click="evaluateAnswer()">{{quizBtnText}}</button>
+          </form>
+        </div>
+
+
+        <div class="row" id="quizrow" ng-show="$state.current.name === 'ear'">
+          <div class="btn-group" id= 'play'>
+            <button type="button" id= 'quiz' class= 'btn btn-default btn-md quiz ear-quiz' ng-click='quiz($state.current.name)'>Quiz me!</button>
+          </div>
+          <div id='quizbody'>
+            <div class="question" >
+              <div id= 'scales' class="col-sm-4" ng-show= "$stateParams.questionType === 'scales'"> 
+                <button href='#' class= 'btn btn-large btn-primary choice' ng-repeat="scale in scales" >{{scale.quality}}</button>
               </div>
-              <form id="quizform" ><input ng-model="answer" type="text" id="answer" autocomplete="off">
-                <button class="btn btn-sm btn-{{quizBtnState}}"  id="{{quizBtnText | lowercase}}answer" ng-click="evaluateAnswer()">{{quizBtnText}}</button>
-              </form>
+              <div id= 'majorButtons' class="col-sm-4" ng-class="{'col-sm-offset-2': isFirstCol('major')}" ng-hide= "$stateParams.questionType === 'scales'"> 
+                <button href='#' class= 'btn btn-large btn-primary choice' ng-repeat="scale in scales" ng-hide= "$stateParams.questionType === 'scales'">{{scale.quality}}</button>
+              </div>
+              <div id= 'minorButtons' class="col-sm-4" ng-class="{'col-sm-offset-2': isFirstCol('minor')}" ng-hide= "$stateParams.questionType === 'scales'"> 
+              </div>
+              <div id= 'otherButtons' class="col-sm-4" ng-hide= "$stateParams.questionType === 'scales'"> 
+              </div>
             </div>
           </div>
         </div>
-    </div>   
+      </div>
+    </div> 
   </div>
 </div>

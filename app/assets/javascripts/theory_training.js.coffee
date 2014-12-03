@@ -10,6 +10,7 @@ quiz.config ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouter
     .state 'ear',
       url: "/ear/:questionType"
       template: "training.html.erb"
+      controller: 'EarCtrl'
 ]
 
 quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $stateParams, $state, $location) ->
@@ -26,6 +27,7 @@ quiz.controller 'TheoryCtrl', ["$scope",'$stateParams', '$state', '$location', '
     $timeout.cancel $scope.timeoutID
     $scope.question = ''
     $scope.evaluation = ''
+    $scope.state = $state
 
   createScale = ->
     #clear previous evaluated answer

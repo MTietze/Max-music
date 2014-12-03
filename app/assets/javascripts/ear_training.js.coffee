@@ -1,3 +1,73 @@
+quiz = angular.module('Quiz')
+
+quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', 'sharedFunctions', ($scope, $stateParams, $state, $location, $timeout, sharedFunctions) ->
+
+  $scope.quiz_type = undefined
+  $scope.root = undefined
+  $scope.all = undefined
+  $scope.current_interval = undefined
+  $scope.scale_name = undefined
+  $scope.cols = undefined
+  $scope.chord1 = undefined
+  $scope.chord2 =undefined
+  $scope.notes= []
+  $scope.scales = [{quality: 'Harmonic minor', formula: [0,2,3,5,7,8,11,12]},
+                 {quality: 'Melodic minor', formula: [0,2,3,5,7,9,11,12]},
+                 {quality:'Ionian', formula:[0,2,4,5,7,9,11,12]}, 
+                 {quality:'Dorian', formula:[0,2,3,5,7,9,10,12]},
+                 {quality: 'Phrygian' , formula:[0,1,3,5,7,8,10,12]},
+                 {quality:'Lydian' , formula:[0,2,4,6,7,9,11,12]},
+                 {quality:'Mixolydian' , formula:[0,2,4,5,7,9,10,12]},
+                 {quality:'Aeolian' , formula:[0,2,3,5,7,8,10,12]},
+                 {quality:'Locrian' , formula:[0,1,3,5,6,8,10,12]}]   
+  checkRandom = ->
+    # if checked put in a random key between E 52 and Eb 63
+    if $scope.randomKeys
+      $scope.root = 52 + Math.floor(Math.random() * 11)
+    else
+      $scope.root = 60
+    
+  isFirstCol = (column)->
+    #set column size based on how many there are
+    if column is 'major'
+    	return $scope.minor or $scope.other and not ($scope.minor and $scope.other)
+    if column is 'other'
+    	return $scope.minor and not $scope.major 
+
+    # if cols is 2
+    #   $question.children(":nth-child(2)").addClass "col-sm-4"
+    #   $question.children(":first").addClass "col-sm-4 col-sm-offset-2"
+    # else
+    #   $('#question').children().attr('class', "col-sm-" + (12/cols))
+  createScales = ->
+    checkRandom()
+    current_scale = scales[Math.floor(scales.length * Math.random())]
+    $scope.scale_name = current_scale.quality
+    $scope.notes = (note += root for note in current_scale.formula)
+    # $question.append "<div id= 'majorButtons'> </div>"
+    $scope.cols = 1
+    # isFirstCol()
+    # createScaleButton scale for scale in scales
+    
+  # createScaleButton = (scale) ->
+  #   button = "<button href='#' id= 'scale_#{scale.quality.replace(" ", "_")}'class= 'btn btn-large btn-primary choice'>#{scale.quality}</button>"
+  #   $("#majorButtons").append button
+  $scope.earQuiz = ->
+    # $question.children().remove()
+    # quiz_type = $('.currentQuiz').text()
+    # eval("create" + $stateParams.questionType. + "()")
+    createScales()
+    # hearNotes()
+    # unless $('#hearAgain').length 
+    #   $('#play').append('<button type="button" id= "hearAgain" class= "btn btn-default btn-md">Hear again</button>')
+    # options = checkOptions()
+    # ga 'send', 'event', 'Ear Quiz', quiz_type, options
+  $scope.quiz = (type) ->
+    $scope[type + 'Quiz']()
+]
+
+
+
 # $(document).on 'ready page:change', ->
 #   if $('#typeQuiz').length || $('#started_body').length
 #     # MIDI.loader = new widgets.Loader
@@ -39,7 +109,7 @@
 #       notes = (note += root for note in current_scale.formula)
 #       $question.append "<div id= 'majorButtons'> </div>"
 #       cols = 1
-#       checkCols()
+#       isFirstCol()
 #       createScaleButton scale for scale in scales
   
 #     createScaleButton = (scale) ->
@@ -84,7 +154,7 @@
 #           all = true
 #           $question.append('<div id="otherChordButtons" class="col-sm-12"></div>') 
   
-#       checkCols()
+#       isFirstCol()
 #       #randomly decide between major and minor scale
 #       whichscale = Math.floor(cols * Math.random())
 #       #set chord1 to to the root of the selected scale
@@ -170,7 +240,7 @@
 #         cols += 1
 #         $question.append "<div id= 'otherButtons'> </div>"
       
-#       checkCols()
+#       isFirstCol()
   
 #       checkRandom()
       
@@ -228,7 +298,7 @@
 #       else
 #         root = 60
   
-#     checkCols = ->
+#     isFirstCol = ->
 #       #set column size based on how many there are
 #       if cols is 2
 #         $question.children(":nth-child(2)").addClass "col-sm-4"
