@@ -18,3 +18,4 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
   $rootScope.$stateParams = $stateParams
   $rootScope.$state = $state
 ]
+

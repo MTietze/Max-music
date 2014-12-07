@@ -44,7 +44,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     checkRandom()
     current_scale = $scope.scales[Math.floor($scope.scales.length * Math.random())]
     $scope.scale_name = current_scale.quality
-    $scope.notes = (note += root for note in current_scale.formula)
+    $scope.notes = (note += $scope.root for note in current_scale.formula)
     # $question.append "<div id= 'majorButtons'> </div>"
     $scope.cols = 1
     # isFirstCol()
