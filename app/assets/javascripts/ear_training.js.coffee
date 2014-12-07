@@ -1,6 +1,6 @@
 quiz = angular.module('Quiz')
 
-quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', 'sharedFunctions', ($scope, $stateParams, $state, $location, $timeout, sharedFunctions) ->
+quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', ($scope, $stateParams, $state, $location, $timeout) ->
   
   $scope.quiz_type = undefined
   $scope.root = undefined
@@ -19,7 +19,8 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
                  {quality:'Lydian' , formula:[0,2,4,6,7,9,11,12]},
                  {quality:'Mixolydian' , formula:[0,2,4,5,7,9,10,12]},
                  {quality:'Aeolian' , formula:[0,2,3,5,7,8,10,12]},
-                 {quality:'Locrian' , formula:[0,1,3,5,6,8,10,12]}]   
+                 {quality:'Locrian' , formula:[0,1,3,5,6,8,10,12]}]
+
   checkRandom = ->
     # if checked put in a random key between E 52 and Eb 63
     if $scope.randomKeys

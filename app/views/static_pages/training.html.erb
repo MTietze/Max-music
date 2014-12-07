@@ -1,38 +1,6 @@
 <% provide(:title, 'Music Training') %>
-<div class="container bodycontainer" id="trainingcontainer" >
-  <div class="row" id="checkrow" ng-show=" $state.current.name === 'ear'">
-    <div class="navbar navbar-default" role="navigation">
-      <div id="optionsbox">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#checkcolumn">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <h1 id= "options-title"> Options</h1>
-        </div>
-        <div class= 'navbar-collapse collapse' id="checkcolumn">
-          <label>
-            <input type="checkbox" id= "randomKeys"> 
-            <p> Random keys </p>
-          </label>
-          <label>
-            <input type="checkbox" id= "major" checked> 
-            <p>Major intervals</p>
-          </label>
-          <label>
-            <input type="checkbox" id= "minor"> 
-            <p>Minor intervals</p>
-          </label>
-          <label>
-            <input type="checkbox" id= "other"> 
-            <p>Perfect intervals</p>
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="container bodycontainer" id="trainingcontainer" ng-controller="TrainingCtrl" >
+  <div ui-view></div>
   <div class="row">
     <div class="col-xs-12">
       <div class= 'text-center'>
@@ -80,7 +48,7 @@
           <div id= "evaluation" >
             <p id="sorry" ng-show="evaluation === false"> Sorry, try again </p>
           </div>
-          <form id="quizform" ><input ng-model="answer" type="text" id="answer" autocomplete="off">
+          <form id="quizform" ng-show="question"><input ng-model="answer" type="text" id="answer" autocomplete="off" >
             <button class="btn btn-sm btn-{{quizBtnState}}"  id="{{quizBtnText | lowercase}}answer" ng-click="evaluateAnswer()">{{quizBtnText}}</button>
           </form>
         </div>

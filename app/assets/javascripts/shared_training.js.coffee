@@ -1,6 +1,6 @@
 quiz = angular.module("Quiz")
 
-quiz.service "sharedFunctions", [ () ->
+quiz.service "sharedFunctions", [() ->
   intervalMap = 
     0  : 'Perfect unison'
     1  : 'Minor second'
@@ -18,4 +18,11 @@ quiz.service "sharedFunctions", [ () ->
   new class shared
     checkInterval: (interval)->
       intervalMap[interval]
+]
+
+quiz.controller "TrainingCtrl",  ['$scope', '$state', '$stateParams', ($scope, $state, $stateParams) ->
+  $scope.changeQuestionType = (type) ->
+    $state.transitionTo($state.current, {questionType: type})
+  $scope.changeTrainingType = (state) ->
+    $state.transitionTo(state, {questionType: $stateParams.questionType})
 ]

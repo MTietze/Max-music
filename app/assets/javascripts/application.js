@@ -13,6 +13,7 @@
 //= require angular
 //= require angular-sanitize
 //= require angular-ui-router
+//= require angular-rails-templates
 //= require training_app
 //= require theory_training
 //= require ear_training
@@ -21,4 +22,5 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require soundmanager
+//= require_tree ./templates
 //= require_tree .
