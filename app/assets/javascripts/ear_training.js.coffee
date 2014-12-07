@@ -1,7 +1,7 @@
 quiz = angular.module('Quiz')
 
 quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', 'sharedFunctions', ($scope, $stateParams, $state, $location, $timeout, sharedFunctions) ->
-
+  
   $scope.quiz_type = undefined
   $scope.root = undefined
   $scope.all = undefined
@@ -41,7 +41,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     #   $('#question').children().attr('class', "col-sm-" + (12/cols))
   createScales = ->
     checkRandom()
-    current_scale = scales[Math.floor(scales.length * Math.random())]
+    current_scale = $scope.scales[Math.floor($scope.scales.length * Math.random())]
     $scope.scale_name = current_scale.quality
     $scope.notes = (note += root for note in current_scale.formula)
     # $question.append "<div id= 'majorButtons'> </div>"

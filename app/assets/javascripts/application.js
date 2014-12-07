@@ -13,7 +13,9 @@
 //= require angular
 //= require angular-sanitize
 //= require angular-ui-router
+//= require training_app
 //= require theory_training
+//= require ear_training
 //= require shared_training
 //= require jquery
 //= require jquery_ujs

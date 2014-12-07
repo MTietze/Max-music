@@ -1,23 +1,4 @@
-quiz = angular.module("Quiz", ['ngSanitize', 'ui.router'])
-
-quiz.config ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) ->
-  $stateProvider
-    .state 'theory', 
-      url: "/theory/:questionType"
-      template: "training.html.erb"
-      controller: 'TheoryCtrl'
-    
-    .state 'ear',
-      url: "/ear/:questionType"
-      template: "training.html.erb"
-      controller: 'EarCtrl'
-]
-
-quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $stateParams, $state, $location) ->
-  $rootScope.$stateParams = $stateParams
-  $rootScope.$state = $state
-  $state.transitionTo('ear', {questionType: 'intervals'})
-]
+quiz = angular.module('Quiz')
 
 quiz.controller 'TheoryCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', 'sharedFunctions', ($scope, $stateParams, $state, $location, $timeout, sharedFunctions) ->
   $scope.quizBtnText = "Submit"
