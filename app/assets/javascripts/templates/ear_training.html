@@ -15,8 +15,8 @@
           <input type="checkbox" id= "randomKeys" ng-model="options.randomKeys"> 
           <p> Random keys </p>
         </label>
-        <label ng-repeat="(quality, value) in options.qualities">
-          <input type="checkbox"  ng-model="options.qualities[quality]"> 
+        <label ng-repeat="(quality, value) in options[$stateParams.questionType]">
+          <input type="checkbox"  ng-model="options[$stateParams.questionType][quality]"> 
           <p> {{getOptionsText()[quality]}}</p>
         </label>
       </div>

@@ -1,13 +1,8 @@
 quiz = angular.module('Quiz')
 
-quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', ($scope, $stateParams, $state, $location, $timeout) ->
+quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', 'options', ($scope, $stateParams, $state, $location, $timeout, options) ->
   
-  $scope.options = 
-    "randomKeys" : false
-    "qualities" :
-      "major" : true
-      "minor" : false
-      "other" : false
+  $scope.options = options
   columns = ['major', 'minor', 'other'] 
   $scope.coltotal = 0
   $scope.showColumn = {}
@@ -90,7 +85,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       scale = []
       intervals = []
       cols = 0
-      for opt, val of $scope.options.qualities
+      for opt, val of $scope.options.intervals
         $scope.showColumn[opt] = val
       # if $scope.major                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
       #   showIntervalButtons[interval] = true for interval in 
@@ -158,8 +153,16 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     $scope[type + 'Quiz']()
 ]
 
-
-
+quiz.service 'options' , ()->
+  "randomKeys" : false
+  "intervals" :
+    "major" : true
+    "minor" : false
+    "other" : false
+  "chords" :
+    "major" : true
+    "minor" : false
+    "other" : false
 # $(document).on "click", "[id^=scale_]",  ->
 #       $this = $(this)
 #       if $this.attr("id") is "scale_#{scale_name.replace(' ','_')}"
