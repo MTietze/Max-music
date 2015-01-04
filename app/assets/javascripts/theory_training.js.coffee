@@ -1,14 +1,8 @@
 quiz = angular.module('Quiz')
 
-quiz.controller 'TheoryCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', 'sharedFunctions', ($scope, $stateParams, $state, $location, $timeout, sharedFunctions) ->
+quiz.controller 'TheoryCtrl', ["$scope", '$state', '$stateParams', '$timeout', 'sharedFunctions', ($scope, $state, $stateParams, $timeout, sharedFunctions) ->
   $scope.quizBtnText = "Submit"
   $scope.quizBtnState = "primary"
-
-  $scope.$on '$locationChangeStart', (event, toState, toParams, fromState, fromParams) ->
-    $timeout.cancel $scope.timeoutID
-    $scope.question = ''
-    $scope.evaluation = ''
-    $scope.state = $state
 
   createScale = ->
     #clear previous evaluated answer
@@ -107,12 +101,6 @@ quiz.controller 'TheoryCtrl', ["$scope",'$stateParams', '$state', '$location', '
   
   $scope.quiz = (type) ->
     $scope[type + 'Quiz']()
-
-  $scope.changeQuestionType = (type) ->
-    $state.transitionTo($state.current, {questionType: type})
-
-  $scope.changeTrainingType = (state) ->
-    $state.transitionTo(state, {questionType: $stateParams.questionType})
   
   # prevent clicking enter on text box from refreshing page
   # $quizform.submit (e) -> 

@@ -12,7 +12,7 @@
           <button type="button" id='theoryTraining' class="btn btn-default"  ng-class="{'currentTraining': $state.current.name === 'theory'}" ng-click="changeTrainingType('theory')">Theory Training</button>
         </div>
         </div>
-        <p id="performance" class="text-center">Use Google Chrome for best performance. Confused? Check out <%= link_to "getting started", getting_started_path %></p>
+        <p id="performance" class="text-center">Confused? Check out <%= link_to "getting started", getting_started_path %></p>
         <div class="row" id="quizrow" ng-show="$state.current.name === 'theory'">
           <div class="btn-group" id= 'play'>
             <button type="button" id= 'quiz' class= 'btn btn-default btn-md quiz ear-quiz' ng-click='quiz($state.current.name)'>Quiz me!</button>
