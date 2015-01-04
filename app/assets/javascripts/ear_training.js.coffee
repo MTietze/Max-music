@@ -11,6 +11,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
   $scope.chord1 = undefined
   $scope.chord2 =undefined
   $scope.notes= []
+  $scope.p = $stateParams
   $scope.scales = [{quality: 'Harmonic minor', formula: [0,2,3,5,7,8,11,12]},
                  {quality: 'Melodic minor', formula: [0,2,3,5,7,9,11,12]},
                  {quality:'Ionian', formula:[0,2,4,5,7,9,11,12]}, 
@@ -21,6 +22,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
                  {quality:'Aeolian' , formula:[0,2,3,5,7,8,10,12]},
                  {quality:'Locrian' , formula:[0,1,3,5,6,8,10,12]}]
 
+ 
   checkRandom = ->
     # if checked put in a random key between E 52 and Eb 63
     if $scope.randomKeys
@@ -40,23 +42,30 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     #   $question.children(":first").addClass "col-sm-4 col-sm-offset-2"
     # else
     #   $('#question').children().attr('class', "col-sm-" + (12/cols))
-  createscales = ->
-    checkRandom()
-    current_scale = $scope.scales[Math.floor($scope.scales.length * Math.random())]
-    $scope.scale_name = current_scale.quality
-    $scope.notes = (note += $scope.root for note in current_scale.formula)
-    # $question.append "<div id= 'majorButtons'> </div>"
-    $scope.cols = 1
-    # isFirstCol()
-    # createScaleButton scale for scale in scales
-    
-  # createScaleButton = (scale) ->
-  #   button = "<button href='#' id= 'scale_#{scale.quality.replace(" ", "_")}'class= 'btn btn-large btn-primary choice'>#{scale.quality}</button>"
-  #   $("#majorButtons").append button
+  createObjects = 
+  	scales : -> 
+  		checkRandom()
+  		current_scale = $scope.scales[Math.floor($scope.scales.length * Math.random())]
+  		$scope.scale_name = current_scale.quality
+  		$scope.notes = (note += $scope.root for note in current_scale.formula)
+  		$scope.cols = 1
+
+  $scope.chooseScale = (scale) ->
+  	if scale.quality is $scope.scale_name
+  		$scope.correctAnswer = scale.quality 
+  		ga 'send', 'event', 'Ear Quiz', 'scale', $scope.scale_name, 1
+  	else
+  		$scope.wrongAnswers[scale.quality] = true 
+			ga 'send', 'event', 'Ear Quiz', 'scale', "#{$scope.scale_name} chose #{scale}", -1
+
   $scope.earQuiz = ->
+    # eval("create" + $stateParams.questionType + "()")
+    createObjects[$stateParams.questionType]()
+    $scope.wrongAnswers = {}
+    $scope.correctAnswer = null 
+
     # $question.children().remove()
     # quiz_type = $('.currentQuiz').text()
-    eval("create" + $stateParams.questionType + "()")
     # createScales()
     # hearNotes()
     # unless $('#hearAgain').length 
@@ -68,6 +77,15 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
 ]
 
 
+
+# $(document).on "click", "[id^=scale_]",  ->
+#       $this = $(this)
+#       if $this.attr("id") is "scale_#{scale_name.replace(' ','_')}"
+#         $question.html($(this).css("pointer-events", "none").toggleClass('btn-primary btn-success'))
+#         ga 'send', 'event', 'Ear Quiz', 'scale', scale_name, 1
+#       else
+#         $this.addClass('wrong')
+#         ga 'send', 'event', 'Ear Quiz', 'scale', "#{scale_name} chose #{$this.text()}", -1
 
 # $(document).on 'ready page:change', ->
 #   if $('#typeQuiz').length || $('#started_body').length

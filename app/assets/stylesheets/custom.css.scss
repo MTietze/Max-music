@@ -488,6 +488,12 @@ footer {
     background-color: #E04B3E;
     background-image: none;
   }
+  .correct-answer {
+    margin-top: 1%; 
+    pointer-events: none;
+    background-color: #5cb85c; 
+    color: white; 
+  }
 }
 
 #typeTraining button {
@@ -586,10 +592,6 @@ footer {
   margin-top: 1%; 
 }
 
-#correctanswer {
-  margin-top: 1%; 
-  pointer-events: none; 
-}
 
 #options-title{
   display:  inline;
