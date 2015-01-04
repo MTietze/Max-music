@@ -44,7 +44,7 @@
           </div>
           <div id='quizbody'>
             <div class="question" >
-              <div id= 'scales' class="col-xs-4 col-xs-offset-4" ng-show= "$stateParams.questionType === 'scales' && !correctAnswer"> 
+              <div id= 'scales' class="col-xs-4 col-xs-offset-4" ng-show= "$stateParams.questionType === 'scales' && !correctAnswer && answer"> 
                 <button href='#' class= 'btn btn-large choice' ng-hide="correctAnswer && scale.quality !== correctAnswer" ng-class="{'wrong': wrongAnswers[scale.quality], 'correct-answer': correctAnswer === scale.quality, 'btn-primary': correctAnswer !== scale.quality}" ng-repeat="scale in scales" ng-click="chooseAnswer(scale.quality)" >{{scale.quality}}</button>
               </div>
               <div ng-hide="$stateParams.questionType === 'scales' || correctAnswer">
