@@ -40,7 +40,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     #   $question.children(":first").addClass "col-sm-4 col-sm-offset-2"
     # else
     #   $('#question').children().attr('class', "col-sm-" + (12/cols))
-  createScales = ->
+  createscales = ->
     checkRandom()
     current_scale = $scope.scales[Math.floor($scope.scales.length * Math.random())]
     $scope.scale_name = current_scale.quality
@@ -56,8 +56,8 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
   $scope.earQuiz = ->
     # $question.children().remove()
     # quiz_type = $('.currentQuiz').text()
-    # eval("create" + $stateParams.questionType. + "()")
-    createScales()
+    eval("create" + $stateParams.questionType + "()")
+    # createScales()
     # hearNotes()
     # unless $('#hearAgain').length 
     #   $('#play').append('<button type="button" id= "hearAgain" class= "btn btn-default btn-md">Hear again</button>')
