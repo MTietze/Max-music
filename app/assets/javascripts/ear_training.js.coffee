@@ -2,6 +2,10 @@ quiz = angular.module('Quiz')
 
 quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', ($scope, $stateParams, $state, $location, $timeout) ->
   
+  $scope.options = 
+  	"major" : true
+  	"minor" : false
+  	"other" : false
   $scope.quiz_type = undefined
   $scope.root = undefined
   $scope.all = undefined
@@ -33,15 +37,34 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
   isFirstCol = (column)->
     #set column size based on how many there are
     if column is 'major'
-    	return $scope.minor or $scope.other and not ($scope.minor and $scope.other)
+    	return $scope.options.minor or $scope.options.other and not ($scope.options.minor and $scope.options.other)
     if column is 'other'
-    	return $scope.minor and not $scope.major 
+    	return $scope.options.minor and not $scope.options.major 
 
     # if cols is 2
     #   $question.children(":nth-child(2)").addClass "col-sm-4"
     #   $question.children(":first").addClass "col-sm-4 col-sm-offset-2"
     # else
     #   $('#question').children().attr('class', "col-sm-" + (12/cols))
+  intervals = 
+  	0 : "Perfect unison"
+  	1 : "Minor second"
+  	2 : "Major second"
+  	3 : "Minor third"
+  	4 : "Major third"
+  	5 : "Perfect fourth"
+  	6 : "Diminished fifth"
+  	7 : "Perfect fifth"
+  	8 : "Minor sixth"
+  	9 : "Major sixth"
+  	10 : "Minor seventh"
+  	11 : "Major seventh"
+  	12 : "Perfect octave"
+  $scope.majorIntervals = (intervals[n] for n in [2, 4, 9, 11] )
+  $scope.minorIntervals = (intervals[n] for n in [1, 3, 6, 8, 10] )
+  $scope.otherIntervals = (intervals[n] for n in [0, 5, 7, 12] )
+  $scope.cols = ->
+  	$scope.major + $scope.minor + $scope.other 
   createObjects = 
   	scales : -> 
   		checkRandom()
@@ -49,7 +72,50 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
   		$scope.scale_name = current_scale.quality
   		$scope.notes = (note += $scope.root for note in current_scale.formula)
   		$scope.cols = 1
+  	intervals : ->
+  		scale = []
+  		intervals = []
+  		cols = 0
+  		# if $scope.major                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+  		# 	showIntervalButtons[interval] = true for interval in 
 
+  # createIntervals = ->
+  #       scale = []
+  #       intervals = []
+  #       cols = 0
+        
+  #       #check which interval checkboxes are checked, add those intervals and account for columns
+  #       if $("#major").prop("checked")
+  #         scale = scale.concat([2, 4, 9, 11])
+  #         intervals = intervals.concat(["Major second", "Major third", "Major sixth", "Major seventh"])
+  #         cols += 1
+  #         $question.append "<div id= 'majorButtons'> </div>"
+  #       if $("#minor").prop("checked")
+  #         scale = scale.concat([1, 3, 6, 8, 10])
+  #         intervals = intervals.concat(["Minor second", "Minor third", "Diminished fifth", "Minor sixth", "Minor seventh"])
+  #         cols += 1
+  #         $question.append "<div id= 'minorButtons'> </div>"
+  #       if $("#other").prop("checked")
+  #         scale = scale.concat([0, 5, 7, 12])
+  #         intervals = intervals.concat(["Perfect unison", "Perfect fourth", "Perfect fifth", "Perfect octave"])
+  #         cols += 1
+  #         $question.append "<div id= 'otherButtons'> </div>"
+        
+  #       isFirstCol()
+    
+  #       checkRandom()
+        
+  #       #put scale into correct key
+  #       scale = (note += root for note in scale)
+    
+  #       firstnote = root
+  #       secondnote = scale[Math.floor(scale.length * Math.random())]
+  #       notes = [firstnote, secondnote]
+  #       current_interval =  secondnote - firstnote
+    
+        
+  #       #create interval buttons of possible answers
+  #       createIntervalButton int for int in intervals
   $scope.chooseScale = (scale) ->
   	if scale.quality is $scope.scale_name
   		$scope.correctAnswer = scale.quality 

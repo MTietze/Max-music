@@ -16,15 +16,15 @@
           <p> Random keys </p>
         </label>
         <label>
-          <input type="checkbox" id= "major" checked> 
+          <input type="checkbox" id= "major" ng-model="options.major" checked> 
           <p>Major intervals</p>
         </label>
         <label>
-          <input type="checkbox" id= "minor"> 
+          <input type="checkbox" id= "minor" ng-model="options.minor"> 
           <p>Minor intervals</p>
         </label>
         <label>
-          <input type="checkbox" id= "other"> 
+          <input type="checkbox" id= "other" ng-model="options.other"> 
           <p>Perfect intervals</p>
         </label>
       </div>
@@ -50,16 +50,21 @@
           <div class="btn-group" id= 'play'>
             <button type="button" id= 'quiz' class= 'btn btn-default btn-md quiz ear-quiz' ng-click='quiz($state.current.name)'>Quiz me!</button>
           </div>
-          <div id='quizbody' ng-show='cols'>
+          <div id='quizbody'>
             <div class="question" >
               <div id= 'scales' class="col-xs-4 col-xs-offset-4" ng-show= "$stateParams.questionType === 'scales'"> 
                 <button href='#' class= 'btn btn-large choice' ng-hide="correctAnswer && scale.quality !== correctAnswer" ng-class="{'wrong': wrongAnswers[scale.quality], 'correct-answer': correctAnswer === scale.quality, 'btn-primary': correctAnswer !== scale.quality}" ng-repeat="scale in scales" ng-click="chooseScale(scale)" >{{scale.quality}}</button>
               </div>
-              <div id= 'majorButtons' class="col-sm-4" ng-class="{'col-sm-offset-2': isFirstCol('major')}" ng-hide= "$stateParams.questionType === 'scales'"> 
-              </div>
-              <div id= 'minorButtons' class="col-sm-4" ng-class="{'col-sm-offset-2': isFirstCol('minor')}" ng-hide= "$stateParams.questionType === 'scales'"> 
-              </div>
-              <div id= 'otherButtons' class="col-sm-4" ng-hide= "$stateParams.questionType === 'scales'"> 
+              <div ng-hide="$stateParams.questionType === 'scales'">
+                <div id= 'majorButtons' class="col-sm-4" ng-class="{'col-sm-offset-2': isFirstCol('major')}" ng-show= "options.major"> 
+                  <button href='#' class= 'btn btn-large choice' ng-class="{'wrong': wrongAnswers[interval], 'correct-answer': correctAnswer === interval, 'btn-primary':   correctAnswer !== interval}" ng-hide="correctAnswer && interval !== correctAnswer" ng-repeat="interval in majorIntervals">{{interval}}</button>
+                </div>
+                <div id= 'minorButtons' class="col-sm-4" ng-class="{'col-sm-offset-2': isFirstCol('minor')}" ng-show= "options.minor"> 
+                <button href='#' class= 'btn btn-large choice' ng-class="{'wrong': wrongAnswers[interval], 'correct-answer': correctAnswer === interval, 'btn-primary':   correctAnswer !== interval}" ng-hide="correctAnswer && interval !== correctAnswer" ng-repeat="interval in minorIntervals">{{interval}}</button>
+                </div>
+                <div id= 'otherButtons' class="col-sm-4" ng-show= "options.other"> 
+                <button href='#' class= 'btn btn-large choice' ng-class="{'wrong': wrongAnswers[interval], 'correct-answer': correctAnswer === interval, 'btn-primary':   correctAnswer !== interval}" ng-hide="correctAnswer && interval !== correctAnswer" ng-repeat="interval in otherIntervals">{{interval}}</button>
+                </div>
               </div>
             </div>
           </div>
