@@ -3,17 +3,15 @@ quiz = angular.module('Quiz')
 quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', 'options', ($scope, $stateParams, $state, $location, $timeout, options) ->
   
   $scope.options = options
-  columns = ['major', 'minor', 'other'] 
+  $scope.columns = ['major', 'minor', 'other'] 
   $scope.coltotal = 0
   $scope.showColumn = {}
-  $scope.quiz_type = undefined
-  $scope.root = undefined
-  $scope.all = undefined
-  $scope.current_interval = undefined
-  $scope.scale_name = undefined
-  $scope.cols = undefined
-  $scope.chord1 = undefined
-  $scope.chord2 =undefined
+  $scope.answer = null
+  $scope.quiz_type = null
+  $scope.root = null
+  $scope.all = null
+  $scope.chord1 = null
+  $scope.chord2 =null
   $scope.notes= []
   $scope.scales = [{quality: 'Harmonic minor', formula: [0,2,3,5,7,8,11,12]},
                  {quality: 'Melodic minor', formula: [0,2,3,5,7,9,11,12]},
@@ -51,12 +49,12 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     $scope.coltotal = 0
     for col, val of $scope.showColumn
       if val then $scope.coltotal += 1
-    if $scope.coltotal is columns.length or $scope.coltotal is 1
+    if $scope.coltotal is $scope.columns.length or $scope.coltotal is 1 or column is $scope.columns[-1..][0]
       false
     else
-      not (column is columns[1] and $scope.showColumn[columns[0]])
+      not (column is $scope.columns[1] and $scope.showColumn[$scope.columns[0]])
 
-  intervals = 
+  $scope.intervals = 
     0 : "Perfect unison"
     1 : "Minor second"
     2 : "Major second"
@@ -70,25 +68,30 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     10 : "Minor seventh"
     11 : "Major seventh"
     12 : "Perfect octave"
-  $scope.majorIntervals = (intervals[n] for n in [2, 4, 9, 11] )
-  $scope.minorIntervals = (intervals[n] for n in [1, 3, 6, 8, 10] )
-  $scope.otherIntervals = (intervals[n] for n in [0, 5, 7, 12] )
+  $scope.patterns =
+    'major':  [2, 4, 9, 11]
+    'minor':  [1, 3, 6, 8, 10]
+    'other': [0, 5, 7, 12]
 
   createObjects = 
     scales : -> 
       checkRandom()
       current_scale = $scope.scales[Math.floor($scope.scales.length * Math.random())]
-      $scope.scale_name = current_scale.quality
+      $scope.answer = current_scale.quality
       $scope.notes = (note += $scope.root for note in current_scale.formula)
-      $scope.cols = 1
     intervals : ->
       scale = []
-      intervals = []
+      checkRandom()
       cols = 0
       for opt, val of $scope.options.intervals
         $scope.showColumn[opt] = val
-      # if $scope.major                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-      #   showIntervalButtons[interval] = true for interval in 
+        if val
+          scale = scale.concat $scope.patterns[opt]
+      scale = (note += $scope.root for note in scale)
+      firstnote = $scope.root
+      secondnote = scale[Math.floor(scale.length * Math.random())]
+      $scope.notes = [firstnote, secondnote]
+      $scope.answer =  secondnote - firstnote
 
   # createIntervals = ->
   #       scale = []
@@ -127,13 +130,13 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
         
   #       #create interval buttons of possible answers
   #       createIntervalButton int for int in intervals
-  $scope.chooseScale = (scale) ->
-    if scale.quality is $scope.scale_name
-      $scope.correctAnswer = scale.quality 
-      ga 'send', 'event', 'Ear Quiz', 'scale', $scope.scale_name, 1
+  $scope.chooseAnswer = (choice) ->
+    if choice is $scope.answer
+      $scope.correctAnswer = choice 
+      ga 'send', 'event', 'Ear Quiz', $stateParams.questionType, $scope.answer, 1
     else
-      $scope.wrongAnswers[scale.quality] = true 
-      ga 'send', 'event', 'Ear Quiz', 'scale', "#{$scope.scale_name} chose #{scale}", -1
+      $scope.wrongAnswers[choice] = true 
+      ga 'send', 'event', 'Ear Quiz', $stateParams.questionType, "#{$scope.answer} chose #{choice}", -1
 
   $scope.earQuiz = ->
     # eval("create" + $stateParams.questionType + "()")
