@@ -44,13 +44,16 @@
           </div>
           <div id='quizbody'>
             <div class="question" >
-              <div id= 'scales' class="col-xs-4 col-xs-offset-4" ng-show= "$stateParams.questionType === 'scales'"> 
+              <div id= 'scales' class="col-xs-4 col-xs-offset-4" ng-show= "$stateParams.questionType === 'scales' && !correctAnswer"> 
                 <button href='#' class= 'btn btn-large choice' ng-hide="correctAnswer && scale.quality !== correctAnswer" ng-class="{'wrong': wrongAnswers[scale.quality], 'correct-answer': correctAnswer === scale.quality, 'btn-primary': correctAnswer !== scale.quality}" ng-repeat="scale in scales" ng-click="chooseAnswer(scale.quality)" >{{scale.quality}}</button>
               </div>
-              <div ng-hide="$stateParams.questionType === 'scales'">
-                <div  ng-class="{'col-sm-offset-2': isFirstCol(column)  && !correctAnswer, 'col-sm-12': coltotal===1 || correctAnswer,'col-sm-4': coltotal !==1 && !correctAnswer}" ng-show= "showColumn[column]" ng-repeat="column in columns"> 
-                  <button href='#' class= 'btn btn-large choice' ng-class="{'wrong': wrongAnswers[interval], 'correct-answer': correctAnswer === interval, 'btn-primary':   correctAnswer !== interval}" ng-hide="correctAnswer && interval !== correctAnswer" ng-click="chooseAnswer(interval)" ng-repeat="interval in patterns[column]">{{intervals[interval]}}</button>
+              <div ng-hide="$stateParams.questionType === 'scales' || correctAnswer">
+                <div  ng-class="{'col-sm-offset-2': isFirstCol(column), 'col-sm-12': coltotal===1 || correctAnswer,'col-sm-4': coltotal !==1 && !correctAnswer}" ng-show= "showColumn[column]" ng-repeat="column in columns"> 
+                  <button href='#' class= 'btn btn-large choice' ng-class="{'wrong': wrongAnswers[intervals[interval]], 'correct-answer': correctAnswer === interval, 'btn-primary':   correctAnswer !== interval}"  ng-click="chooseAnswer(intervals[interval])" ng-repeat="interval in patterns[column]">{{intervals[interval]}}</button>
                 </div>
+              </div>
+              <div class="col-xs-12" ng-show="correctAnswer">
+                <button href='#' class= 'btn btn-large choice correct-answer' >{{correctAnswer}}</button>
               </div>
             </div>
           </div>

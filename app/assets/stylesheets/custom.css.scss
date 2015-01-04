@@ -488,13 +488,14 @@ footer {
     background-color: #E04B3E;
     background-image: none;
   }
-  .correct-answer {
+}
+
+.correct-answer {
     margin-top: 1%; 
     pointer-events: none;
     background-color: #5cb85c; 
     color: white; 
   }
-}
 
 #typeTraining button {
   width: 225px;

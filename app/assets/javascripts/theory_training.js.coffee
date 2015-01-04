@@ -2,7 +2,7 @@ quiz = angular.module('Quiz')
 
 quiz.controller 'TheoryCtrl', ["$scope", '$state', '$stateParams', '$timeout', 'sharedFunctions', ($scope, $state, $stateParams, $timeout, sharedFunctions) ->
   $scope.quizBtnText = "Submit"
-  $scope.quizBtnState = "primary"
+  $scope.correctAnswer = false
 
   createScale = ->
     #clear previous evaluated answer
@@ -77,7 +77,7 @@ quiz.controller 'TheoryCtrl', ["$scope", '$state', '$stateParams', '$timeout', '
     if answer is $scope.current_note.toLowerCase() 
       $scope.evaluation = true
       $scope.quizBtnText = "Correct"
-      $scope.quizBtnState = "success"
+      $scope.correctAnswer = true
       ga 'send', 'event', 'Theory Quiz', "answer", answer, 1
       evaluate = ->
          if $scope.evaluation then $scope.quiz($state.current.name)
@@ -94,7 +94,7 @@ quiz.controller 'TheoryCtrl', ["$scope", '$state', '$stateParams', '$timeout', '
     $timeout.cancel $scope.timeoutID
     $scope.answer = ''
     $scope.quizBtnText = "Submit"
-    $scope.quizBtnState = "primary"
+    $scope.correctAnswer = false
     $scope.evaluation = null; 
     questions[$stateParams.questionType]() 
     ga 'send', 'event', 'Theory Quiz', $state.current.name

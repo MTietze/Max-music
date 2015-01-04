@@ -7,12 +7,11 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
   $scope.coltotal = 0
   $scope.showColumn = {}
   $scope.answer = null
-  $scope.quiz_type = null
   $scope.root = null
   $scope.all = null
   $scope.chord1 = null
-  $scope.chord2 =null
-  $scope.notes= []
+  $scope.chord2 = null
+  notes = []
   $scope.scales = [{quality: 'Harmonic minor', formula: [0,2,3,5,7,8,11,12]},
                  {quality: 'Melodic minor', formula: [0,2,3,5,7,9,11,12]},
                  {quality:'Ionian', formula:[0,2,4,5,7,9,11,12]}, 
@@ -39,8 +38,6 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
         major : "Major chords"
         minor : "Minor chords" 
         other : "All chords"
-      scales : 
-        {}
 
   $scope.getOptionsText = () ->
     optionsText[$stateParams.questionType]
@@ -78,7 +75,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       checkRandom()
       current_scale = $scope.scales[Math.floor($scope.scales.length * Math.random())]
       $scope.answer = current_scale.quality
-      $scope.notes = (note += $scope.root for note in current_scale.formula)
+      notes = (note += $scope.root for note in current_scale.formula)
     intervals : ->
       scale = []
       checkRandom()
@@ -90,46 +87,10 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       scale = (note += $scope.root for note in scale)
       firstnote = $scope.root
       secondnote = scale[Math.floor(scale.length * Math.random())]
-      $scope.notes = [firstnote, secondnote]
-      $scope.answer =  secondnote - firstnote
+      notes = [firstnote, secondnote]
+      answer = secondnote - firstnote
+      $scope.answer = $scope.intervals[answer]
 
-  # createIntervals = ->
-  #       scale = []
-  #       intervals = []
-  #       cols = 0
-        
-  #       #check which interval checkboxes are checked, add those intervals and account for columns
-  #       if $("#major").prop("checked")
-  #         scale = scale.concat([2, 4, 9, 11])
-  #         intervals = intervals.concat(["Major second", "Major third", "Major sixth", "Major seventh"])
-  #         cols += 1
-  #         $question.append "<div id= 'majorButtons'> </div>"
-  #       if $("#minor").prop("checked")
-  #         scale = scale.concat([1, 3, 6, 8, 10])
-  #         intervals = intervals.concat(["Minor second", "Minor third", "Diminished fifth", "Minor sixth", "Minor seventh"])
-  #         cols += 1
-  #         $question.append "<div id= 'minorButtons'> </div>"
-  #       if $("#other").prop("checked")
-  #         scale = scale.concat([0, 5, 7, 12])
-  #         intervals = intervals.concat(["Perfect unison", "Perfect fourth", "Perfect fifth", "Perfect octave"])
-  #         cols += 1
-  #         $question.append "<div id= 'otherButtons'> </div>"
-        
-  #       isFirstCol()
-    
-  #       checkRandom()
-        
-  #       #put scale into correct key
-  #       scale = (note += root for note in scale)
-    
-  #       firstnote = root
-  #       secondnote = scale[Math.floor(scale.length * Math.random())]
-  #       notes = [firstnote, secondnote]
-  #       current_interval =  secondnote - firstnote
-    
-        
-  #       #create interval buttons of possible answers
-  #       createIntervalButton int for int in intervals
   $scope.chooseAnswer = (choice) ->
     if choice is $scope.answer
       $scope.correctAnswer = choice 

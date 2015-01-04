@@ -46,7 +46,7 @@
             <p id="sorry" ng-show="evaluation === false"> Sorry, try again </p>
           </div>
           <form id="quizform" ng-show="question"><input ng-model="answer" type="text" id="answer" autocomplete="off" >
-            <button class="btn btn-sm btn-{{quizBtnState}}"  id="{{quizBtnText | lowercase}}answer" ng-click="evaluateAnswer()">{{quizBtnText}}</button>
+            <button class="btn btn-sm" ng-class="{'btn-primary': !correctAnswer, 'correct-answer': correctAnswer}" id="{{quizBtnText | lowercase}}answer" ng-click="evaluateAnswer()">{{quizBtnText}}</button>
           </form>
         </div>
       </div>
