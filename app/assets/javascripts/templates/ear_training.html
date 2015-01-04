@@ -12,20 +12,12 @@
       </div>
       <div class= 'navbar-collapse collapse' id="checkcolumn">
         <label>
-          <input type="checkbox" id= "randomKeys"> 
+          <input type="checkbox" id= "randomKeys" ng-model="options.randomKeys"> 
           <p> Random keys </p>
         </label>
-        <label>
-          <input type="checkbox" id= "major" ng-model="options.major" checked> 
-          <p>Major intervals</p>
-        </label>
-        <label>
-          <input type="checkbox" id= "minor" ng-model="options.minor"> 
-          <p>Minor intervals</p>
-        </label>
-        <label>
-          <input type="checkbox" id= "other" ng-model="options.other"> 
-          <p>Perfect intervals</p>
+        <label ng-repeat="(quality, value) in options.qualities">
+          <input type="checkbox"  ng-model="options.qualities[quality]"> 
+          <p> {{getOptionsText()[quality]}}</p>
         </label>
       </div>
     </div>

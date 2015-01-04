@@ -3,9 +3,11 @@ quiz = angular.module('Quiz')
 quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$timeout', ($scope, $stateParams, $state, $location, $timeout) ->
   
   $scope.options = 
-    "major" : true
-    "minor" : false
-    "other" : false
+    "randomKeys" : false
+    "qualities" :
+      "major" : true
+      "minor" : false
+      "other" : false
   columns = ['major', 'minor', 'other'] 
   $scope.coltotal = 0
   $scope.showColumn = {}
@@ -28,21 +30,33 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
                  {quality:'Aeolian' , formula:[0,2,3,5,7,8,10,12]},
                  {quality:'Locrian' , formula:[0,1,3,5,6,8,10,12]}]
 
- 
+  
   checkRandom = ->
     # if checked put in a random key between E 52 and Eb 63
-    if $scope.randomKeys
+    if $scope.options.randomKeys
       $scope.root = 52 + Math.floor(Math.random() * 11)
     else
       $scope.root = 60
-  
-  
+  optionsText =
+      intervals : 
+        major : "Major intervals"
+        minor : "Minor intervals" 
+        other : "Perfect intervals"
+      chords : 
+        major : "Major chords"
+        minor : "Minor chords" 
+        other : "All chords"
+      scales : 
+        {}
+
+  $scope.getOptionsText = () ->
+    optionsText[$stateParams.questionType]
   $scope.isFirstCol = (column)->
     #set column size based on how many there are
     $scope.coltotal = 0
     for col, val of $scope.showColumn
       if val then $scope.coltotal += 1
-    if $scope.coltotal is columns.length or  $scope.coltotal is 1
+    if $scope.coltotal is columns.length or $scope.coltotal is 1
       false
     else
       not (column is columns[1] and $scope.showColumn[columns[0]])
@@ -76,7 +90,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       scale = []
       intervals = []
       cols = 0
-      for opt, val of $scope.options
+      for opt, val of $scope.options.qualities
         $scope.showColumn[opt] = val
       # if $scope.major                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
       #   showIntervalButtons[interval] = true for interval in 
