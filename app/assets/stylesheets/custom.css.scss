@@ -112,8 +112,11 @@ footer {
 //home page 
 #cassette{
   display: flex;
+  display: -webkit-flex;
   justify-content: center;
+  -webkit-justify-content: center;
   align-items: center;
+  -webkit-align-items: center;
   height: 600px;
   width: 900px;
   background-color: black;
