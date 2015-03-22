@@ -17,5 +17,13 @@ quiz.run ['$rootScope', '$stateParams', '$state', '$location', ($rootScope, $sta
   $state.transitionTo('ear', {questionType: 'intervals'})
   $rootScope.$stateParams = $stateParams
   $rootScope.$state = $state
+  MIDI.loader = new widgets.Loader
+  MIDI.loadPlugin
+    soundfontUrl: "sound/"
+    instrument: "acoustic_grand_piano"
+    callback: -> 
+      MIDI.loader.stop() 
+      velocity = 127
+      MIDI.programChange(0, 0)
 ]
 

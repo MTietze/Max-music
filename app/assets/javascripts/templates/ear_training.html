@@ -41,10 +41,11 @@
         <div class="row" id="quizrow" ng-show="$state.current.name === 'ear'">
           <div class="btn-group" id= 'play'>
             <button type="button" id= 'quiz' class= 'btn btn-default btn-md quiz ear-quiz' ng-click='quiz($state.current.name)'>Quiz me!</button>
+            <button ng-show="answer && !correctAnswer" type="button" class= "btn btn-default btn-md">Hear again</button>
           </div>
           <div id='quizbody'>
             <div class="question" >
-              <div id= 'scales' class="col-xs-4 col-xs-offset-4" ng-show= "$stateParams.questionType === 'scales' && !correctAnswer && answer"> 
+              <div id= 'scales' class="col-xs-4 col-xs-offset-4" ng-show= "$stateParams.questionType === 'scales' && answer && !correctAnswer"> 
                 <button href='#' class= 'btn btn-large choice' ng-hide="correctAnswer && scale.quality !== correctAnswer" ng-class="{'wrong': wrongAnswers[scale.quality], 'correct-answer': correctAnswer === scale.quality, 'btn-primary': correctAnswer !== scale.quality}" ng-repeat="scale in scales" ng-click="chooseAnswer(scale.quality)" >{{scale.quality}}</button>
               </div>
               <div ng-hide="$stateParams.questionType === 'scales' || correctAnswer">

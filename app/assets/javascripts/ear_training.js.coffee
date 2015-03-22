@@ -100,21 +100,29 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       ga 'send', 'event', 'Ear Quiz', $stateParams.questionType, "#{$scope.answer} chose #{choice}", -1
 
   $scope.earQuiz = ->
-    # eval("create" + $stateParams.questionType + "()")
     createObjects[$stateParams.questionType]()
     $scope.wrongAnswers = {}
     $scope.correctAnswer = null 
-
-    # $question.children().remove()
-    # quiz_type = $('.currentQuiz').text()
-    # createScales()
-    # hearNotes()
-    # unless $('#hearAgain').length 
-    #   $('#play').append('<button type="button" id= "hearAgain" class= "btn btn-default btn-md">Hear again</button>')
-    # options = checkOptions()
-    # ga 'send', 'event', 'Ear Quiz', quiz_type, options
+    hearNotes()
+    ga 'send', 'event', 'Ear Quiz', quiz_type, options
+    
   $scope.quiz = (type) ->
     $scope[type + 'Quiz']()
+
+  playNotes = (notes)->
+    playNote = (note, seconds) -> 
+      MIDI.noteOn 0, note, 127, seconds
+      MIDI.noteOff 0, note, seconds + 1
+    i = 0
+    while i < notes.length
+      playNote notes[i], i
+      i++
+
+  hearNotes = -> 
+    if $stateParams.questionType is "chords"
+      playChords(notes)
+    else if options.intervals.major || options.intervals.minor || options.intervals.other || $stateParams.questionType is "scales"
+      playNotes(notes)  
 ]
 
 quiz.service 'options' , ()->
