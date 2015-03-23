@@ -29,6 +29,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       $scope.root = 52 + Math.floor(Math.random() * 11)
     else
       $scope.root = 60
+
   optionsText =
       intervals : 
         major : "Major intervals"
@@ -39,8 +40,21 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
         minor : "Minor chords" 
         other : "All chords"
 
+  intervalPatterns =
+    'major':  [2, 4, 9, 11]
+    'minor':  [1, 3, 6, 8, 10]
+    'other': [0, 5, 7, 12]
+
+  # intervals on top of the root of the chord
+  chordPatterns = 
+    'major':  [4, 7]
+    'minor':  [3, 7]
+    'diminished':  [3, 6]
+
+
   $scope.getOptionsText = () ->
     optionsText[$stateParams.questionType]
+
   $scope.isFirstCol = (column)->
     #set column size based on how many there are
     $scope.coltotal = 0
@@ -65,10 +79,30 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     10 : "Minor seventh"
     11 : "Major seventh"
     12 : "Perfect octave"
-  $scope.patterns =
-    'major':  [2, 4, 9, 11]
-    'minor':  [1, 3, 6, 8, 10]
-    'other': [0, 5, 7, 12]
+
+  harmonizeScale = (scaleQuality, root) ->
+    ary = []
+
+    chordBuildingScales = 
+      'major':[0,2,4,5,7,9,11,12]
+      'minor':[0,2,3,5,7,8,10,12]
+
+    haromizedScales = 
+      'major': ['major', 'minor', 'minor', 'major', 'major', 'minor', 'diminished']
+      'minor': ['minor', 'diminished', 'major', 'minor', 'minor', 'major', 'major']
+
+    for quality, index in haromizedScales[scaleQuality]
+      ary.push(new Chord(quality, root + chordBuildingScales[scaleQuality][index]))
+      
+    ary
+
+
+  class Chord
+    constructor: (@quality, @root) ->
+      @notes = [@root]
+      for halfSteps in chordPatterns[@quality]
+        @notes.push @root + halfSteps
+
 
   createObjects = 
     scales : -> 
@@ -83,14 +117,80 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       for opt, val of $scope.options.intervals
         $scope.showColumn[opt] = val
         if val
-          scale = scale.concat $scope.patterns[opt]
+          scale = scale.concat intervalPatterns[opt]
       scale = (note += $scope.root for note in scale)
       firstnote = $scope.root
       secondnote = scale[Math.floor(scale.length * Math.random())]
       notes = [firstnote, secondnote]
       answer = secondnote - firstnote
       $scope.answer = $scope.intervals[answer]
+    chords : ->
+      # scale = [0...19]
+      checkRandom()
+      cols = 0
+      allchords= []
+      all = false
+#       $major = $("#major")
+#       $minor = $("#minor")
+  
+#       #put scale in correct key
+      # scale = (note += $scope.root for note in scale)
 
+
+      if options.chords.other
+#         allchords = createMajorChords [0...12], scale 
+#         allchords = allchords.concat(createMinorChords [0...12], scale)
+#         allchords.sort (a,b) -> 
+#           a.offset - b.degree
+#         cols = 2
+#         all = true 
+#         $question.append "<div id= 'majorButtons'> </div> <div id= 'minorButtons'> </div>"
+      else
+        
+        if options.chords.major
+          cols += 1
+          allchords = allchords.concat(harmonizeScale 'major', $scope.root)
+          # allchords = createMajorChords([0,5,7], scale).concat(createMinorChords([2,4,9], scale).concat(createDiminishedChords([11],scale)))
+#           allchords.sort (a,b) -> 
+#             a.degree - b.degree
+#           $question.append "<div id= 'majorButtons'> </div>"
+        if options.chords.minor
+          cols += 1
+          allchords = allchords.concat(harmonizeScale 'minor', $scope.root)
+#           allchords = allchords.concat createMajorChords([3,8,10], scale).concat(createMinorChords([0,5,7,], scale).concat(createDiminishedChords([2],scale)))
+#           allchords.sort (a,b) -> 
+#             a.degree - b.degree
+#           cols += 1
+#           $question.append "<div id= 'minorButtons'> </div>"
+        if options.chords.major and options.chords.minor
+          all = true
+#           $question.append('<div id="otherChordButtons" class="col-sm-12"></div>') 
+      # isFirstCol()
+      allchords.sort (a,b) -> 
+        a.root - b.root
+      #randomly decide between major and minor scale
+      whichscale = Math.floor(cols * Math.random())
+      #set chord1 to to the root of the selected scale
+      chord1 = allchords[whichscale]  
+      chord2 = allchords[Math.floor(allchords.length * Math.random())]
+      notes = [chord1.notes, chord2.notes]
+      # createChordButton allchords[whichscale], c for c in allchords 
+
+#     createChordButton = (rootchord, chord) ->
+#       #create buffer for even spacing of roman numerals
+#       if $.inArray(chord.degree, [1,3,6,8,10]) is -1 then buffer = "" else buffer = "&nbsp&nbsp"
+#       if chord.quality is "diminished" then buffer = "&nbsp"
+  
+#       button = "<button href='#' id= 'chord_#{chord.degree}_#{chord.quality}'class= 'btn btn-large btn-primary choice'>#{buffer}#{romanize(rootchord)} - #{romanize(chord)}</button>"
+#       #when displaying all chords, split columns based on second chord's quality rather than the root's
+#       if all then rootchord = chord
+  
+#       if rootchord.quality is "major"
+#         $("#majorButtons").append button
+#       else if rootchord.quality is "minor"
+#         $("#minorButtons").append button
+#       else
+#         $("#otherChordButtons").append button
   $scope.chooseAnswer = (choice) ->
     if choice is $scope.answer
       $scope.correctAnswer = choice 
@@ -105,7 +205,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     $scope.correctAnswer = null 
     hearNotes()
     ga 'send', 'event', 'Ear Quiz', quiz_type, options
-    
+
   $scope.quiz = (type) ->
     $scope[type + 'Quiz']()
 
@@ -117,6 +217,19 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     while i < notes.length
       playNote notes[i], i
       i++
+
+  playChords = (chords) ->   
+    #written this way to give some functionality in non-chrome browsers
+    #other versions of code resulted in firefox playing one note for the 
+    # second chord, or chrome cutting the 2nd chord short on first play
+    MIDI.chordOn 0, chords[0], 127, 0
+    MIDI.chordOff 0, chords[0], 1
+    setTimeout -> 
+      MIDI.chordOn 0, chords[1], 127
+    , 1000
+    setTimeout -> 
+      MIDI.chordOff 0, chords[1]
+    , 2000
 
   hearNotes = -> 
     if $stateParams.questionType is "chords"
