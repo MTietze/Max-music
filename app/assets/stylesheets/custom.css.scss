@@ -475,7 +475,7 @@ footer {
 .question{
   margin: 20px 0 10px;
   font-size: x-large;
-  #otherChordButtons {
+  #chord-columns div:nth-child(3){
     margin-top: 20px; 
   }
   .choice {
