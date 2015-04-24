@@ -40,7 +40,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
         minor : "Minor chords" 
         other : "All chords"
 
-  intervalPatterns =
+  $scope.intervalPatterns =
     'major':  [2, 4, 9, 11]
     'minor':  [1, 3, 6, 8, 10]
     'other': [0, 5, 7, 12]
@@ -117,7 +117,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       for opt, val of $scope.options.intervals
         $scope.showColumn[opt] = val
         if val
-          scale = scale.concat intervalPatterns[opt]
+          scale = scale.concat $scope.intervalPatterns[opt]
       scale = (note += $scope.root for note in scale)
       firstnote = $scope.root
       secondnote = scale[Math.floor(scale.length * Math.random())]
@@ -204,7 +204,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     $scope.wrongAnswers = {}
     $scope.correctAnswer = null 
     hearNotes()
-    ga 'send', 'event', 'Ear Quiz', quiz_type, options
+    ga 'send', 'event', 'Ear Quiz', $stateParams.questionType, options
 
   $scope.quiz = (type) ->
     $scope[type + 'Quiz']()

@@ -48,9 +48,9 @@
               <div id= 'scales' class="col-xs-4 col-xs-offset-4" ng-show= "$stateParams.questionType === 'scales' && answer && !correctAnswer"> 
                 <button href='#' class= 'btn btn-large choice' ng-hide="correctAnswer && scale.quality !== correctAnswer" ng-class="{'wrong': wrongAnswers[scale.quality], 'correct-answer': correctAnswer === scale.quality, 'btn-primary': correctAnswer !== scale.quality}" ng-repeat="scale in scales" ng-click="chooseAnswer(scale.quality)" >{{scale.quality}}</button>
               </div>
-              <div ng-hide="$stateParams.questionType === 'scales' || correctAnswer">
+              <div ng-show="$stateParams.questionType === 'intervals' || correctAnswer">
                 <div  ng-class="{'col-sm-offset-2': isFirstCol(column), 'col-sm-12': coltotal===1 || correctAnswer,'col-sm-4': coltotal !==1 && !correctAnswer}" ng-show= "showColumn[column]" ng-repeat="column in columns"> 
-                  <button href='#' class= 'btn btn-large choice' ng-class="{'wrong': wrongAnswers[intervals[interval]], 'correct-answer': correctAnswer === interval, 'btn-primary':   correctAnswer !== interval}"  ng-click="chooseAnswer(intervals[interval])" ng-repeat="interval in patterns[column]">{{intervals[interval]}}</button>
+                  <button href='#' class= 'btn btn-large choice' ng-class="{'wrong': wrongAnswers[intervals[interval]], 'correct-answer': correctAnswer === interval, 'btn-primary':   correctAnswer !== interval}"  ng-click="chooseAnswer(intervals[interval])" ng-repeat="interval in intervalPatterns[column]">{{intervals[interval]}}</button>
                 </div>
               </div>
               <div class="col-xs-12" ng-show="correctAnswer">
