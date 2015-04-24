@@ -109,7 +109,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
         @notes.push @root + halfSteps
 
   
-  allchords= []
+  allchords = []
 
   createObjects = 
     scales : -> 
@@ -136,6 +136,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       checkRandom()
       cols = 0
       all = false
+      allchords = []
 #       $major = $("#major")
 #       $minor = $("#minor")
   
@@ -182,7 +183,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       notes = [chord1.notes, chord2.notes]
       angular.forEach $scope.chordColumns, (ary, type) ->
         angular.copy createChordColumns(type) , $scope.chordColumns[type]
-
+      $scope.answer = chord2.root
       # createChordButton allchords[whichscale], c for c in allchords 
 
 #     createChordButton = (rootchord, chord) ->
