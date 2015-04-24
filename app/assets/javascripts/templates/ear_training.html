@@ -52,6 +52,11 @@
                 <div  ng-class="{'col-sm-offset-2': isFirstCol(column), 'col-sm-12': coltotal===1 || correctAnswer,'col-sm-4': coltotal !==1 && !correctAnswer}" ng-show= "showColumn[column]" ng-repeat="column in columns"> 
                   <button href='#' class= 'btn btn-large choice' ng-class="{'wrong': wrongAnswers[intervals[interval]], 'correct-answer': correctAnswer === interval, 'btn-primary':   correctAnswer !== interval}"  ng-click="chooseAnswer(intervals[interval])" ng-repeat="interval in intervalPatterns[column]">{{intervals[interval]}}</button>
                 </div>
+              </div> 
+              <div ng-show="$stateParams.questionType === 'chords' || correctAnswer">
+                <div  ng-class="{'col-sm-offset-2': isFirstCol(column), 'col-sm-12': coltotal===1 || correctAnswer,'col-sm-4': coltotal !==1 && !correctAnswer}" ng-repeat="column in columns"> 
+                  <button href='#' class= 'btn btn-large choice' ng-class="{'wrong': wrongAnswers[chords[chord]], 'correct-answer': correctAnswer === chord, 'btn-primary':   correctAnswer !== chord}"  ng-click="chooseAnswer(chords[chord])" ng-repeat="chord in chordColumns[column]">{{chord.quality}}</button>
+                </div>
               </div>
               <div class="col-xs-12" ng-show="correctAnswer">
                 <button href='#' class= 'btn btn-large choice correct-answer' >{{correctAnswer}}</button>

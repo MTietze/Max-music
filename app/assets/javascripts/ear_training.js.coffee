@@ -40,6 +40,11 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
         minor : "Minor chords" 
         other : "All chords"
 
+  $scope.chordColumns = 
+    'major': []
+    'minor': []
+    'other': []
+
   $scope.intervalPatterns =
     'major':  [2, 4, 9, 11]
     'minor':  [1, 3, 6, 8, 10]
@@ -103,6 +108,8 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       for halfSteps in chordPatterns[@quality]
         @notes.push @root + halfSteps
 
+  
+  allchords= []
 
   createObjects = 
     scales : -> 
@@ -128,7 +135,6 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       # scale = [0...19]
       checkRandom()
       cols = 0
-      allchords= []
       all = false
 #       $major = $("#major")
 #       $minor = $("#minor")
@@ -174,6 +180,9 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       chord1 = allchords[whichscale]  
       chord2 = allchords[Math.floor(allchords.length * Math.random())]
       notes = [chord1.notes, chord2.notes]
+      angular.forEach $scope.chordColumns, (ary, type) ->
+        angular.copy createChordColumns(type) , $scope.chordColumns[type]
+
       # createChordButton allchords[whichscale], c for c in allchords 
 
 #     createChordButton = (rootchord, chord) ->
@@ -191,6 +200,10 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
 #         $("#minorButtons").append button
 #       else
 #         $("#otherChordButtons").append button
+  createChordColumns = (column) ->
+    if column is 'other' then column = 'diminished' 
+    (chord for chord in allchords when chord.quality is column)
+
   $scope.chooseAnswer = (choice) ->
     if choice is $scope.answer
       $scope.correctAnswer = choice 
