@@ -97,16 +97,48 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       'minor': ['minor', 'diminished', 'major', 'minor', 'minor', 'major', 'major']
 
     for quality, index in haromizedScales[scaleQuality]
-      ary.push(new Chord(quality, root + chordBuildingScales[scaleQuality][index]))
+      ary.push(new Chord(quality, root, chordBuildingScales[scaleQuality][index]))
       
     ary
 
 
   class Chord
-    constructor: (@quality, @root) ->
-      @notes = [@root]
+    constructor: (@quality, @root, @position) ->
+      romanMap = 
+        0 : 8544 
+        1 : 8545
+        2 : 8545
+        3 : 8546
+        4 : 8546
+        5 : 8547
+        6 : 8548
+        7 : 8548
+        8 : 8549
+        9 : 8549
+        10 : 8550
+        11 : 8550 
+      @romanCode = romanMap[@position]
+      
+      # Code for lowercase letters is 16 higher
+      if @quality is "minor" or @quality is "diminished" then @romanCode+=16
+      
+      # convert to string in html code format
+      @romanCode = "&##{@romanCode}"
+      
+      if @position in [1,3,6,8,10] then @romanCode = "&#9837#{@romanCode}"
+      
+      if @quality is "diminished" then @romanCode += "&deg" #degree symbol
+      
+      if @position in [1,3,6,8,10] then @buffer = "&nbsp&nbsp" else @buffer = ""
+
+      if @quality is "diminished" then @buffer = "&nbsp"
+
+      @chordRoot = @root + @position
+      
+      @notes = [@chordRoot]
+      
       for halfSteps in chordPatterns[@quality]
-        @notes.push @root + halfSteps
+        @notes.push @chordRoot + halfSteps
 
   
   allchords = []
@@ -178,12 +210,12 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       #randomly decide between major and minor scale
       whichscale = Math.floor(cols * Math.random())
       #set chord1 to to the root of the selected scale
-      chord1 = allchords[whichscale]  
+      $scope.chord1 = allchords[whichscale]  
       chord2 = allchords[Math.floor(allchords.length * Math.random())]
-      notes = [chord1.notes, chord2.notes]
+      notes = [$scope.chord1.notes, chord2.notes]
       angular.forEach $scope.chordColumns, (ary, type) ->
         angular.copy createChordColumns(type) , $scope.chordColumns[type]
-      $scope.answer = chord2.root
+      $scope.answer = chord2.romanCode
       # createChordButton allchords[whichscale], c for c in allchords 
 
 #     createChordButton = (rootchord, chord) ->

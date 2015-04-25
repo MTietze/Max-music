@@ -55,11 +55,11 @@
               </div> 
               <div id="chord-columns" ng-show="$stateParams.questionType === 'chords' && !correctAnswer">
                 <div  ng-class="{'col-sm-offset-2': column === 'major', 'col-sm-12': coltotal===1 || correctAnswer || column === 'other','col-sm-4': coltotal !==1 && !correctAnswer && column !== 'other'}" ng-repeat="column in columns"> 
-                  <button href='#' class= 'btn btn-large choice' ng-class="{'wrong': wrongAnswers[chord.root], 'correct-answer': correctAnswer === chord.root, 'btn-primary': correctAnswer !== chord.root}"  ng-click="chooseAnswer(chord.root)" ng-repeat="chord in chordColumns[column]">{{chord.root | romanize:root}}</button>
+                  <button href='#' class= 'btn btn-large choice chord-choice' ng-class="{'wrong': wrongAnswers[chord.romanCode], 'correct-answer': correctAnswer === chord.romanCode, 'btn-primary': correctAnswer !== chord.romanCode}"  ng-click="chooseAnswer(chord.romanCode)" ng-repeat="chord in chordColumns[column]" ng-bind-html="chord1.romanCode + ' - ' + chord.romanCode"></button>
                 </div>
               </div>
-              <div class="col-xs-12" ng-show="correctAnswer">
-                <button href='#' class= 'btn btn-large choice correct-answer' >{{correctAnswer}}</button>
+              <div class="col-xs-12" ng-class="{'chord-choice': $stateParams.questionType === 'chords'}" ng-show="correctAnswer">
+                <button href='#' class= 'btn btn-large choice correct-answer' ng-bind-html="correctAnswer"></button>
               </div>
             </div>
           </div>

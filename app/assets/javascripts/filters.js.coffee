@@ -1,6 +1,6 @@
 quiz = angular.module 'Quiz'
 
-quiz.filter 'romanize', [(chord, root) ->
+quiz.filter 'romanize', [(chord) ->
 	if chord 
   	romanMap = 
   		0 : 8544 
@@ -16,10 +16,7 @@ quiz.filter 'romanize', [(chord, root) ->
   		10 : 8550
   		11 : 8550 
 	
-  	# determine position of chord in the key by comparing its root to the root of key
-  	chordPosition = chord.root - root
-	
-  	romanCode = romanMap[chordPosition]
+  	romanCode = romanMap[chord.position]
 	
   	if chord.quality is "minor" or chord.quality is "diminished" then romanCode+=16
   	romanCode = "&##{romanCode}"

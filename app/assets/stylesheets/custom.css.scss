@@ -481,14 +481,20 @@ footer {
   .choice {
     width: 200px;
     font-size: x-large;
-    font-weight: normal; 
+    font-weight: normal;
   }
+
+  .chord-choice{
+  text-align: left;
+  padding-left: 75px; 
+ }
   .wrong {
     text-decoration: line-through; 
     background-color: #E04B3E;
     background-image: none;
   }
 }
+
 
 .correct-answer {
     margin-top: 1%; 
