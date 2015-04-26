@@ -8,9 +8,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
   $scope.showColumn = {}
   $scope.answer = null
   $scope.root = null
-  $scope.all = null
   $scope.chord1 = null
-  $scope.chord2 = null
   notes = []
   $scope.scales = [{quality: 'Harmonic minor', formula: [0,2,3,5,7,8,11,12]},
                  {quality: 'Melodic minor', formula: [0,2,3,5,7,9,11,12]},
@@ -222,7 +220,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     createObjects[$stateParams.questionType]()
     $scope.wrongAnswers = []
     $scope.correctAnswer = null 
-    hearNotes()
+    $scope.hearNotes()
     ga 'send', 'event', 'Ear Quiz', $stateParams.questionType, options
 
   $scope.quiz = (type) ->
@@ -250,7 +248,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       MIDI.chordOff 0, chords[1]
     , 2000
 
-  hearNotes = -> 
+  $scope.hearNotes = -> 
     if $stateParams.questionType is "chords"
       playChords(notes)
     else if options.intervals.major || options.intervals.minor || options.intervals.other || $stateParams.questionType is "scales"

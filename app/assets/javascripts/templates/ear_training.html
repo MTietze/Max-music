@@ -41,7 +41,7 @@
         <div class="row" id="quizrow" ng-show="$state.current.name === 'ear'">
           <div class="btn-group" id= 'play'>
             <button type="button" id= 'quiz' class= 'btn btn-default btn-md quiz ear-quiz' ng-click='quiz($state.current.name)'>Quiz me!</button>
-            <button ng-show="answer" type="button" class= "btn btn-default btn-md">Hear again</button>
+            <button ng-show="answer" type="button" class= "btn btn-default btn-md" ng-click='hearNotes()'>Hear again</button>
           </div>
           <div id='quizbody'>
             <div class="question" >
