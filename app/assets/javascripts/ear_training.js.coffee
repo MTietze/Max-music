@@ -104,6 +104,10 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
 
   class Chord
     constructor: (@quality, @root, @position) ->
+      # @root is the root of the scale itselt
+      # @position is the number of halfsteps of this chord's root aboce the scale root
+
+      # @position mapped to the digit part of the html code for the corresponding roman numeral
       romanMap = 
         0 : 8544 
         1 : 8545
@@ -117,6 +121,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
         9 : 8549
         10 : 8550
         11 : 8550 
+        
       @romanCode = romanMap[@position]
       
       # Code for lowercase letters is 16 higher
@@ -125,14 +130,11 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       # convert to string in html code format
       @romanCode = "&##{@romanCode}"
       
+      # add flat symbol if necessary
       if @position in [1,3,6,8,10] then @romanCode = "&#9837#{@romanCode}"
       
-      if @quality is "diminished" then @romanCode += "&deg" #degree symbol
+      if @quality is "diminished" then @romanCode += "&deg" 
       
-      if @position in [1,3,6,8,10] then @buffer = "&nbsp&nbsp" else @buffer = ""
-
-      if @quality is "diminished" then @buffer = "&nbsp"
-
       @chordRoot = @root + @position
       
       @notes = [@chordRoot]
@@ -215,7 +217,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       notes = [$scope.chord1.notes, chord2.notes]
       angular.forEach $scope.chordColumns, (ary, type) ->
         angular.copy createChordColumns(type) , $scope.chordColumns[type]
-      $scope.answer = chord2.romanCode
+      $scope.answer = chord2
       # createChordButton allchords[whichscale], c for c in allchords 
 
 #     createChordButton = (rootchord, chord) ->
@@ -238,16 +240,16 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     (chord for chord in allchords when chord.quality is column)
 
   $scope.chooseAnswer = (choice) ->
-    if choice is $scope.answer
+    if angular.toJson(choice) is angular.toJson($scope.answer)
       $scope.correctAnswer = choice 
       ga 'send', 'event', 'Ear Quiz', $stateParams.questionType, $scope.answer, 1
     else
-      $scope.wrongAnswers[choice] = true 
+      $scope.wrongAnswers.push choice
       ga 'send', 'event', 'Ear Quiz', $stateParams.questionType, "#{$scope.answer} chose #{choice}", -1
 
   $scope.earQuiz = ->
     createObjects[$stateParams.questionType]()
-    $scope.wrongAnswers = {}
+    $scope.wrongAnswers = []
     $scope.correctAnswer = null 
     hearNotes()
     ga 'send', 'event', 'Ear Quiz', $stateParams.questionType, options
