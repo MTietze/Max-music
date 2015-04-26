@@ -18,6 +18,7 @@ MaxMusic::Application.routes.draw do
    match '/about', to: 'static_pages#about', via: 'get'
    match '/edit', to: 'songs#edit', via: 'get'
 
+   match "music_training/*path" => redirect("/music_training?goto=%{path}") , via: 'get'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
