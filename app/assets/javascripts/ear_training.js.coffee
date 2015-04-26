@@ -29,14 +29,14 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       $scope.root = 60
 
   optionsText =
-      intervals : 
-        major : "Major intervals"
-        minor : "Minor intervals" 
-        other : "Perfect intervals"
-      chords : 
-        major : "Major chords"
-        minor : "Minor chords" 
-        other : "All chords"
+    intervals : 
+      major : "Major intervals"
+      minor : "Minor intervals" 
+      other : "Perfect intervals"
+    chords : 
+      major : "Major chords"
+      minor : "Minor chords" 
+      other : "All chords"
 
   $scope.chordColumns = 
     'major': []
@@ -265,6 +265,8 @@ quiz.service 'options' , ()->
     "major" : true
     "minor" : false
     "other" : false
+
+
 # $(document).on "click", "[id^=scale_]",  ->
 #       $this = $(this)
 #       if $this.attr("id") is "scale_#{scale_name.replace(' ','_')}"

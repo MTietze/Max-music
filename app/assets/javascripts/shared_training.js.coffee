@@ -22,7 +22,7 @@ quiz.service "sharedFunctions", [() ->
 
 quiz.controller "TrainingCtrl",  ['$scope', '$state', '$stateParams', ($scope, $state, $stateParams) ->
   $scope.changeQuestionType = (type) ->
-    $state.transitionTo($state.current, {questionType: type})
+    $state.go($state.current, {questionType: type})
   $scope.changeTrainingType = (state) ->
-    $state.transitionTo(state, {questionType: $stateParams.questionType})
+    $state.go(state, {questionType: $stateParams.questionType})
 ]
