@@ -1,0 +1,1 @@
+quiz = angular.module 'Quiz'

@@ -86,6 +86,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
     12 : "Perfect octave"
 
   harmonizeScale = (scaleQuality, root) ->
+
     ary = []
 
     chordBuildingScales = 
@@ -96,15 +97,18 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       'major': ['major', 'minor', 'minor', 'major', 'major', 'minor', 'diminished']
       'minor': ['minor', 'diminished', 'major', 'minor', 'minor', 'major', 'major']
 
-    for quality, index in haromizedScales[scaleQuality]
-      ary.push(new Chord(quality, root, chordBuildingScales[scaleQuality][index]))
-      
+    if scaleQuality is 'all'
+      for quality in ['major', 'minor']
+        for position in [0..11]
+          ary.push new Chord(quality, root, position)  
+    else
+      ary = (new Chord(quality, root, chordBuildingScales[scaleQuality][index]) for quality, index in haromizedScales[scaleQuality])
+
     ary
 
 
   class Chord
-    constructor: (@quality, @root, @position) ->
-      # @root is the root of the scale itselt
+    constructor: (@quality, @scaleRoot, @position) ->
       # @position is the number of halfsteps of this chord's root aboce the scale root
 
       # @position mapped to the digit part of the html code for the corresponding roman numeral
@@ -121,7 +125,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
         9 : 8549
         10 : 8550
         11 : 8550 
-        
+
       @romanCode = romanMap[@position]
       
       # Code for lowercase letters is 16 higher
@@ -135,7 +139,7 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       
       if @quality is "diminished" then @romanCode += "&deg" 
       
-      @chordRoot = @root + @position
+      @chordRoot = @scaleRoot + @position
       
       @notes = [@chordRoot]
       
@@ -166,75 +170,42 @@ quiz.controller 'EarCtrl', ["$scope",'$stateParams', '$state', '$location', '$ti
       answer = secondnote - firstnote
       $scope.answer = $scope.intervals[answer]
     chords : ->
-      # scale = [0...19]
       checkRandom()
       cols = 0
       all = false
       allchords = []
-#       $major = $("#major")
-#       $minor = $("#minor")
-  
-#       #put scale in correct key
-      # scale = (note += $scope.root for note in scale)
-
 
       if options.chords.other
-#         allchords = createMajorChords [0...12], scale 
-#         allchords = allchords.concat(createMinorChords [0...12], scale)
-#         allchords.sort (a,b) -> 
-#           a.offset - b.degree
-#         cols = 2
-#         all = true 
-#         $question.append "<div id= 'majorButtons'> </div> <div id= 'minorButtons'> </div>"
+          allchords = allchords.concat(harmonizeScale 'all', $scope.root)
+          cols = 2
       else
         
         if options.chords.major
           cols += 1
           allchords = allchords.concat(harmonizeScale 'major', $scope.root)
-          # allchords = createMajorChords([0,5,7], scale).concat(createMinorChords([2,4,9], scale).concat(createDiminishedChords([11],scale)))
-#           allchords.sort (a,b) -> 
-#             a.degree - b.degree
-#           $question.append "<div id= 'majorButtons'> </div>"
+
         if options.chords.minor
           cols += 1
           allchords = allchords.concat(harmonizeScale 'minor', $scope.root)
-#           allchords = allchords.concat createMajorChords([3,8,10], scale).concat(createMinorChords([0,5,7,], scale).concat(createDiminishedChords([2],scale)))
-#           allchords.sort (a,b) -> 
-#             a.degree - b.degree
-#           cols += 1
-#           $question.append "<div id= 'minorButtons'> </div>"
-        if options.chords.major and options.chords.minor
-          all = true
-#           $question.append('<div id="otherChordButtons" class="col-sm-12"></div>') 
-      # isFirstCol()
+
       allchords.sort (a,b) -> 
-        a.root - b.root
+        a.chordRoot - b.chordRoot
+
       #randomly decide between major and minor scale
       whichscale = Math.floor(cols * Math.random())
+
       #set chord1 to to the root of the selected scale
       $scope.chord1 = allchords[whichscale]  
+
       chord2 = allchords[Math.floor(allchords.length * Math.random())]
+
       notes = [$scope.chord1.notes, chord2.notes]
+
       angular.forEach $scope.chordColumns, (ary, type) ->
         angular.copy createChordColumns(type) , $scope.chordColumns[type]
-      $scope.answer = chord2
-      # createChordButton allchords[whichscale], c for c in allchords 
 
-#     createChordButton = (rootchord, chord) ->
-#       #create buffer for even spacing of roman numerals
-#       if $.inArray(chord.degree, [1,3,6,8,10]) is -1 then buffer = "" else buffer = "&nbsp&nbsp"
-#       if chord.quality is "diminished" then buffer = "&nbsp"
-  
-#       button = "<button href='#' id= 'chord_#{chord.degree}_#{chord.quality}'class= 'btn btn-large btn-primary choice'>#{buffer}#{romanize(rootchord)} - #{romanize(chord)}</button>"
-#       #when displaying all chords, split columns based on second chord's quality rather than the root's
-#       if all then rootchord = chord
-  
-#       if rootchord.quality is "major"
-#         $("#majorButtons").append button
-#       else if rootchord.quality is "minor"
-#         $("#minorButtons").append button
-#       else
-#         $("#otherChordButtons").append button
+      $scope.answer = chord2
+
   createChordColumns = (column) ->
     if column is 'other' then column = 'diminished' 
     (chord for chord in allchords when chord.quality is column)
